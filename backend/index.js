@@ -14,7 +14,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 const db = require("./models");
-const Role = db.Roles;
+const Role = db.role;
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
