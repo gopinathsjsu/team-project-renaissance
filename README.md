@@ -21,8 +21,13 @@ Surabhi:
 Surabhi:
 - Added MYSQL to the React app, testing the CRUD operations
 
-Gayathri: UML class diagram for the transactions
+Gayathri: 
+- UML class diagram for the transactions
 
+**3/18/2021:**
+Surabhi:
+- Implemented Login API. Added login form on the front end
+  
 # To Run the app 
 
 1. yarn init
