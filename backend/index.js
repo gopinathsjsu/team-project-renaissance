@@ -20,23 +20,22 @@ db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
 });
 
-function initial() {
+Role.sync().then(() => {
   Role.create({
     id: 1,
     name: "user"
   });
-
   Role.create({
     id: 2,
     name: "admin"
-  });
-}
+  })
+});
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
