@@ -17,18 +17,13 @@ const db = require("./models");
 const Role = db.role;
 
 db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
-
-Role.sync().then(() => {
-  Role.create({
-    id: 1,
-    name: "user"
+  console.log("Database & tables created");
+  Role.bulkCreate([
+    {id: 1, name: 'user'},
+    {id: 2, name: 'admin'}
+  ]).then(function(roles) {
+    console.log(roles);
   });
-  Role.create({
-    id: 2,
-    name: "admin"
-  })
 });
 
 // parse requests of content-type - application/json
