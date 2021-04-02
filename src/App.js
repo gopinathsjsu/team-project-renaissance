@@ -6,6 +6,7 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
+import Register from "./components/register.component";
 import Home from "./components/home.component";
 
 class App extends Component {
@@ -69,6 +70,11 @@ class App extends Component {
                   Login
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">
+                  Sign Up
+                </Link>
+              </li>
             </div>
           )}
         </nav>
@@ -77,6 +83,7 @@ class App extends Component {
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
           </Switch>
         </div>
       </div>
