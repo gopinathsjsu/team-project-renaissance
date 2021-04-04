@@ -27,7 +27,22 @@ Gayathri:
 **3/18/2021:**
 Surabhi:
 - Implemented Login API. Added login form on the front end
-  
+
+# Week 2
+
+**3/26/2021:**
+Surabhi:
+- Worked on creating class diagram for login and regsiter APIs
+
+**3/31/2021:**
+- Researched on how to deploy MySQL database to cloud.
+- Worked on integrating MySQL DB on cloud in the app
+
+**4/2/2021:**
+- Working on Register API
+
+**4/2/2021:**
+- Completed implementation of Register API
 # To Run the app 
 
 1. yarn init
