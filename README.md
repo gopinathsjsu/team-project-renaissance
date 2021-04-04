@@ -40,17 +40,24 @@ Surabhi:
 # Week 2
 
 **3/26/2021:**
+
 Surabhi:
-- Worked on creating class diagram for login and regsiter APIs
+- Designed the approach for tying Register API with create user bank account
 
 **3/31/2021:**
+
+Surabhi:
 - Researched on how to deploy MySQL database to cloud.
 - Worked on integrating MySQL DB on cloud in the app
 
 **4/2/2021:**
+
+Surabhi:
 - Working on Register API
 
 **4/2/2021:**
+
+Surabhi:
 - Completed implementation of Register API
 # To Run the app 
 
