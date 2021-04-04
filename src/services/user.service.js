@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'https://online-banking-application.herokuapp.com/api/test/';
+const API_URL = 'http://localhost:8081/api/test/';
 
 class UserService {
   getPublicContent() {

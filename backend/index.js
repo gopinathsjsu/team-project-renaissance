@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const PORT = 4000;
 
 var corsOptions = {
-  origin: "https://online-banking-application.herokuapp.com/"
+  //https://online-banking-application.herokuapp.com/
+  origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));

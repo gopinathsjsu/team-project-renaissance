@@ -10,30 +10,36 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  User.create({
-    password: bcrypt.hashSync(req.body.password, 8)
-  }).then(user => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
-            }
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+  .then(user => {
+    User.create({
+      password: bcrypt.hashSync(req.body.password, 8)
+    })
+    if (req.body.roles) {
+      Role.findAll({
+        where: {
+          name: {
+            [Op.or]: req.body.roles
           }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
+        }
+      }).then(roles => {
+        user.setRoles(roles).then(() => {
           res.send({ message: "User was registered successfully!" });
         });
-      }
-    }).catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+      });
+    } else {
+      // user role = 1
+      user.setRoles([1]).then(() => {
+        res.send({ message: "User was registered successfully!" });
+      });
+    }
+  }).catch(err => {
+    res.status(500).send({ message: err.message });
+  });
 };
 
 exports.signin = (req, res) => {
