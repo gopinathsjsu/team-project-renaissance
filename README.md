@@ -11,10 +11,16 @@ Gayathri:
 - Planning on how to develop the application. 
 - Took up the component which lists all the transactions for a user for the past 18 months
 
+Arpitha:
+- Took responsibility for component: Transfer between accounts - one time or recurring
+
 **3/16/2021:**
 
 Surabhi: 
 - Developed UML class diagram for Login and Register
+
+Arpitha:
+- Discussed with team regarding the UML diagrams and CRC, implementation in progress.
 
 **3/17/2021:**
 
@@ -23,6 +29,9 @@ Surabhi:
 
 Gayathri: 
 - UML class diagram for the transactions
+
+Arpitha:
+- Looked into tutorials for node and react
 
 **3/18/2021:**
 Surabhi:
