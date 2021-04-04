@@ -10,35 +10,39 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  User.create({
-    username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 8)
-  }).then(user => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
-            }
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+  .then(user => {
+    User.create({
+      password: bcrypt.hashSync(req.body.password, 8)
+    })
+    if (req.body.roles) {
+      Role.findAll({
+        where: {
+          name: {
+            [Op.or]: req.body.roles
           }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
+        }
+      }).then(roles => {
+        user.setRoles(roles).then(() => {
           res.send({ message: "User was registered successfully!" });
         });
-      }
-    }).catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+      });
+    } else {
+      // user role = 1
+      user.setRoles([1]).then(() => {
+        res.send({ message: "User was registered successfully!" });
+      });
+    }
+  }).catch(err => {
+    res.status(500).send({ message: err.message });
+  });
 };
 
 exports.signin = (req, res) => {
-  console.log('here', +req.body.username)
   User.findOne({
     where: {
       username: req.body.username
@@ -49,7 +53,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      /*var passwordIsValid = bcrypt.compareSync(
+      var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -59,8 +63,7 @@ exports.signin = (req, res) => {
           accessToken: null,
           message: "Invalid Password!"
         });
-      }*/
-
+      }
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
@@ -82,13 +85,4 @@ exports.signin = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
-};
-
-exports.signout = (req, res) => {
-  try {
-    const { username, accessToken } = req.user;
-    res.status(403).end()
-  } catch ( err ) {
-      res.status(500).send({ message: err.message });
-  }
 };
