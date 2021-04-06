@@ -10,7 +10,6 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  console.log(req.body);
   User.update({
     password: bcrypt.hashSync(req.body.password, 8),
     username: req.body.newUsername,
