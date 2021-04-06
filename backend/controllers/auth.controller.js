@@ -10,16 +10,18 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  User.findOne({
-    where: {
-      username: req.body.username
-    }
+  console.log(req.body);
+  User.update({
+    password: bcrypt.hashSync(req.body.password, 8),
+    username: req.body.newUsername,
+    email: req.body.email,
+    address: req.body.address,
+    phone_number: req.body.contact
+  }, {
+    where: { username: req.body.username }
   })
   .then(user => {
-    User.create({
-      password: bcrypt.hashSync(req.body.password, 8)
-    })
-    if (req.body.roles) {
+    /*if (req.body.roles) {
       Role.findAll({
         where: {
           name: {
@@ -36,8 +38,9 @@ exports.signup = (req, res) => {
       user.setRoles([1]).then(() => {
         res.send({ message: "User was registered successfully!" });
       });
-    }
-  }).catch(err => {
+    }*/
+  })
+  .catch(err => {
     res.status(500).send({ message: err.message });
   });
 };
@@ -53,7 +56,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      /*var passwordIsValid = bcrypt.compareSync(
+      var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -63,7 +66,7 @@ exports.signin = (req, res) => {
           accessToken: null,
           message: "Invalid Password!"
         });
-      }*/
+      }
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });

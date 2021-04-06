@@ -51,13 +51,19 @@ export default class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeExistingUsername = this.onChangeExistingUsername.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
 
     this.state = {
       username: "",
+      newUsername: "",
       email: "",
       password: "",
+      address: "",
+      contact: "",
       successful: false,
       message: ""
     };
@@ -66,6 +72,24 @@ export default class Register extends Component {
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
+    });
+  }
+
+  onChangeExistingUsername(e) {
+    this.setState({
+      newUsername: e.target.value
+    });
+  }
+
+  onChangeContactNumber(e) {
+    this.setState({
+      contact: e.target.value
+    });
+  }
+
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value
     });
   }
 
@@ -94,6 +118,9 @@ export default class Register extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.register(
         this.state.username,
+        this.state.address,
+        this.state.contact,
+        this.state.newUsername,
         this.state.email,
         this.state.password
       ).then(
@@ -141,6 +168,42 @@ export default class Register extends Component {
                     value={this.state.username}
                     onChange={this.onChangeUsername}
                     validations={[required, vusername]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="username">New Username</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="newUsername"
+                    value={this.state.newUsername}
+                    onChange={this.onChangeExistingUsername}
+                    validations={[required, vusername]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="address">Address</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="address"
+                    value={this.state.address}
+                    onChange={this.onChangeAddress}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="cell">Phone Number</label>
+                  <Input
+                    type="tel"
+                    className="form-control"
+                    name="contact"
+                    value={this.state.contact}
+                    onChange={this.onChangeContactNumber}
+                    validations={[required]}
                   />
                 </div>
 
