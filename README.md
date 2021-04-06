@@ -74,6 +74,14 @@ Surabhi:
 
 Surabhi:
 - Completed implementation of Register API
+- Read about update using Sequelize
+
+**4/5/2021**
+Surabhi:
+- Planning meeting with team
+- Developed wireframe for register and login
+- Added update username on register
+- Implemented encrypt password on register and decrypt to login
 # To Run the app 
 
 1. yarn init
