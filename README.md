@@ -14,6 +14,11 @@ Gayathri:
 Arpitha:
 - Took responsibility for component: Transfer between accounts - one time or recurring
 
+Priti:
+- Started working on components: Add transactions(such as manual refunds on fees) and 
+  Set up recurring or one-time Bill payment for external payees
+
+
 **3/16/2021:**
 
 Surabhi: 
@@ -21,6 +26,9 @@ Surabhi:
 
 Arpitha:
 - Discussed with team regarding the UML diagrams and CRC, implementation in progress.
+
+Priti:
+- Researching on how to develop the assigned components.
 
 **3/17/2021:**
 
@@ -33,6 +41,10 @@ Gayathri:
 Arpitha:
 - Looked into tutorials for node and react
 
+Priti:
+- Working on UML and class diagrams. Refreshing concepts of react and nodejs.
+
+
 **3/18/2021:**
 Surabhi:
 - Implemented Login API. Added login form on the front end
@@ -43,6 +55,9 @@ Surabhi:
 
 Surabhi:
 - Designed the approach for tying Register API with create user bank account
+
+Priti:
+- Completed initial application setup in the local with MySQL database.
 
 **3/31/2021:**
 
@@ -59,6 +74,14 @@ Surabhi:
 
 Surabhi:
 - Completed implementation of Register API
+- Read about update using Sequelize
+
+**4/5/2021**
+Surabhi:
+- Planning meeting with team
+- Developed wireframe for register and login
+- Added update username on register
+- Implemented encrypt password on register and decrypt to login
 # To Run the app 
 
 1. yarn init
