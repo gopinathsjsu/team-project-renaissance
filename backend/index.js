@@ -19,7 +19,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'online_banking_system/build')));
 
 const db = require("./models");
 const Role = db.role;
@@ -43,8 +43,7 @@ db.sequelize.sync({ force: true }).then(() => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-  //res.json({ message: "Welcome to online banking application." });
+  res.json({ message: "Welcome to online banking application." });
 });
 
 // routes
