@@ -33,10 +33,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "cd backend && npm start index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "cd backend && npm start"
+    "eject": "react-scripts eject"
   },
   "proxy": "http://online-banking-application.herokuapp.com:4000/",
   "eslintConfig": {
