@@ -65,10 +65,16 @@ Surabhi:
 - Researched on how to deploy MySQL database to cloud.
 - Worked on integrating MySQL DB on cloud in the app
 
+Gayathri:
+- Researched into different implementations of fetch from database
+
 **4/2/2021:**
 
 Surabhi:
 - Working on Register API
+
+Gayathri:
+- Set up of the application on local machine
 
 **4/2/2021:**
 
@@ -83,6 +89,9 @@ Surabhi:
 - Added update username on register
 - Implemented encrypt password on register and decrypt to login
 
+Gayathri:
+- Created a dummy table with records to experiment fetch functionality to transactions tab
+
 **4/7/2021**
 Surabhi:
 - Worked on deploying code to cloud 
@@ -92,6 +101,10 @@ Surabhi:
 Surabhi:
 - Completed functionality to deploy to AWS and stashed changes 
 - Planning and pair programming session with team
+
+Gayathri:
+- Pair programming with the team
+
 # To Run the app 
 
 1. yarn init
