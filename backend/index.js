@@ -4,11 +4,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 //const PORT = 4000;
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 var corsOptions = {
-  //https://online-banking-application.herokuapp.com/
-  origin: "https://online-banking-application.herokuapp.com/"
+  origin: "http://localhost:8081/api/test/"
 };
 
 app.use(cors(corsOptions));
@@ -18,8 +17,6 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); 
-
-app.use(express.static(path.join(__dirname, 'online_banking_system/build')));
 
 const db = require("./models");
 const Role = db.role;

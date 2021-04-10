@@ -82,6 +82,16 @@ Surabhi:
 - Developed wireframe for register and login
 - Added update username on register
 - Implemented encrypt password on register and decrypt to login
+
+**4/7/2021**
+Surabhi:
+- Worked on deploying code to cloud 
+- Resolved dependency errors
+
+**4/9/2021**
+Surabhi:
+- Completed functionality to deploy to AWS and stashed changes 
+- Planning and pair programming session with team
 # To Run the app 
 
 1. yarn init
