@@ -46,6 +46,7 @@ Priti:
 
 
 **3/18/2021:**
+
 Surabhi:
 - Implemented Login API. Added login form on the front end
 
@@ -83,6 +84,7 @@ Surabhi:
 - Read about update using Sequelize
 
 **4/5/2021**
+
 Surabhi:
 - Planning meeting with team
 - Developed wireframe for register and login
@@ -93,11 +95,13 @@ Gayathri:
 - Created a dummy table with records to experiment fetch functionality to transactions tab
 
 **4/7/2021**
+
 Surabhi:
 - Worked on deploying code to cloud 
 - Resolved dependency errors
 
 **4/9/2021**
+
 Surabhi:
 - Completed functionality to deploy to AWS and stashed changes 
 - Planning and pair programming session with team
