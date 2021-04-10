@@ -3,11 +3,8 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-//const PORT = 4000;
-const PORT = 4000;
-
 var corsOptions = {
-  origin: "http://localhost:8081/api/test/"
+  origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
@@ -47,6 +44,7 @@ app.get("/", (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {
   console.log("Server is running on Port: " + PORT);
 });
