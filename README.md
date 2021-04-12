@@ -83,6 +83,7 @@ Surabhi:
 - Completed implementation of Register API
 - Read about update using Sequelize
 
+# Week 3:
 **4/5/2021**
 
 Surabhi:
