@@ -69,7 +69,7 @@ Surabhi:
 Gayathri:
 - Researched into different implementations of fetch from database
 
-**4/2/2021:**
+**4/1/2021:**
 
 Surabhi:
 - Working on Register API
