@@ -110,6 +110,22 @@ Surabhi:
 Gayathri:
 - Pair programming with the team
 
+**4/12/2021**
+Surabhi: 
+- Pair programming and discussion with team
+- Planned the Profile page
+- 
+
+**4/14/2021**
+Surabhi:
+- Started to work on functionality to avoid multiple sign ups
+- Facing some issues with the usage of Update in Sequelize.
+
+**4/16/2021**
+Surabhi:
+- Completed one user sign up
+- Minor tweaks related to registration remaining 
+- Trying to find a solution for conditional update failing
 # To Run the app 
 
 1. yarn init
