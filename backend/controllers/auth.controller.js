@@ -9,53 +9,42 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-
-  var firstSignin = User.findOne({
-    where: { 
-      [Op.and]: [
-        { username: req.body.username },
-        { first_login: true }
-      ]
-    }
-  });
-
-  if(firstSignin) {
-    User.update({
-      password: bcrypt.hashSync(req.body.password, 8),
-      username: req.body.newUsername,
-      email: req.body.email,
-      address: req.body.address,
-      phone_number: req.body.contact,
-      first_login: false
-    }, {
-      where: { username: req.body.username }
-    })
-    .then(user => {
-      return res.send({ message: "User registerd successfully."});
-      /*if (req.body.roles) {
-        /*Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
-            }
+  User.update({
+    password: bcrypt.hashSync(req.body.password, 8),
+    username: req.body.newUsername,
+    email: req.body.email,
+    address: req.body.address,
+    phone_number: req.body.contact,
+    first_login: false
+  }, {
+    where: { username: req.body.username }
+  })
+  .then(user => {
+    if (req.body.roles) {
+      Role.findAll({
+        where: {
+          name: {
+            [Op.or]: req.body.roles
           }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-      user.setRoles([1]).then(() => {
-        res.send({ message: "User was registered successfully!" });
-      });*/
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
-  } else {
-      return res.send({ message: "User Already Signed Up!" });
-  }
+        }
+      }).then(roles => {
+        // user.setroles(roles).then(() => {
+        //   res.send({ message: "User was registered successfully!" });
+        // });
+      });
+    } else {
+      // user role = 1
+      // user.setroles([1]).then(() => {
+      //   res.send({ message: "User was registered successfully!" });
+      // });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+  });
+  // } else {
+  //     return res.send({ message: "User Already Signed Up!" });
+  // }
 };
 
 exports.signin = (req, res) => {
@@ -94,6 +83,9 @@ exports.signin = (req, res) => {
           username: user.username,
           email: user.email,
           roles: authorities,
+          address: user.address,
+          firstname: user.first_name,
+          lastname: user.last_name,
           accessToken: token
         });
       });

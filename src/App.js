@@ -9,6 +9,10 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 
+// Profile pages
+import UserPage from "./components/user_page.component";
+import UserProfile from "./components/profile_page.component";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +24,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
+    const user = AuthService.getLoggedInUser();
 
     if (user) {
       this.setState({
-        currentUser: user
+        loggedInUser: user
       });
     }
   }
@@ -34,7 +38,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { loggedInUser } = this.state;
 
     return (
       <div>
@@ -48,13 +52,21 @@ class App extends Component {
                 Home
               </Link>
             </li>
+
+            {loggedInUser && (
+              <li className="nav-item">
+                <Link to={"/user"} className="nav-link">
+                  User
+                </Link>
+              </li>
+            )}
           </div>
 
-          {currentUser ? (
+          {loggedInUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                  {loggedInUser.username}
                 </Link>
               </li>
               <li className="nav-item">
@@ -82,8 +94,10 @@ class App extends Component {
         <div className="container mt-3">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
+            <Route path="/profile" component={UserProfile} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route path="/user" component={UserPage} />
           </Switch>
         </div>
       </div>
