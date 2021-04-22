@@ -12,7 +12,7 @@ class UserService {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }
 
-  getAdminBoard() {
+  getAdminPage() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
 }

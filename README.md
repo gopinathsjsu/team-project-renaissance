@@ -131,6 +131,12 @@ Surabhi:
 - Minor tweaks related to registration remaining 
 - Trying to find a solution for conditional update issue
 
+**4/17/20121**
+Surabhi:
+- Started working on the user profile page 
+- Added components to render user profile page on frontend.
+- Update service to send user info on signin.
+
 **4/22/20121**
 Surabhi:
 - Added user profile page 
