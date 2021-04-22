@@ -129,7 +129,13 @@ Surabhi:
 Surabhi:
 - Completed one user sign up
 - Minor tweaks related to registration remaining 
-- Trying to find a solution for conditional update failing
+- Trying to find a solution for conditional update issue
+
+**4/22/20121**
+Surabhi:
+- Added user profile page 
+- Worked on enabling one time user registration update functionality.
+  
 # To Run the app 
 
 1. yarn init
