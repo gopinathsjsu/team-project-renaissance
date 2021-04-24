@@ -46,6 +46,7 @@ Priti:
 
 
 **3/18/2021:**
+
 Surabhi:
 - Implemented Login API. Added login form on the front end
 
@@ -65,10 +66,16 @@ Surabhi:
 - Researched on how to deploy MySQL database to cloud.
 - Worked on integrating MySQL DB on cloud in the app
 
-**4/2/2021:**
+Gayathri:
+- Researched into different implementations of fetch from database
+
+**4/1/2021:**
 
 Surabhi:
 - Working on Register API
+
+Gayathri:
+- Set up of the application on local machine
 
 **4/2/2021:**
 
@@ -76,12 +83,65 @@ Surabhi:
 - Completed implementation of Register API
 - Read about update using Sequelize
 
+# Week 3:
 **4/5/2021**
+
 Surabhi:
 - Planning meeting with team
 - Developed wireframe for register and login
 - Added update username on register
 - Implemented encrypt password on register and decrypt to login
+
+Gayathri:
+- Created a dummy table with records to experiment fetch functionality to transactions tab
+
+**4/7/2021**
+
+Surabhi:
+- Worked on deploying code to cloud 
+- Resolved dependency errors
+
+**4/9/2021**
+
+Surabhi:
+- Completed functionality to deploy to AWS and stashed changes 
+- Planning and pair programming session with team
+
+Gayathri:
+- Pair programming with the team
+
+# Week 4:
+**4/12/2021**
+
+Surabhi: 
+- Pair programming and discussion with team
+- Planned the Profile page
+- 
+
+**4/14/2021**
+
+Surabhi:
+- Started to work on functionality to avoid multiple sign ups
+- Facing some issues with the usage of Update in Sequelize.
+
+**4/16/2021**
+
+Surabhi:
+- Completed one user sign up
+- Minor tweaks related to registration remaining 
+- Trying to find a solution for conditional update issue
+
+**4/17/20121**
+Surabhi:
+- Started working on the user profile page 
+- Added components to render user profile page on frontend.
+- Update service to send user info on signin.
+
+**4/22/20121**
+Surabhi:
+- Added user profile page 
+- Worked on enabling one time user registration update functionality.
+  
 # To Run the app 
 
 1. yarn init

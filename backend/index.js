@@ -3,10 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const PORT = 4000;
-
 var corsOptions = {
-  //https://online-banking-application.herokuapp.com/
   origin: "http://localhost:8081"
 };
 
@@ -59,6 +56,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/account.routes')(app);
 
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {
   console.log("Server is running on Port: " + PORT);
 });
