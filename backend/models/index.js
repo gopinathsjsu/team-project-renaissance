@@ -42,9 +42,6 @@ db.user.belongsToMany(db.role, {
 });
 
 db.user.hasMany(db.account);
-// db.account.belongsTo(db.user, {
-//   foreignKey: "username"
-// });
 
 db.ROLES = ["user", "admin"];
 

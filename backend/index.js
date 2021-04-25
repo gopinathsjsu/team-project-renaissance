@@ -36,16 +36,6 @@ db.sequelize.sync({ force: true }).then(() => {
   });
 });
 
-//test: inserting records into table: account
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Trying to create account");
-//   Account.bulkCreate([
-//     {account_number: '123456789', account_type: 'Savings', account_balance: 100.0, interest_rate: 0.1}
-//   ]).then(function(us) {
-//     console.log(us);
-//   });
-// });
-
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to online banking application." });

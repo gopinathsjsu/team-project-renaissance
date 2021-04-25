@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8081/api/";  // for our add account
 const API_URL = "http://localhost:8081/api/auth/";
 
 class AuthService {
@@ -37,12 +36,7 @@ class AuthService {
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
-
-  getUserRole(user) {
-    return axios.post(API_URL + "getUserRole", {
-      user
-    });
-  }
+  
 }
 
 export default new AuthService();
