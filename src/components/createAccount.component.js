@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
-import AccountService from "../services/account.service"
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import AccountService from "../services/account.service";
+import { random } from "lodash";
 const required = value => {
   if (!value) {
     return (
@@ -80,7 +81,6 @@ export default class CreateAccount extends Component {
 
   handleCreateAccount(e) {
     e.preventDefault();
-
     this.setState({
       message: "",
       successful: false

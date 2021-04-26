@@ -11,8 +11,13 @@ module.exports = (sequelize, Sequelize) => {
     },
     account_balance: {
       type: Sequelize.FLOAT
+    },
+    userId: {
+      references: {
+        model: 'users', 
+        key: 'username'
+     }
     }
-
   },
   {
     initialAutoIncrement: 1000000000000000,

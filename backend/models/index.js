@@ -41,7 +41,10 @@ db.user.belongsToMany(db.role, {
   as: "roles"
 });
 
+//Added association to account for user
 db.user.hasMany(db.account);
+
+db.account.hasOne(db.user);
 
 db.ROLES = ["user", "admin"];
 
