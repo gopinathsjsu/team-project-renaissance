@@ -149,7 +149,11 @@ Gayathri:
 - Pair Programming with the team
 - Working on resolving memory errors 
 - Working on creating transaction table for transfer funds
-  
+
+Surabhi:
+- Sprint meeting with team
+- Modularizing code in the application
+- Added changes for one time registration check and profile page
 # To Run the app 
 
 1. yarn init
