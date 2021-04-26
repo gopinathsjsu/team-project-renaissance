@@ -24,7 +24,7 @@ class AuthService {
 
   register(username, address, contact, newUsername, email, password) {
     return axios.post(API_URL + "signup", {
-      username, 
+      username,
       address,
       contact,
       newUsername,
@@ -32,10 +32,11 @@ class AuthService {
       password
     });
   }
-  
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
+  
 }
 
 export default new AuthService();

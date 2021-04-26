@@ -13,11 +13,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
 const Role = db.role;
 const User = db.user;
+const Account = db.account;
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created");
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 // routes
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/account.routes')(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {

@@ -8,6 +8,7 @@ import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
+import CreateAccount from "./components/createAccount.component";
 
 // Profile pages
 import UserPage from "./components/user_page.component";
@@ -74,6 +75,11 @@ class App extends Component {
                   LogOut
                 </a>
               </li>
+              <li className="nav-item">
+                <Link to={"/createAccount"} className="nav-link">
+                  Create Account
+                </Link>
+              </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
@@ -97,6 +103,7 @@ class App extends Component {
             <Route path="/profile" component={UserProfile} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/createAccount" component={CreateAccount} />
             <Route path="/user" component={UserPage} />
           </Switch>
         </div>
