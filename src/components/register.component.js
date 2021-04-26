@@ -3,8 +3,11 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import Modal from 'react-modal';
 
 import AuthService from "../services/auth.service";
+
+Modal.setAppElement('#root')
 
 const required = value => {
   if (!value) {
@@ -65,8 +68,21 @@ export default class Register extends Component {
       address: "",
       contact: "",
       successful: false,
-      message: ""
+      message: "",
+      modalOpen: false
     };
+  }
+
+  openModal() {
+    this.setState({
+      modalOpen : true
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalOpen : false
+    });
   }
 
   onChangeUsername(e) {
@@ -123,14 +139,11 @@ export default class Register extends Component {
         this.state.newUsername,
         this.state.email,
         this.state.password
-      ).then(
-        response => {
+      ).then(response => {
           this.setState({
             message: response.data.message,
             successful: true
           });
-          this.props.history.push("/login");
-          window.location.reload();
         },
         error => {
           const resMessage =
@@ -145,7 +158,9 @@ export default class Register extends Component {
             message: resMessage
           });
         }
-      );
+      ).finally(() => {
+        console.log(this.state.message);
+      });
     }
   }
 
