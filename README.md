@@ -141,6 +141,13 @@ Surabhi:
 Surabhi:
 - Added user profile page 
 - Worked on enabling one time user registration update functionality.
+
+# Week 5:
+**4/26/2021**
+Gayathri:
+- Pair Programming with the team
+- Working on resolving memory errors 
+- Working on creating transaction table for transfer funds
   
 # To Run the app 
 
