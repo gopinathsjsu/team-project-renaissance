@@ -10,5 +10,5 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/addAccount", controller.allAccess);
+  app.post("/api/addAccount", controller.create);
 };

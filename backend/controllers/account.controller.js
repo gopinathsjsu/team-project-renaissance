@@ -2,19 +2,17 @@ const db = require("../models");
 const Op = db.Sequelize.Op;
 const Account = db.account;
 
-exports.allAccess = (req, res) => {
-  console.log("got request");
-  console.log(req.body);
-  Account.create(req.body)
-      .then(account => res.json(account))
-    res.status(200).send("testing for create account.");
-};
-
-
-//TODO:
-
 exports.create = (req, res) => {
-
+    Account.create({
+        account_type: req.body.account_type,
+        account_balance: req.body.account_balance,
+        username: req.body.username
+    })
+    .then(account => {
+        return res.status(200).send({ message: "Account created successfully." });
+    }).catch(err => {
+        return res.status(500).send({ message: err.message });
+    });
 };
 
 // Retrieve all accounts from the database.
@@ -37,5 +35,7 @@ exports.delete = (req, res) => {
         where: {
             account_number: req.body.account_number
         }
-      }).then(account => {}).catch(err => {});
+      }).then(account => {
+        return res.status(200).send({ message: "Account deleted successfully." });
+      }).catch(err => {});
 };

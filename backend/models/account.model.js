@@ -12,11 +12,8 @@ module.exports = (sequelize, Sequelize) => {
     account_balance: {
       type: Sequelize.FLOAT
     },
-    userId: {
-      references: {
-        model: 'users', 
-        key: 'username'
-     }
+    username: {
+      type: Sequelize.STRING
     }
   },
   {

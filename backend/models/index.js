@@ -43,7 +43,7 @@ db.user.belongsToMany(db.role, {
 });
 
 //Added association to account for user
-db.user.hasMany(db.account);
+//db.user.hasMany(db.account);
 
 db.account.hasOne(db.user);
 
