@@ -17,3 +17,33 @@ exports.userBoard = (req, res) => {
 exports.adminBoard = (req, res) => {
     res.status(200).send("Admin Content.");
 };
+
+
+//TODO:
+
+exports.create = (req, res) => {
+
+};
+
+// Retrieve all accounts from the database.
+exports.findAll = (req, res) => {
+    Account.findAll({}).then(account => {}).catch(err => {});
+};
+
+// Update an account by the id in the request
+exports.update = (req, res) => {
+    Account.findOne({
+        where: {
+            account_number: req.body.account_number
+        }
+      }).then(account => {}).catch(err => {});
+};
+
+// Delete an account with the specified id in the request
+exports.delete = (req, res) => {
+    Account.findOne({
+        where: {
+            account_number: req.body.account_number
+        }
+      }).then(account => {}).catch(err => {});
+};
