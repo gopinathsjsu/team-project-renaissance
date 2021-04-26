@@ -22,14 +22,14 @@ const User = db.user;
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created");
   Role.bulkCreate([
-    {id: 1, name: 'user'},
+    {id: 1, name: 'customer'},
     {id: 2, name: 'admin'}
   ]).then(function(roles) {
     console.log(roles);
   });
   User.bulkCreate([
     {first_name: 'John', last_name: 'Average', username: 'john12', email: 'john@test.com', address: 'test street 1', phone_number: '123456789', password: 'test@123' },
-    {first_name: 'Jane', last_name: 'Doe', username: 'jane23', email: 'jane@test.com', address: 'test street 2', phone_number: '453899780', password: 'admin@123'}
+    {first_name: 'Jane', last_name: 'Doe', username: 'jane23', email: 'jane@test.com', address: 'test street 2', phone_number: '453899780', password: 'admin@123'},
   ]).then(function(us) {
     console.log(us);
   });
