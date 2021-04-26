@@ -18,21 +18,24 @@ module.exports = (sequelize, Sequelize) => {
         },
         address: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         phone_number: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false
         },
-
-        first_login: {
-            type:Sequelize.BOOLEAN,
-            defaultValue: true
-        }
+        registered: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
+        /*role: {
+            type: Sequelize.STRING,
+            defaultValue: 'customer'
+        }*/ 
     });
 
     return Users;

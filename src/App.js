@@ -8,7 +8,7 @@ import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-import CreateAccount from "./components/createAccount.component"
+import CreateAccount from "./components/createAccount.component";
 
 // Profile pages
 import UserPage from "./components/user_page.component";

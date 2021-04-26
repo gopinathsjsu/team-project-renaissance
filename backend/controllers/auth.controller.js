@@ -2,51 +2,63 @@ const db = require("../models");
 const config = require("../db/auth.config");
 const User = db.user;
 const Role = db.role;
+const AllRoles = db.ROLES;
 
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { user } = require("../models");
 
 exports.signup = (req, res) => {
-  User.update({
-    password: bcrypt.hashSync(req.body.password, 8),
-    username: req.body.newUsername,
-    email: req.body.email,
-    address: req.body.address,
-    phone_number: req.body.contact,
-    first_login: false
-  }, {
-    where: { username: req.body.username }
-  })
-  .then(user => {
-    if (req.body.roles) {
-      Role.findAll({
-        where: {
-          name: {
-            [Op.or]: req.body.roles
-          }
+
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then((user) => {
+    if (!user.registered) {
+      User.update({
+        password: bcrypt.hashSync(req.body.password, 8),
+        username: req.body.newUsername,
+        email: req.body.email,
+        address: req.body.address,
+        phone_number: req.body.contact,
+        registered: true
+      }, {
+        where: { username: req.body.username }
+      })
+      .then(user => {
+        if (AllRoles) {
+          Role.findAll({
+            where: {
+              name: {
+                [Op.or]: req.body.roles
+              }
+            }
+          }).then(roles => {
+            // user.setroles(roles).then(() => {
+            //   res.send({ message: "User was registered successfully!" });
+            // });
+          });
+        } else {
+          // user role = 1
+          // user.setroles([1]).then(() => {
+          //   res.send({ message: "User was registered successfully!" });
+          // });
         }
-      }).then(roles => {
-        // user.setroles(roles).then(() => {
-        //   res.send({ message: "User was registered successfully!" });
-        // });
+        return res.status(200).send({ message: "User registeration successful." });
+      })
+      .catch(err => {
+        return res.status(500).send({ message: err.message });
       });
     } else {
-      // user role = 1
-      // user.setroles([1]).then(() => {
-      //   res.send({ message: "User was registered successfully!" });
-      // });
+      return res.status(200).send({ message: "User Already Signed Up, please login!!!" });
     }
-  })
-  .catch(err => {
-    res.status(500).send({ message: err.message });
   });
-  // } else {
-  //     return res.send({ message: "User Already Signed Up!" });
-  // }
 };
 
+// Assumptions: There is only 1 admin in the system.
 exports.signin = (req, res) => {
   User.findOne({
     where: {
