@@ -5,7 +5,8 @@ import CheckButton from "react-validation/build/button";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import AccountService from "../services/account.service";
-import { random } from "lodash";
+import RegisterService from "../services/auth.service";
+
 const required = value => {
   if (!value) {
     return (
@@ -17,7 +18,7 @@ const required = value => {
 };
 
 const account_type = value => {
-    if (value != "Checking" && value != "Savings") {
+    if (value !== "Checking" && value !== "Savings") {
         return (
         <div className="alert alert-danger" role="alert">
             The account type must either be Checking or Savings.
@@ -36,11 +37,11 @@ const account_balance = value => {
   }
 };
 
-const userId = value => {
+const username = value => {
   if (value == null) {
     return (
       <div className="alert alert-danger" role="alert">
-        userId is required!
+        username is required!
       </div>
     );
   }
@@ -57,7 +58,7 @@ export default class CreateAccount extends Component {
     this.state = {
       account_type: "",
       account_balance: "",
-      userId:""
+      username:""
     };
   }
 
@@ -75,7 +76,7 @@ export default class CreateAccount extends Component {
 
   onChangeuserId(e) {
     this.setState({
-      userId: e.target.value
+      username: e.target.value
     });
   }
 
@@ -89,16 +90,18 @@ export default class CreateAccount extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AccountService.createAccount(
+      AccountService.create(
         this.state.account_type,
         this.state.account_balance,
-        this.state.userId,
+        this.state.username
       ).then(
         response => {
           this.setState({
-            message: response.data.message,
+            //message: response.data.message,
             successful: true
           });
+          this.props.history.push("/createAccount");
+          window.location.reload();
         },
         error => {
           const resMessage =
@@ -114,6 +117,29 @@ export default class CreateAccount extends Component {
           });
         }
       );
+      // RegisterService.register(
+      //   this.state.username
+      // ).then(
+      //   response => {
+      //     this.setState({
+      //       message: response.data.message,
+      //       successful: true
+      //     });
+      //   },
+      //   error => {
+      //     const resMessage =
+      //       (error.response &&
+      //         error.response.data &&
+      //         error.response.data.message) ||
+      //       error.message ||
+      //       error.toString();
+
+      //     this.setState({
+      //       successful: false,
+      //       message: resMessage
+      //     });
+      //   }
+      // );
     }
   }
 
@@ -148,14 +174,14 @@ export default class CreateAccount extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="userId">User ID</label>
+                  <label htmlFor="userId">Username</label>
                   <Input
                     type="text"
                     className="form-control"
                     name="userId"
-                    value={this.state.userId}
+                    value={this.state.username}
                     onChange={this.onChangeuserId}
-                    validations={[required, userId]}
+                    validations={[required, username]}
                   />
                 </div>
 
