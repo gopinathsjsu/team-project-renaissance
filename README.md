@@ -154,6 +154,12 @@ Surabhi:
 - Sprint meeting with team
 - Modularizing code in the application
 - Added changes for one time registration check and profile page
+
+**4/27/2021**
+
+Gayathri:
+- UI Wireframe for transfer funds
+- Designed an approach for transferfund functionality, created table with appropriate schema
 # To Run the app 
 
 1. yarn init
