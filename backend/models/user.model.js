@@ -10,7 +10,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         username: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         email: {
             type: Sequelize.STRING,
@@ -35,7 +36,7 @@ module.exports = (sequelize, Sequelize) => {
         /*role: {
             type: Sequelize.STRING,
             defaultValue: 'customer'
-        }*/ 
+        }*/
     });
 
     return Users;
