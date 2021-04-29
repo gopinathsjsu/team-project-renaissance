@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import AccountService from "../services/account.service";
 import RegisterService from "../services/auth.service";
+import Select from 'react-select';
 
 const required = value => {
   if (!value) {
@@ -47,6 +46,7 @@ const username = value => {
   }
 };
 
+
 export default class CreateAccount extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +64,7 @@ export default class CreateAccount extends Component {
 
   onChangeAccountType(e) {
     this.setState({
-      account_type: e
+      account_type: e.target.value
     });
   }
 
@@ -101,6 +101,7 @@ export default class CreateAccount extends Component {
             successful: true
           });
           this.props.history.push("/createAccount");
+
           window.location.reload();
         },
         error => {
@@ -149,18 +150,26 @@ export default class CreateAccount extends Component {
         <div className="card card-container">
           <Form
             onSubmit={this.handleCreateAccount}
+
             ref={c => {
               this.form = c;
             }}
           >
+
             {!this.state.successful && (
               <div>
-                <DropdownButton id="dropdown-basic-button" title="Account Type" onSelect={this.onChangeAccountType}>
-                <Dropdown.Item eventKey="Checking">Checking</Dropdown.Item>
-                <Dropdown.Item eventKey="Savings">Savings</Dropdown.Item>
-                </DropdownButton>
 
-
+                <div className="form-group">
+                  Account Type<br />
+                  <select
+                    value={this.state.selectValue}
+                    onChange={this.onChangeAccountType}
+                  >
+                  <option disabled selected value> -- select an option -- </option>
+                   <option value="Checkings">Checkings</option>
+                    <option value="Savings">Savings</option>
+                  </select>
+                </div>
                 <div className="form-group">
                   <label htmlFor="account_balance">Account Balance</label>
                   <Input
