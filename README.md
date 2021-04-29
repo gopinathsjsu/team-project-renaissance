@@ -160,6 +160,13 @@ Surabhi:
 Gayathri:
 - UI Wireframe for transfer funds
 - Designed an approach for transferfund functionality, created table with appropriate schema
+
+**4/28/2021**
+
+Gayathri:
+- Created update transaction for a transaction table
+- Working on checks for sufficient balance in payee's account
+
 # To Run the app 
 
 1. yarn init
