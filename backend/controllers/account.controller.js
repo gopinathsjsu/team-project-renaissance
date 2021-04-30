@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     Account.create({
         account_type: req.body.account_type,
         account_balance: req.body.account_balance,
-        username: req.body.username
+        username: req.body.username,
     })
     User.create({
         username: req.body.username,

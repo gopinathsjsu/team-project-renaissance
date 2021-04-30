@@ -29,8 +29,9 @@ db.sequelize.sync({ force: true }).then(() => {
     console.log(roles);
   });
   User.bulkCreate([
-    {first_name: 'John', last_name: 'Average', username: 'john12', email: 'john@test.com', address: 'test street 1', phone_number: '123456789', password: 'test@123' },
-    {first_name: 'Jane', last_name: 'Doe', username: 'jane23', email: 'jane@test.com', address: 'test street 2', phone_number: '453899780', password: 'admin@123'},
+    {first_name: 'Admin', last_name: 'Account', username: 'admin', email: 'admin@test.com', address: '', phone_number: '', password: 'admin@123', roleId: 2},
+    {first_name: 'Admin', last_name: 'Account', username: 'admin1', email: 'admin1@test.com', address: '', phone_number: '', password: 'test@123', roleId: 2},
+    {first_name: 'Jane', last_name: 'Doe', username: 'jane', email: 'jane@test.com', address: '1 test way', phone_number: '3457822344', password: 'test@123', roleId: 1}
   ]).then(function(us) {
     console.log(us);
   });

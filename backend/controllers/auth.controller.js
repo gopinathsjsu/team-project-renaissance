@@ -20,7 +20,7 @@ exports.signup = (req, res) => {
     if (!user.registered) {
       User.update({
         password: bcrypt.hashSync(req.body.password, 8),
-        username: req.body.newUsername,
+        username: req.body.username,
         email: req.body.email,
         address: req.body.address,
         phone_number: req.body.contact,
@@ -85,21 +85,21 @@ exports.signin = (req, res) => {
       });
 
       var authorities = [];
-      user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
-        res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          address: user.address,
-          firstname: user.first_name,
-          lastname: user.last_name,
-          accessToken: token
-        });
+      // user.getRoles().then(roles => {
+      //   for (let i = 0; i < roles.length; i++) {
+      //     authorities.push("ROLE_" + roles[i].name.toUpperCase());
+      //   }
+      res.status(200).send({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.roleId,
+        address: user.address,
+        firstname: user.first_name,
+        lastname: user.last_name,
+        accessToken: token
       });
+      // });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });

@@ -118,29 +118,6 @@ export default class CreateAccount extends Component {
           });
         }
       );
-      // RegisterService.register(
-      //   this.state.username
-      // ).then(
-      //   response => {
-      //     this.setState({
-      //       message: response.data.message,
-      //       successful: true
-      //     });
-      //   },
-      //   error => {
-      //     const resMessage =
-      //       (error.response &&
-      //         error.response.data &&
-      //         error.response.data.message) ||
-      //       error.message ||
-      //       error.toString();
-
-      //     this.setState({
-      //       successful: false,
-      //       message: resMessage
-      //     });
-      //   }
-      // );
     }
   }
 

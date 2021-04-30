@@ -6,6 +6,8 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
+import AdminPage from "./components/admin_page.component";
+import AdminLogin from "./components/admin_login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import CreateAccount from "./components/createAccount.component";
@@ -48,17 +50,15 @@ class App extends Component {
             app
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
-            </li>
+            </li> */}
 
             {loggedInUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
+                
               </li>
             )}
           </div>
@@ -70,19 +70,28 @@ class App extends Component {
                   {loggedInUser.username}
                 </Link>
               </li>
+              {loggedInUser.role == 2 ? (
+                <li className="nav-item">
+                  <Link to={"/createAccount"} className="nav-link">
+                    Create Account
+                  </Link>
+                </li>
+              ):(
+                <p />
+              )}
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
               </li>
-              <li className="nav-item">
-                <Link to={"/createAccount"} className="nav-link">
-                  Create Account
-                </Link>
-              </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/adminlogin"} className="nav-link">
+                  Admin Login
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
                   Login
@@ -102,9 +111,11 @@ class App extends Component {
             <Route exact path={["/", "/home"]} component={Home} />
             <Route path="/profile" component={UserProfile} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/admin" component={AdminPage} />
+            <Route exact path="/adminlogin" component={AdminLogin} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/createAccount" component={CreateAccount} />
-            <Route path="/user" component={UserPage} />
+            {/* <Route path="/user" component={UserPage} /> */}
           </Switch>
         </div>
       </div>

@@ -35,15 +35,15 @@ db.role.belongsToMany(db.user, {
   otherKey: "userId"
 });
 
-db.user.belongsToMany(db.role, {
-  through: "user_roles",
-  foreignKey: "userId",
-  otherKey: "roleId",
-  as: "roles"
-});
+// db.user.belongsToMany(db.role, {
+//   through: "user_roles",
+//   foreignKey: "userId",
+//   otherKey: "roleId",
+//   as: "roles"
+// });
 
 //Added association to account for user
-//db.user.hasMany(db.account);
+//db.user.hasOne(db.role);
 
 db.account.hasOne(db.user);
 

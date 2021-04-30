@@ -33,10 +33,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         },
-        /*role: {
-            type: Sequelize.STRING,
-            defaultValue: 'customer'
-        }*/
+        roleId: {
+            type: Sequelize.INTEGER,
+            references: {
+               model: 'roles', 
+               key: 'id', 
+            }
+        }
     });
 
     return Users;

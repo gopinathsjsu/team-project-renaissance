@@ -51,7 +51,7 @@ export default class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeExistingUsername = this.onChangeExistingUsername.bind(this);
+    //this.onChangeExistingUsername = this.onChangeExistingUsername.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -59,7 +59,7 @@ export default class Register extends Component {
 
     this.state = {
       username: "",
-      newUsername: "",
+      //newUsername: "",
       email: "",
       password: "",
       address: "",
@@ -75,11 +75,11 @@ export default class Register extends Component {
     });
   }
 
-  onChangeExistingUsername(e) {
-    this.setState({
-      newUsername: e.target.value
-    });
-  }
+  // onChangeExistingUsername(e) {
+  //   this.setState({
+  //     newUsername: e.target.value
+  //   });
+  // }
 
   onChangeContactNumber(e) {
     this.setState({
@@ -120,7 +120,7 @@ export default class Register extends Component {
         this.state.username,
         this.state.address,
         this.state.contact,
-        this.state.newUsername,
+        //this.state.newUsername,
         this.state.email,
         this.state.password
       ).then(
@@ -129,8 +129,8 @@ export default class Register extends Component {
             message: response.data.message,
             successful: true
           });
-          // this.props.history.push("/login");
-          // window.location.reload();
+          this.props.history.push("/login");
+          window.location.reload();
         },
         error => {
           const resMessage =
@@ -174,7 +174,7 @@ export default class Register extends Component {
                   />
                 </div>
 
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label htmlFor="username">New Username</label>
                   <Input
                     type="text"
@@ -184,7 +184,7 @@ export default class Register extends Component {
                     onChange={this.onChangeExistingUsername}
                     validations={[required, vusername]}
                   />
-                </div>
+                </div> */}
 
                 <div className="form-group">
                   <label htmlFor="address">Address</label>
