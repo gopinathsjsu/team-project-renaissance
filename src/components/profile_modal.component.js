@@ -1,6 +1,3 @@
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-
 import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -8,6 +5,10 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
+import {
+  Button,
+  Modal
+} from "react-bootstrap";
 
 const required = value => {
   if (!value) {
@@ -91,16 +92,9 @@ export default class ProfileModal extends Component {
       contact: "",
       successful: false,
       message: "",
+			showModal: false
     };
   }
-
-	handleModalOpen = () => {
-		this.setState((prevState) => {
-				return{
-					modalOpen: !prevState.modalOpen
-				}
-		})
-	}
 
 	onChangefirstname(e) {
     this.setState({
@@ -155,7 +149,7 @@ export default class ProfileModal extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
+      AuthService.update(
         this.state.username,
         this.state.address,
         this.state.contact,
@@ -188,142 +182,154 @@ export default class ProfileModal extends Component {
     }
   }
 
-  render() { 
-    return (
+	renderUpdateForm(){
+		return (
 			<>
-				<Modal>
-					<Modal.Header closeButton>
-							<Modal.Title>Update Profile</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<div className="card card-container">
-						<Form
-							onSubmit={this.handleUpdate}
-							ref={c => {
-							this.form = c;
-							}}
-						>
-								{!this.state.successful && (
-									<div>
-										<div className="form-group">
-											<label htmlFor="first_name">First Name</label>
-											<Input
-												type="text"
-												className="form-control"
-												name="first_name"
-												value={this.state.first_name}
-												onChange={this.onChangefirstname}
-												validations={[required, vfirstname]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="last_name">Last Name</label>
-											<Input
-												type="text"
-												className="form-control"
-												name="last_name"
-												value={this.state.last_name}
-												onChange={this.onChangelastname}
-												validations={[required, vlastname]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="username">Userame</label>
-											<Input
-												type="text"
-												className="form-control"
-												name="username"
-												value={this.state.username}
-												onChange={this.onChangeUsername}
-												validations={[required, vusername]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="address">Address</label>
-											<Input
-												type="text"
-												className="form-control"
-												name="address"
-												value={this.state.address}
-												onChange={this.onChangeAddress}
-												validations={[required]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="cell">Phone Number</label>
-											<Input
-												type="tel"
-												className="form-control"
-												name="contact"
-												value={this.state.contact}
-												onChange={this.onChangeContactNumber}
-												validations={[required]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="email">Email</label>
-											<Input
-												type="text"
-												className="form-control"
-												name="email"
-												value={this.state.email}
-												onChange={this.onChangeEmail}
-												validations={[required, email]}
-											/>
-										</div>
-
-										<div className="form-group">
-											<label htmlFor="password">Password</label>
-											<Input
-												type="password"
-												className="form-control"
-												name="password"
-												value={this.state.password}
-												onChange={this.onChangePassword}
-												validations={[required, vpassword]}
-											/>
-										</div>
-									</div>
-								)}
-
-								{this.state.message && (
-									<div className="form-group">
-										<div
-											className={
-												this.state.successful
-												? "alert alert-success"
-												: "alert alert-danger"
-											}
-										role="alert"
-										>
-										{this.state.message}
-										</div>
-									</div>
-								)}
-								<CheckButton
-								style={{ display: "none" }}
-								ref={c => {
-									this.checkBtn = c;
-								}}
+			<div className="card card-container">
+				<Form
+					onSubmit={this.handleUpdate}
+					ref={c => {
+					this.form = c;
+					}}
+				>
+					{!this.state.successful && (
+						<div>
+							<div className="form-group">
+								<label htmlFor="first_name">First Name</label>
+								<Input
+									type="text"
+									className="form-control"
+									name="first_name"
+									value={this.state.first_name}
+									onChange={this.onChangefirstname}
+									validations={[required, vfirstname]}
 								/>
-							</Form>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="last_name">Last Name</label>
+								<Input
+									type="text"
+									className="form-control"
+									name="last_name"
+									value={this.state.last_name}
+									onChange={this.onChangelastname}
+									validations={[required, vlastname]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="username">Userame</label>
+								<Input
+									type="text"
+									className="form-control"
+									name="username"
+									value={this.state.username}
+									onChange={this.onChangeUsername}
+									validations={[required, vusername]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="address">Address</label>
+								<Input
+									type="text"
+									className="form-control"
+									name="address"
+									value={this.state.address}
+									onChange={this.onChangeAddress}
+									validations={[required]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="cell">Phone Number</label>
+								<Input
+									type="tel"
+									className="form-control"
+									name="contact"
+									value={this.state.contact}
+									onChange={this.onChangeContactNumber}
+									validations={[required]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="email">Email</label>
+								<Input
+									type="text"
+									className="form-control"
+									name="email"
+									value={this.state.email}
+									onChange={this.onChangeEmail}
+									validations={[required, email]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="password">Password</label>
+								<Input
+									type="password"
+									className="form-control"
+									name="password"
+									value={this.state.password}
+									onChange={this.onChangePassword}
+									validations={[required, vpassword]}
+								/>
+							</div>
+							<div className="form-group">
+								<button className="btn btn-primary btn-block">Submit</button>
+							</div>
 						</div>
-					</Modal.Body>
-					<Modal.Footer>
-							<Button className="form-group">
-									<button className="btn btn-primary btn-block">Sign Up</button>
-							</Button>
-							<Button variant="danger" onClick={this.handleModalOpen}>
-									Cancel
-							</Button>
-					</Modal.Footer>
-				</Modal>
+					)}
+
+					{this.state.message && (
+						<div className="form-group">
+							<div
+								className={
+									this.state.successful
+									? "alert alert-success"
+									: "alert alert-danger"
+								}
+							role="alert"
+							>
+							{this.state.message}
+							</div>
+						</div>
+					)}
+					<CheckButton
+					style={{ display: "none" }}
+					ref={c => {
+						this.checkBtn = c;
+					}}
+					/>
+				</Form>
+			</div>
 			</>
 		);
 	}
+
+  render() {
+    return (
+			<div>
+				<Modal
+					show={this.props.showModal}
+					onHide={this.props.onClose}
+					onSubmit={this.onSubmit}
+					bsSize="large"
+				>
+					<Modal.Header closeButton={true}>
+						<h2>Update Profile</h2>
+					</Modal.Header>
+					<Modal.Body>
+						{this.renderUpdateForm()}
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={this.props.onClose}>Close</Button>
+					</Modal.Footer>
+				</Modal>
+			</div>
+		);
+	}
 }
+
