@@ -18,7 +18,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             timestamps: true,
             primaryKey: true
-        },
+        }
+    },
+    {
+        initialAutoIncrement: 1000000000000000,
     });
 
     return Transaction;

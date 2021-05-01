@@ -10,7 +10,7 @@ module.exports = function(app) {
       });
 
     app.post(
-        "/api/transferfunds",
-        controller.transferfunds
+        "/api/transfer",
+        controller.transfer
     );
 };
