@@ -20,6 +20,7 @@ const db = require("./models");
 const Role = db.role;
 const User = db.user;
 const Account = db.account;
+const Transaction = db.transaction;
 
 const adminuserpass1 = bcrypt.hashSync('admin1');
 const adminuserpass2 = bcrypt.hashSync('admin2');
@@ -50,6 +51,7 @@ app.get("/", (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/account.routes')(app);
+require('./routes/transaction.routes')(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {
