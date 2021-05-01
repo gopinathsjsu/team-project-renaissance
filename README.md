@@ -167,6 +167,12 @@ Gayathri:
 - Created update transaction for a transaction table
 - Working on checks for sufficient balance in payee's account
 
+**4/30/2021**
+
+Gayathri:
+- Pair programming with the team
+- Implemented basic transfer funds api, working on validations of input fields
+
 # To Run the app 
 
 1. yarn init
