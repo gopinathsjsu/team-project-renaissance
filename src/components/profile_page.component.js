@@ -2,23 +2,35 @@ import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import ProfileModal from "./profile_modal.component";
 
+import {
+  Button
+} from 'react-bootstrap';
 export default class UserProfile extends Component {
   constructor(props) {
     super(props);
+    this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleModalOpen = this.handleModalOpen.bind(this);
 
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
-        modalOpen: false
+        showModal : false
     };
   }
 
-  handleModalOpen = () => {
-    this.setState((prevState) => {
-       return{
-          modalOpen: !prevState.modalOpen
-       }
-    })
- }
+  handleModalClose(e){
+    //e.preventDefault();
+
+		this.setState({
+			showModal : false
+		});
+	}
+
+  handleModalOpen(e) {
+    // e.preventDefault();
+		this.setState({
+			showModal : true
+		});
+	}
 
   render() {
     const { loggedInUser } = this.state;
@@ -46,16 +58,10 @@ export default class UserProfile extends Component {
           <strong>Email:</strong>{" "}
           {loggedInUser.email}
         </p>
-        <p className="nav-item ml-5">
-          <a onClick={this.handleModalOpen} className="nav-link">
-             Edit Profile
-          </a>
-        </p>
-
-        <ProfileModal
-           modalOpen={this.state.modalOpen}
-           handleModalOpen={this.handleModalOpen}
-        />
+        <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
+          Update Profile
+        </Button>
+        <ProfileModal showModal={this.state.showModal} onClose = {this.handleModalClose} />
       </div>
     );
   }

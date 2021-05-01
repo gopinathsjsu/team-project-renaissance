@@ -21,8 +21,8 @@ const Role = db.role;
 const User = db.user;
 const Account = db.account;
 
-const adminpass = bcrypt.hashSync('admin1');
-const adminpass1 = bcrypt.hashSync('admin2');
+const adminuserpass1 = bcrypt.hashSync('admin1');
+const adminuserpass2 = bcrypt.hashSync('admin2');
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created");
@@ -33,8 +33,8 @@ db.sequelize.sync({ force: true }).then(() => {
     console.log(roles);
   });
   User.bulkCreate([
-    {first_name: 'Admin', last_name: 'Account', username: 'admin', email: 'admin@test.com', address: '', phone_number: '', password: adminpass, roleId: 2},
-    {first_name: 'Admin', last_name: 'Account', username: 'admin1', email: 'admin1@test.com', address: '', phone_number: '', password: adminpass1, roleId: 2},
+    {first_name: 'Admin', last_name: 'Account', username: 'admin1', email: 'admin@test.com', address: '', phone_number: '', password: adminuserpass1, roleId: 2},
+    {first_name: 'Admin', last_name: 'Account', username: 'admin2', email: 'admin1@test.com', address: '', phone_number: '', password: adminuserpass2, roleId: 2},
     {first_name: 'Jane', last_name: 'Doe', username: 'jane', email: 'jane@test.com', address: '1 test way', phone_number: '3457822344', password: 'test@123', roleId: 1}
   ]).then(function(us) {
     console.log(us);
