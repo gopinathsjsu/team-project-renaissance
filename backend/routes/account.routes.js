@@ -11,4 +11,8 @@ module.exports = function(app) {
   });
 
   app.post("/api/addAccount", controller.create);
+
+  app.get("/api/fetchAllAccounts", controller.findAll);
+
+  app.delete("/api/deleteAccount", controller.delete);
 };
