@@ -8,11 +8,11 @@ exports.transfer = (req, res) => {
             beneficiary_id: req.body.beneficiary_id,
             transaction_amount: req.body.transaction_amount
     })
-        // .then(transaction => {
-        //     return res.status(200).send({ message: "Transaction successful!"})
-        // }).catch(err => {
-        //     res.status(500).send({ message: err.message });
-        // });
+    .then(transaction => {
+        return res.status(200).send({ message: "Transaction successful!"})
+     }).catch(err => {
+        res.status(500).send({ message: err.message });
+     });
 };
 
 exports.findAll = (req, res) => {

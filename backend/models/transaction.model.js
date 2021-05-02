@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             type: Sequelize.BIGINT,
             autoIncrement: true,
-            timestamps: true,
+            //timestamps: true,
             primaryKey: true
         }
     },
