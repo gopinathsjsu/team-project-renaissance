@@ -13,20 +13,22 @@ class AccountService {
     });
   }
 
-  //TODO
   getAll() {
-    return axios.get(API_URL + `getAccounts/`, {})
+    return axios.get(API_URL + `fetchAllAccounts/`, {})
   }
 
-  update(id, account_type,) {
+  // TODO: id shgould be a part of body
+  update(id, account_type) {
     return axios.put(API_URL + `updateAccount/${id}`, {
       
     })
   }
 
   delete(id) {
-    return axios.delete(API_URL + `removeAccount/${id}`, {
-      
+    return axios.delete(API_URL + `deleteAccount/`, {
+      data: {
+        account_number: id
+      }
     })
   }
 }

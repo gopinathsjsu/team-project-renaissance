@@ -188,8 +188,8 @@ export default class ProfileModal extends Component {
     }
   }
 
-  render() { 
-    return (
+	renderUpdateForm() {
+		return (
 			<>
 				<Modal>
 					<Modal.Header closeButton>

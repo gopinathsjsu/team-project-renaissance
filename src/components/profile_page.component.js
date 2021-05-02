@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import ProfileModal from "./profile_modal.component";
+import AccountService from "../services/account.service";
 
 export default class UserProfile extends Component {
   constructor(props) {
@@ -8,55 +9,124 @@ export default class UserProfile extends Component {
 
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
-        modalOpen: false
+        showModal : false,
+        allUsers: []
     };
   }
 
-  handleModalOpen = () => {
-    this.setState((prevState) => {
-       return{
-          modalOpen: !prevState.modalOpen
-       }
-    })
- }
+  handleModalClose(e) {
+    //e.preventDefault();
+
+		this.setState({
+			showModal : false
+		});
+	}
+
+  handleModalOpen(e) {
+    // e.preventDefault();
+		this.setState({
+			showModal : true
+		});
+	}
+
+  deleteAccount(account) {
+    AccountService.delete(account);
+    // window.location.reload();
+  }
+
+  // updateUser(id, ) {
+  //   AccountService.update();
+  // }
+
+  componentDidMount() { 
+    AccountService.getAll().then(response => this.setState({
+      allUsers: response.data
+    }));
+  }
 
   render() {
     const { loggedInUser } = this.state;
 
     return (
+      (loggedInUser.role === 1) ?
+        <div className="container">
+          <header className="jumbotron">
+            <h3>
+              <strong>Profile</strong> 
+            </h3>
+          </header>
+          <p>
+            <strong>First Name:</strong>{" "}
+            {loggedInUser.firstname}
+          </p>
+          <p>
+            <strong>Last Name:</strong>{" "}
+            {loggedInUser.lastname}
+          </p>
+          <p>
+            <strong>Address:</strong>{" "}
+            {loggedInUser.address}
+          </p>
+          <p>
+            <strong>Email:</strong>{" "}
+            {loggedInUser.email}
+          </p>
+          <p>
+            <strong>role:</strong>{" "}
+            {loggedInUser.role}
+          </p>
+          <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
+            Update Profile
+          </Button>
+          <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
+        </div>
+      : (
       <div className="container">
-        <header className="jumbotron">
+        <header>
           <h3>
-            <strong>Profile</strong> 
+            <strong>Active Users</strong> 
           </h3>
         </header>
-        <p>
-          <strong>First Name:</strong>{" "}
-          {loggedInUser.firstname}
-        </p>
-        <p>
-          <strong>Last Name:</strong>{" "}
-          {loggedInUser.lastname}
-        </p>
-        <p>
-          <strong>Address:</strong>{" "}
-          {loggedInUser.address}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {loggedInUser.email}
-        </p>
-        <p className="nav-item ml-5">
-          <a onClick={this.handleModalOpen} className="nav-link">
-             Edit Profile
-          </a>
-        </p>
-
-        <ProfileModal
-           modalOpen={this.state.modalOpen}
-           handleModalOpen={this.handleModalOpen}
-        />
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Account Type</th>
+              <th scope="col" colSpan="4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {(this.state.allUsers.length > 0) ? this.state.allUsers.map((user, index) => {
+              return (
+                <tr>
+                  <td>{index}</td>
+                  <td>{user.username}</td>
+                  <td>{user.account_type}</td>
+                  <td>
+                    <input type="number" className="form-control" min="0" placeholder="Refund amount" />
+                  </td>
+                  <td>
+                    <Button type="button" onClick={() => this.handleRefund} name="Refund">Refund</Button>
+                  </td>
+                  <td>
+                    <Button type="button" onClick={() => this.updateUser} name="Refund">Update</Button>
+                  </td>
+                  <td>
+                    <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Refund">Delete</Button>
+                  </td>
+                </tr>
+              )
+            }) :
+              <tr>
+                <td>No active users</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
       </div>
+      )
     );
   }
 }
