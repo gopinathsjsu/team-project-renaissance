@@ -22,7 +22,6 @@ exports.create = (req, res) => {
 
 // Retrieve all accounts from the database.
 exports.findAll = (req, res) => {
-
     Account.findAll({
       attributes: ['account_number', 'account_type', 'account_balance', 'username']
     }).then(account => {
@@ -48,7 +47,7 @@ exports.delete = (req, res) => {
             account_number: req.body.account_number
         }
       }).then(account => {
-        return res.status(200).send({ message: "Account deleted successfully." });
+        return res.status(200).send({ message: `Account ${account} deleted successfully.` });
       }).catch(err => {
         return res.status(500).send({ message: err.message });
       });

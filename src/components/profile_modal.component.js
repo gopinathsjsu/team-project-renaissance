@@ -182,7 +182,7 @@ export default class ProfileModal extends Component {
     }
   }
 
-	renderUpdateForm(){
+	renderUpdateForm() {
 		return (
 			<>
 			<div className="card card-container">
