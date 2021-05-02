@@ -125,7 +125,7 @@ export default class TransferFunds extends Component {
           <div className="col-md-12">
             <div className="card card-container">
               <Form
-                onSubmit={this.TransferFunds}
+                onSubmit={this.handleTransferFunds}
     
                 ref={c => {
                   this.form = c;
