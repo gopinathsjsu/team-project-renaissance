@@ -36,7 +36,7 @@ export default class UserProfile extends Component {
 
   deleteAccount(account) {
     AccountService.delete(account);
-    // window.location.reload();
+    window.location.reload();
   }
 
   handleRefund() {
