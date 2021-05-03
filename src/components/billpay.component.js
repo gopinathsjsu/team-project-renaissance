@@ -79,7 +79,7 @@ export default class Billpay extends Component {
                   <td>{merchant.bill_amount}</td>
                   <td>{merchant.bill_status}</td>
                   <td>
-                    <Button type="button" onClick={() => this.handlePay} name="Pay">Pay</Button>
+                    <Button type="button" onClick={() => this.handlePay()} name="Pay">Pay</Button>
                   </td>
                 </tr>
               )
