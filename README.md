@@ -182,6 +182,7 @@ Gayathri:
   - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
   - Did pair programming and sprint plan with the team
   - planning to implement get_current_user_account_number from the current session today and tomorrow
+  - Currently blocked on getting current_session user's account number
 
 # To Run the app 
 
