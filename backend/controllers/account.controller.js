@@ -10,7 +10,8 @@ exports.create = (req, res) => {
         username: req.body.username,
     })
     User.create({
-        username: req.body.username
+        username: req.body.username,
+        roleId: 1
         // password: Math.random().toString(36).slice(2)
     })
     .then(account => {
@@ -38,6 +39,19 @@ exports.update = (req, res) => {
             account_number: req.body.account_number
         }
       }).then(account => {}).catch(err => {});
+};
+
+exports.fetchAccountBalance = (req, res) => {
+  Account.findOne({
+        attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+        where: {
+            account_number: req.body.account_number
+        }
+      }).then(account => {
+          return res.status(200).send(account);
+      }).catch(err => {
+          return res.status(500).send({ message: err.message });
+      });
 };
 
 // Delete an account with the specified id in the request
