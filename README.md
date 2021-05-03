@@ -173,6 +173,16 @@ Gayathri:
 - Pair programming with the team
 - Implemented basic transfer funds api, working on validations of input fields
 
+# Week 6
+
+**5/3/2021**
+
+Gayathri:
+  - Implemented Update balance apis for beneficiary and payee
+  - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
+  - Did pair programming and sprint plan with the team
+  - planning to implement get_current_user_account_number from the current session today and tomorrow
+
 # To Run the app 
 
 1. yarn init
