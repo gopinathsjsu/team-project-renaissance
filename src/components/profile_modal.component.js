@@ -5,6 +5,8 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
+import UserService from "../services/user.service";
+
 import {
   Button,
   Modal
@@ -72,35 +74,45 @@ const vpassword = value => {
 
 export default class ProfileModal extends Component {
   constructor(props) {
-    super(props);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangefirstname = this.onChangefirstname.bind(this);
-		this.onChangelastname = this.onChangelastname.bind(this);
-    this.onChangeAddress = this.onChangeAddress.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
+		super(props);
+		this.handleUpdate = this.handleUpdate.bind(this);
+		this.onChangeUsername = this.onChangeUsername.bind(this);
+		this.onChangefirstname = this.onChangefirstname.bind(this);
+    this.onChangelastname = this.onChangelastname.bind(this);
+		this.onChangeAddress = this.onChangeAddress.bind(this);
+		this.onChangeEmail = this.onChangeEmail.bind(this);
+		this.onChangePassword = this.onChangePassword.bind(this);
+		this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
 
-    this.state = {
+		this.state = {
       username: "",
       first_name: "",
-			last_name: "",
+      last_name: "",
       email: "",
       password: "",
       address: "",
       contact: "",
       successful: false,
       message: "",
-			showModal: false
-    };
+      showModal: false
+		};
+	}	
+
+  componentDidMount() {
+    const user = AuthService.getLoggedInUser();
+
+    if (user) {
+      this.setState({
+        loggedInUser: user
+      });
+    }
   }
 
-	onChangefirstname(e) {
+  onChangefirstname(e) {
     this.setState({
-      first_name: e.target.value
+    first_name: e.target.value
     });
-  }
+	}
 
 	onChangelastname(e) {
     this.setState({
@@ -149,7 +161,7 @@ export default class ProfileModal extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.update(
+      UserService.update(
         this.state.username,
         this.state.address,
         this.state.contact,
@@ -310,6 +322,7 @@ export default class ProfileModal extends Component {
 	}
 
   render() {
+    const { loggedInUser } = this.state;
     return (
 			<div>
 				<Modal

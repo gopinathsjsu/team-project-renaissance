@@ -20,6 +20,8 @@ exports.signup = (req, res) => {
     if (!user.registered) {
       User.update({
         password: bcrypt.hashSync(req.body.password, 8),
+        first_name:req.body.firstname,
+        last_name:req.body.lastname,
         username: req.body.username,
         email: req.body.email,
         address: req.body.address,
