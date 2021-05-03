@@ -11,9 +11,7 @@ module.exports = function(app) {
   });
 
   
-  app.get(
-    "/api/externalpayees",
-    controller.getPayee
-  );
+  app.get("/api/externalpayees",controller.getPayee);
 
+  //app.get("/api/fetchAllAccounts", controller.findAll);
 };

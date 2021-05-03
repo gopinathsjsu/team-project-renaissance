@@ -13,7 +13,8 @@ class ExternalPayService {
   }
   
   getAllPayee() {
-    return axios.get(API_URL + 'externalpayees');
+    //return axios.get(API_URL + 'externalpayees');
+    return axios.get(API_URL + 'externalpayees/',{});
   }
 }
 

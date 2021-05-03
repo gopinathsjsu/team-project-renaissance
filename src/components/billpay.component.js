@@ -1,16 +1,8 @@
-import React, { Component, Button } from "react";
+import React, { Component} from "react";
 
-//import Form from "react-validation/build/form";
-//import Input from "react-validation/build/input";
-//import React, { Component } from "react";
-//import { connect } from "react-redux";
-import Container from "react-bootstrap/Container";
-import Modal from 'react';
-//import Modal from "react-modal";
-import CheckButton from "react-validation/build/button";
-//import 'react-confirm-alert/src/react-confirm-alert.css'; 
-import BillPayService from "../services/billpay.service";
+//import BillPayService from "../services/billpay.service";
 import ExternalPayService from "../services/extarnalpay.service";
+import {Button} from 'react-bootstrap';
 
 export default class Billpay extends Component {
   
@@ -18,11 +10,12 @@ export default class Billpay extends Component {
     super(props);
 
     this.state ={
-      billpayData: null
-      //billpayData: []
+      //billpayData: null
+      billpayData: []
     };
   }
 
+  
     componentDidMount() {
       ExternalPayService.getAllPayee().then(
         response => {
@@ -43,38 +36,7 @@ export default class Billpay extends Component {
       );
     }
 
-  generateList() {
-
-    var loopData = ''
-    loopData += '<thead><tr><th> id</th><th> Merchant Name</th><th> User Name</th><th> Account No</th><th> Amount</th>'
-    loopData += '</tr></thead> <tbody>'
- 
-    var payeeList = this.state.billpayData;
-    console.log(payeeList);
-    for (const key in payeeList){
-      if(payeeList.hasOwnProperty(key)){
-        loopData += '<tr>';
-        for (const key1 in payeeList[key]){
-          console.log(payeeList[key][key1]);
-          if (key1 !== "createdAt" && key1 !== "updatedAt" ) {
-            //console.log(key1);
-          loopData += '<td>' + payeeList[key][key1] + '</td>'; 
-          
-          }
-        }
-        loopData += '<td><button type="submit" onClick={this.payBill}> Pay </button></td>';
-        
-        loopData += '</tr>'
-      }
-    }
-    loopData += '</tbody>';
-    return loopData;
-    
-  }
-  
-
-
-  handleSubmit(e) {
+  /*handleSubmit(e) {
     e.preventDefault();
 
     this.setState({
@@ -82,30 +44,53 @@ export default class Billpay extends Component {
       successful: false
     });
 
-    //this.form.validateAll();
 
+  }*/
+
+  handlePay() {
+    alert("pay button hit");
   }
-
-
+  
   render() {
-
-    
-    
+    console.log(this.state.billpayData);
     return (
       <div className="container">
-        <br></br>
-        <Container>
           <h2 className="text-center">Pending Bills</h2>
-          <br></br>
-          <table className="table table-striped table-bordered" dangerouslySetInnerHTML={{ __html: this.generateList()}}>
-
-          </table>
-          
-        </Container>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Merchant Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Account Number</th>
+              <th scope="col">Bill Amount</th>
+              <th scope="col">Bill Status</th>
+              <th scope="col" colSpan="6"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {(this.state.billpayData.length > 0) ? this.state.billpayData.map((merchant, index) => {
+              return (
+                <tr>
+                  <td>{index}</td>
+                  <td>{merchant.merchant_name}</td>
+                  <td>{merchant.username}</td>
+                  <td>{merchant.merchant_acctno}</td>
+                  <td>{merchant.bill_amount}</td>
+                  <td>{merchant.bill_status}</td>
+                  <td>
+                    <Button type="button" onClick={() => this.handlePay} name="Pay">Pay</Button>
+                  </td>
+                </tr>
+              )
+            }) :
+              <tr>
+                <td>No Pending Bill</td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
-
-
-
 
     );
   }
