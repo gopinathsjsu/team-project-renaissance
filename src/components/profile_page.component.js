@@ -39,6 +39,12 @@ export default class UserProfile extends Component {
     // window.location.reload();
   }
 
+  handleRefund(account) {
+    AccountService.fetchAccountBalance();
+    // window.location.reload();
+    alert("hi");
+  }
+
   // updateUser(id, ) {
   //   AccountService.update();
   // }
@@ -115,7 +121,7 @@ export default class UserProfile extends Component {
                     <Button type="button" onClick={() => this.handleRefund} name="Refund">Refund</Button>
                   </td>
                   <td>
-                    <Button type="button" onClick={() => this.updateUser} name="Refund">Update</Button>
+                    <Button type="button" onClick={() => this.updateUser} name="Update">Update</Button>
                   </td>
                   <td>
                     <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Refund">Delete</Button>
