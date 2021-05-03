@@ -71,7 +71,7 @@ class App extends Component {
                   {loggedInUser.username}
                 </Link>
               </li>
-              {loggedInUser.role == 2 ? (
+              {loggedInUser.role === 2 ? (
                 <li className="nav-item">
                   <Link to={"/createAccount"} className="nav-link">
                     Create Account

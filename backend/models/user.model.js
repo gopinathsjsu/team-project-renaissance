@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         password: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         registered: {
             type: Sequelize.BOOLEAN,
@@ -36,8 +36,8 @@ module.exports = (sequelize, Sequelize) => {
         roleId: {
             type: Sequelize.INTEGER,
             references: {
-               model: 'roles', 
-               key: 'id', 
+               model: 'roles',
+               key: 'id',
             }
         }
     });
