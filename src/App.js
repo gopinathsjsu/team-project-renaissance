@@ -11,6 +11,7 @@ import AdminLogin from "./components/admin_login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import CreateAccount from "./components/createAccount.component";
+import TransferFunds from "./components/transfer_funds.component";
 
 // Profile pages
 import UserPage from "./components/user_page.component";
@@ -79,6 +80,15 @@ class App extends Component {
               ):(
                 <p />
               )}
+              {loggedInUser.role == 2 ? (
+                <li className="nav-item">
+                  <Link to={"/transfer"} className="nav-link">
+                    Transfer Funds
+                  </Link>
+                </li>
+              ):(
+                <p />
+              )}
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
                   LogOut
@@ -115,6 +125,7 @@ class App extends Component {
             <Route exact path="/adminlogin" component={AdminLogin} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/createAccount" component={CreateAccount} />
+            <Route exact path="/transfer" component={TransferFunds} />
             {/* <Route path="/user" component={UserPage} /> */}
           </Switch>
         </div>
