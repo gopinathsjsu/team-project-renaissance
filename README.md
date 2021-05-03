@@ -9,7 +9,7 @@ Surabhi:
 
 Gayathri: 
 - Planning on how to develop the application. 
-- Took up the component which lists all the transactions for a user for the past 18 months
+- Took up the transfer component and display lists all the transactions for a user for the past 18 months
 
 Arpitha:
 - Took responsibility for component: Transfer between accounts - one time or recurring
