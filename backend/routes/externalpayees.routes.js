@@ -11,7 +11,9 @@ module.exports = function(app) {
   });
 
   
-  app.get("/api/externalpayees",controller.getPayee);
-
+  //app.get("/api/externalpayees",controller.getPayee);
+  app.post("/api/externalpayees", controller.getPayee);
+  app.post("/api/payBill", controller.payBill);
+  app.post("/api/refund", controller.refund);
   //app.get("/api/fetchAllAccounts", controller.findAll);
 };

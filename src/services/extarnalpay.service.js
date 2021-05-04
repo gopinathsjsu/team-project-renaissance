@@ -4,17 +4,31 @@ const API_URL = "http://localhost:8081/api/";
 
 
 class ExternalPayService {
-  payBill(username, billAcctNumber, billAmount) {
+  payBill(username, billAmount, id) {
+
+    //console.log(billAmount);
+    
     return axios.post(API_URL + "payBill", {
       username, 
-      billAcctNumber,
-      billAmount
+      billAmount,
+      id
+    });
+  }
+  refund(username, refundAmount) {
+    
+    console.log('In refundAmount');
+    
+    return axios.post(API_URL + "refund", {
+      username, 
+      refundAmount
     });
   }
   
-  getAllPayee() {
-    //return axios.get(API_URL + 'externalpayees');
-    return axios.get(API_URL + 'externalpayees/',{});
+  getAllPayee(username, paystatus) {
+  
+    return axios.post(API_URL + 'externalpayees',{username,paystatus}).then(response => {
+      return response.data;
+  });
   }
 }
 
