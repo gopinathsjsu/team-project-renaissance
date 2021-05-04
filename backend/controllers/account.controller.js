@@ -55,10 +55,24 @@ exports.fetchAccountBalance = (req, res) => {
       });
 };
 
+// Retrive a list of account numbers associated with the user
+exports.getAccountNumber = (req, res) => {
+    Account.findAll({
+          attributes: ['account_number'],
+          where: {
+              username: req.body.username
+          }
+        }).then(account => {
+            return res.status(200).send(account);
+        }).catch(err => {
+            return res.status(500).send({ message: err.message });
+        });
+  };
+
 // Update an Beneficiary's account's balance with a specified account_number
 exports.updateBeneficiaryAccountBalance = (req, res) => {
     Account.findByPk(req.body.beneficiary_account_number).then(account => {
-        if (acoount){
+        if (account){
             return account.increment('account_balance', {by: req.body.transaction_amount});
         } else {
             return res.status(400).send({ message: 'user does not exist'});
