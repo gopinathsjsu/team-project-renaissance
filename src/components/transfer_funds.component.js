@@ -17,7 +17,7 @@ const required = value => {
 };
 
 const payeeid = value => {
-    if (value.length !== 3 ){
+    if (value.length !== 16 ){
         return (
             <div className='alert alert-danger' role="alert">
                 Please enter a valid account number
@@ -28,7 +28,7 @@ const payeeid = value => {
 };
 
 const beneficiaryid = value => {
-    if (value.length !== 3 ){
+    if (value.length !== 16 ){
         return (
             <div className='alert alert-danger' role="alert">
                 Please enter a valid account number

@@ -15,8 +15,12 @@ class TransferService{
           });
     }
 
-    fetchAll() {
-        return axios.get(API_URL + 'fetchTransactions/', {})
+    fetchAll(id) {
+        return axios.get(API_URL + 'fetchTransactions/', {
+            data: {
+                payee_id: id
+              }
+        });
     }
 }
 

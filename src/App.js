@@ -13,6 +13,7 @@ import Home from "./components/home.component";
 import CreateAccount from "./components/createAccount.component";
 import TransferFunds from "./components/transfer_funds.component";
 import BillPay from "./components/billpay.component";
+import TransactionPage from "./components/transaction_page.component";
 
 // Profile pages
 import UserPage from "./components/user_page.component";
@@ -98,8 +99,16 @@ class App extends Component {
 
                 </li>
               ):(
-                <p/>
-
+                <p />
+              )}
+              {loggedInUser.role == 1 ? (
+                <li>
+                  <Link to={"/fetchTransactions"} className="nav-link">
+                    View Transactions
+                  </Link>
+                </li>
+              ):(
+                <p />
               )}
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
@@ -139,6 +148,7 @@ class App extends Component {
             <Route exact path="/createAccount" component={CreateAccount} />
             <Route exact path="/transfer" component={TransferFunds} />
             <Route exact path={"/billpay"} component={BillPay} />
+            <Route exact path="/fetchTransactions" component={TransactionPage} />
             {/* <Route path="/user" component={UserPage} /> */}
           </Switch>
         </div>
