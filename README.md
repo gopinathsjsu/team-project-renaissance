@@ -183,6 +183,12 @@ Gayathri:
   - Did pair programming and sprint plan with the team
   - planning to implement get_current_user_account_number from the current session today and tomorrow
   - Currently blocked on getting current_session user's account number
+ 
+**6/3/2021**
+
+Gayathri:
+  - Working on resolving getting current_session user's details
+  - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
 # To Run the app 
 
