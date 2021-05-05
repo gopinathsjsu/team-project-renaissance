@@ -18,11 +18,12 @@ module.exports = function(app) {
 
   app.get("/api/fetchAccountBalance", controller.fetchAccountBalance);
 
-  app.get("/api/fetchBalanceFromUserName", controller.fetchBalanceFromUserName);
-
   app.post("/api/updateBeneficiaryAccountBalance", controller.updateBeneficiaryAccountBalance);
 
   app.post("/api/updatePayeeAccountBalance", controller.updatePayeeAccountBalance);
 
   app.get("/api/getAccountNumber", controller.getAccountNumber);
+
+  app.get("/api/fetchBalanceFromUserName", controller.fetchBalanceFromUserName);
+  
 };

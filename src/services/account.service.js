@@ -28,7 +28,7 @@ class AccountService {
     return axios.post(API_URL + 'updateBeneficiaryAccountBalance/',{
       data: {
         beneficiary_account_number: beneficiary_account_number,
-        transaction_amount: transaction_amount 
+        transaction_amount: transaction_amount
       }
     })
   }
@@ -68,10 +68,7 @@ class AccountService {
       params: {
         username: username
       }
-    }).then(response => {
-      console.log(response.data);
-      return response.data;
-    });
+    })
   }
 }
 

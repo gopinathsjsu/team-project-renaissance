@@ -16,7 +16,7 @@ export default class UserProfile extends Component {
         loggedInUser: AuthService.getLoggedInUser(),
         showModal : false,
         allUsers: [],
-        userAccounts: AccountService.getAccountsForUser(AuthService.getLoggedInUser().username)
+        userAccounts: []
     };
   }
 
@@ -54,12 +54,27 @@ export default class UserProfile extends Component {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
+    AccountService.getAll(AuthService.getLoggedInUser().username).then(
+      response => {
+        this.setState({
+          userAccounts: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
 
   render() {
     const { loggedInUser } = this.state;
-    const { userAccounts } = this.state;
-    // console.log("user accounts", this.state.userAccounts);
     return (
       (loggedInUser.role === 1) ?
         <div className="container">
@@ -88,6 +103,7 @@ export default class UserProfile extends Component {
             <strong>role:</strong>{" "}
             {loggedInUser.role}
           </p>
+
           <table className="table">
             <thead>
               <tr>
@@ -110,11 +126,12 @@ export default class UserProfile extends Component {
                 )
               }) :
                 <tr>
-                  <td>No active users</td>
+                  <td>No active accounts</td>
                 </tr>
               }
             </tbody>
           </table>
+
           <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile
           </Button>
