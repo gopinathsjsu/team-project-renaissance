@@ -20,6 +20,9 @@ const db = require("./models");
 const Role = db.role;
 const User = db.user;
 const Account = db.account;
+const Transaction = db.transaction;
+const BillPay = db.BillPay;
+const ExternalPayee = db.ExternalPayee;
 
 const adminuserpass1 = bcrypt.hashSync('admin1');
 const adminuserpass2 = bcrypt.hashSync('admin2');
@@ -39,6 +42,15 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(us) {
     console.log(us);
   });
+  ExternalPayee.bulkCreate([
+    {merchant_name: 'Tesla', username: 'tom', merchant_acctno: '102345', bill_amount: '485.00'},
+    {merchant_name: 'PG&E', username: 'Ben', merchant_acctno: '102346', bill_amount: '85.00'},
+    {merchant_name: 'Great Oaks Water', username: 'Jane', merchant_acctno: '102347', bill_amount: '20.45'},
+    {merchant_name: 'AT&T', username: 'Holmer', merchant_acctno: '102348', bill_amount: '125.87'},
+    
+  ]).then(function(us) {
+    console.log(us);
+  });
 });
 
 // simple route
@@ -50,6 +62,8 @@ app.get("/", (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/account.routes')(app);
+require('./routes/transaction.routes')(app);
+require('./routes/externalpayees.routes')(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {

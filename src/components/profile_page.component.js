@@ -37,7 +37,13 @@ export default class UserProfile extends Component {
 
   deleteAccount(account) {
     AccountService.delete(account);
+    window.location.reload();
+  }
+
+  handleRefund() {
+    //AccountService.fetchAccountBalance();
     // window.location.reload();
+    alert("hi from refund");
   }
 
   // updateUser(id, ) {
@@ -141,13 +147,13 @@ export default class UserProfile extends Component {
                     <input type="number" className="form-control" min="0" placeholder="Refund amount" />
                   </td>
                   <td>
-                    <Button type="button" onClick={() => this.handleRefund} name="Refund">Refund</Button>
+                    <Button type="button" onClick={() => this.handleRefund()} name="Refund">Refund</Button>
                   </td>
                   <td>
-                    <Button type="button" onClick={() => this.updateUser} name="Refund">Update</Button>
+                    <Button type="button" onClick={() => this.updateUser()} name="Update">Update</Button>
                   </td>
                   <td>
-                    <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Refund">Delete</Button>
+                    <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Delete">Delete</Button>
                   </td>
                 </tr>
               )

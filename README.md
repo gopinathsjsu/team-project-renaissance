@@ -9,7 +9,7 @@ Surabhi:
 
 Gayathri: 
 - Planning on how to develop the application. 
-- Took up the component which lists all the transactions for a user for the past 18 months
+- Took up the transfer component and display lists all the transactions for a user for the past 18 months
 
 Arpitha:
 - Took responsibility for component: Transfer between accounts - one time or recurring
@@ -172,6 +172,23 @@ Gayathri:
 Gayathri:
 - Pair programming with the team
 - Implemented basic transfer funds api, working on validations of input fields
+
+# Week 6
+
+**5/3/2021**
+
+Gayathri:
+  - Implemented Update balance apis for beneficiary and payee
+  - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
+  - Did pair programming and sprint plan with the team
+  - planning to implement get_current_user_account_number from the current session today and tomorrow
+  - Currently blocked on getting current_session user's account number
+ 
+**6/3/2021**
+
+Gayathri:
+  - Working on resolving getting current_session user's details
+  - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
 # To Run the app 
 
