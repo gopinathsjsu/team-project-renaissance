@@ -20,7 +20,7 @@ class AccountService {
   // TODO: id shgould be a part of body
   update(id, account_type) {
     return axios.put(API_URL + `updateAccount/${id}`, {
-      
+
     })
   }
 
@@ -30,6 +30,18 @@ class AccountService {
         account_number: id
       }
     })
+  }
+
+  getAccountsForUser(username) {
+    console.log("user ", username);
+    return axios.get(API_URL + `fetchBalanceFromUserName`, {
+      params: {
+        username: username
+      }
+    }).then(response => {
+      console.log(response.data);
+      return response.data;
+    });
   }
 }
 

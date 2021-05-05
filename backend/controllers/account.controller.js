@@ -54,6 +54,20 @@ exports.fetchAccountBalance = (req, res) => {
       });
 };
 
+exports.fetchBalanceFromUserName = (req, res) => {
+  console.log("request ", req.query);
+  Account.findAll({
+        attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+        where: {
+            username: req.query.username
+        }
+      }).then(account => {
+          return res.status(200).send(account);
+      }).catch(err => {
+          return res.status(500).send({ message: err.message });
+      });
+};
+
 // Delete an account with the specified id in the request
 exports.delete = (req, res) => {
     Account.destroy({
