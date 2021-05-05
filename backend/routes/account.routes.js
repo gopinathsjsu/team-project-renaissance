@@ -23,4 +23,7 @@ module.exports = function(app) {
   app.post("/api/updatePayeeAccountBalance", controller.updatePayeeAccountBalance);
 
   app.get("/api/getAccountNumber", controller.getAccountNumber);
+
+  app.get("/api/fetchBalanceFromUserName", controller.fetchBalanceFromUserName);
+  
 };

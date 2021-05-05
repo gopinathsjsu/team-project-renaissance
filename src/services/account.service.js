@@ -20,7 +20,7 @@ class AccountService {
   // TODO: id shgould be a part of body
   update(id, account_type) {
     return axios.put(API_URL + `updateAccount/${id}`, {
-      
+
     })
   }
 
@@ -28,7 +28,7 @@ class AccountService {
     return axios.post(API_URL + 'updateBeneficiaryAccountBalance/',{
       data: {
         beneficiary_account_number: beneficiary_account_number,
-        transaction_amount: transaction_amount 
+        transaction_amount: transaction_amount
       }
     })
   }
@@ -58,6 +58,14 @@ class AccountService {
     return axios.delete(API_URL + `deleteAccount/`, {
       data: {
         account_number: id
+      }
+    })
+  }
+
+  getAccountsForUser(username) {
+    return axios.get(API_URL + `fetchBalanceFromUserName`, {
+      params: {
+        username: username
       }
     })
   }

@@ -15,7 +15,8 @@ export default class UserProfile extends Component {
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
         showModal : false,
-        allUsers: []
+        allUsers: [],
+        userAccounts: []
     };
   }
 
@@ -49,21 +50,37 @@ export default class UserProfile extends Component {
   //   AccountService.update();
   // }
 
-  componentDidMount() { 
+  componentDidMount() {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
+    AccountService.getAll(AuthService.getLoggedInUser().username).then(
+      response => {
+        this.setState({
+          userAccounts: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
 
   render() {
     const { loggedInUser } = this.state;
-
     return (
       (loggedInUser.role === 1) ?
         <div className="container">
           <header className="jumbotron">
             <h3>
-              <strong>Profile</strong> 
+              <strong>Profile</strong>
             </h3>
           </header>
           <p>
@@ -86,6 +103,35 @@ export default class UserProfile extends Component {
             <strong>role:</strong>{" "}
             {loggedInUser.role}
           </p>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Account Number</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Account Balance</th>
+                <th scope="col" colSpan="4"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {(this.state.userAccounts.length > 0) ? this.state.userAccounts.map((account, index) => {
+                return (
+                  <tr>
+                    <td>{index}</td>
+                    <td>{account.account_number}</td>
+                    <td>{account.account_type}</td>
+                    <td>{account.account_balance}</td>
+                  </tr>
+                )
+              }) :
+                <tr>
+                  <td>No active accounts</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
           <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile
           </Button>
@@ -95,7 +141,7 @@ export default class UserProfile extends Component {
       <div className="container">
         <header>
           <h3>
-            <strong>Active Users</strong> 
+            <strong>Active Users</strong>
           </h3>
         </header>
         <table className="table">

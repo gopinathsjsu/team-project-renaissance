@@ -69,6 +69,18 @@ exports.getAccountNumber = (req, res) => {
         });
   };
 
+exports.fetchBalanceFromUserName = (req, res) => {
+  Account.findAll({
+        attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+        where: {
+            username: req.query.username
+        }
+      }).then(account => {
+          return res.status(200).send(account);
+      }).catch(err => {
+          return res.status(500).send({ message: err.message });
+      });
+};
 // Update an Beneficiary's account's balance with a specified account_number
 exports.updateBeneficiaryAccountBalance = (req, res) => {
     Account.findByPk(req.body.beneficiary_account_number).then(account => {
