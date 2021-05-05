@@ -63,7 +63,6 @@ class AccountService {
   }
 
   getAccountsForUser(username) {
-    console.log("user ", username);
     return axios.get(API_URL + `fetchBalanceFromUserName`, {
       params: {
         username: username
