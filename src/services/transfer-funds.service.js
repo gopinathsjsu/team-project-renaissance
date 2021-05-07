@@ -15,12 +15,11 @@ class TransferService{
           });
     }
 
-    fetchAll(id) {
+    fetchAll(account_number) {
+        //account_number.then((res) => console.log("account num: " + res.json))
         return axios.get(API_URL + 'fetchTransactions/', {
-            data: {
-                payee_id: id
-              }
-        });
+            params: {payee_id: account_number}
+        })
     }
 }
 

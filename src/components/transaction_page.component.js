@@ -2,35 +2,48 @@ import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import TransferService from "../services/transfer-funds.service";
 import AccountService from "../services/account.service";
+//import { account } from "../../backend/models";
+
+// const user = JSON.parse(localStorage.getItem('user'));
+// const username = console.log(user.username);
+// const account_number = AccountService.getAccountNumber(username);
 
 export default class TransactionPage extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
         allTransactions: []
     };
   }
-  
+
   componentDidMount() {
-      TransferService.fetchAll().then(
-          response => {
-              this.setState({ 
-                  allTransactions: response.data
-              });
-          },
-          error => {
-              this.setState({
-                content:
-                  (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                  error.message ||
-                  error.toString()      
-              });
-          }
-        );
+    const account_number = AccountService.getAccountNumber(AuthService.getLoggedInUser().username);
+    // console.log(JSON.stringify(obj))
+    // //const account_number = JSON.parse(JSON.stringify(obj))[0].account_number
+    // console.log("account_number is: " + num);
+    
+    // TransferService.fetchAll().then(response => this.setState({
+    //   allTransactions: response.data
+    // }));
+    TransferService.fetchAll(account_number).then(
+      response => {
+        this.setState({
+          allTransactions: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
   render() {
       return (

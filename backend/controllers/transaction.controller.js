@@ -21,10 +21,11 @@ exports.transfer = (req, res) => {
 
 //retrieve transactions from database 
 exports.fetchTransactions = (req, res) => {
+    console.log("request: " + req)
     Transaction.findAll({
         attributes: ['beneficiary_id', 'transaction_amount', 'transaction_id', 'createdAt'],
         where: {
-            payee_id: req.body.payee_id
+            payee_id: req.query.account_number
         }
     }).then(transaction => {
         return res.status(200).send(transaction);
