@@ -19,6 +19,7 @@ export default class UserProfile extends Component {
       loggedInUser: AuthService.getLoggedInUser(),
       showModal: false,
       allUsers: [],
+      userAccounts: [],
       refund_amount: 0
     };
   }
@@ -99,11 +100,27 @@ export default class UserProfile extends Component {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
+    AccountService.getAll(AuthService.getLoggedInUser().username).then(
+      response => {
+        this.setState({
+          userAccounts: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
 
   render() {
     const { loggedInUser } = this.state;
-
     return (
       (loggedInUser.role === 1) ?
         <div className="container">
@@ -132,30 +149,59 @@ export default class UserProfile extends Component {
             <strong>role:</strong>{" "}
             {loggedInUser.role}
           </p>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Account Number</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Account Balance</th>
+                <th scope="col" colSpan="4"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {(this.state.userAccounts.length > 0) ? this.state.userAccounts.map((account, index) => {
+                return (
+                  <tr>
+                    <td>{index}</td>
+                    <td>{account.account_number}</td>
+                    <td>{account.account_type}</td>
+                    <td>{account.account_balance}</td>
+                  </tr>
+                )
+              }) :
+                <tr>
+                  <td>No active accounts</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
           <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile
           </Button>
           <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
         </div>
-        : (
-          <div className="container">
-            <header>
-              <h3>
-                <strong>Active Users</strong>
-              </h3>
-            </header>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Account Type</th>
-                  <th scope="col" colSpan="4"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {(this.state.allUsers.length > 0) ? this.state.allUsers.map((user, index) => {
-                  return (
+      : (
+      <div className="container">
+        <header>
+          <h3>
+            <strong>Active Users</strong>
+          </h3>
+        </header>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Account Type</th>
+              <th scope="col" colSpan="4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {(this.state.allUsers.length > 0) ? this.state.allUsers.map((user, index) => {
+              return (
                     <tr id={index}>
                       <td class="row-data">{index}</td>
                       <td class="row-data">{user.username}</td>

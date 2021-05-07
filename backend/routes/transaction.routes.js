@@ -9,8 +9,6 @@ module.exports = function(app) {
         next();
       });
 
-    app.post(
-        "/api/transfer",
-        controller.transfer
-    );
+    app.post("/api/transfer", controller.transfer);
+    app.get("/api/fetchTransactions", controller.fetchTransactions);
 };

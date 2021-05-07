@@ -49,9 +49,9 @@ db.role.belongsToMany(db.user, {
 
 db.account.hasOne(db.user);
 
-// db.account.hasMany(db.transaction);
+db.account.hasMany(db.transaction);
 
-// db.transaction.hasOne(db.account);
+//db.transaction.hasOne(db.account);
 
 db.ROLES = ["user", "admin"];
 

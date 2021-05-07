@@ -17,4 +17,13 @@ module.exports = function(app) {
   app.delete("/api/deleteAccount", controller.delete);
 
   app.get("/api/fetchAccountBalance", controller.fetchAccountBalance);
+
+  app.post("/api/updateBeneficiaryAccountBalance", controller.updateBeneficiaryAccountBalance);
+
+  app.post("/api/updatePayeeAccountBalance", controller.updatePayeeAccountBalance);
+
+  app.get("/api/getAccountNumber", controller.getAccountNumber);
+
+  app.get("/api/fetchBalanceFromUserName", controller.fetchBalanceFromUserName);
+  
 };
