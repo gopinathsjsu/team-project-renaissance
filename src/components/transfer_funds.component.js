@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import TransferService from "../services/transfer-funds.service";
+import AccountService from "../services/transfer-funds.service";
 // import Select from 'react-select';
 // import { render } from "@testing-library/react";
 
@@ -23,8 +24,7 @@ const payeeid = value => {
                 Please enter a valid account number
             </div>
         );
-    }
-
+    } 
 };
 
 const beneficiaryid = value => {
@@ -37,6 +37,7 @@ const beneficiaryid = value => {
     }
 
 };
+
 
 const amount = value => {
     if (value > 400){

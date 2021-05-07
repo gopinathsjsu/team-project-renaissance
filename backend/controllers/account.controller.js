@@ -44,7 +44,7 @@ exports.update = (req, res) => {
 
 exports.fetchAccountBalance = (req, res) => {
   Account.findOne({
-        attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+        attributes: ['account_balance'],
         where: {
             account_number: req.body.account_number
         }
@@ -60,7 +60,7 @@ exports.getAccountNumber = (req, res) => {
     Account.findAll({
           attributes: ['account_number'],
           where: {
-              username: req.body.username
+              username: req.query.username
           }
         }).then(account => {
             return res.status(200).send(account);
