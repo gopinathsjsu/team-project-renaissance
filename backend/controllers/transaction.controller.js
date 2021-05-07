@@ -25,7 +25,7 @@ exports.fetchTransactions = (req, res) => {
     Transaction.findAll({
         attributes: ['beneficiary_id', 'transaction_amount', 'transaction_id', 'createdAt'],
         where: {
-            payee_id: req.query.account_number
+            payee_id: req.query.payee_id
         }
     }).then(transaction => {
         return res.status(200).send(transaction);

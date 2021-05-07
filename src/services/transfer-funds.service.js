@@ -15,10 +15,9 @@ class TransferService{
           });
     }
 
-    fetchAll(account_number) {
-        //account_number.then((res) => console.log("account num: " + res.json))
+    fetchAll(payee_id) {
         return axios.get(API_URL + 'fetchTransactions/', {
-            params: {payee_id: account_number}
+            params: {payee_id: payee_id}
         })
     }
 }
