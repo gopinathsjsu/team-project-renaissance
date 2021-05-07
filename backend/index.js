@@ -51,6 +51,19 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(us) {
     console.log(us);
   });
+  Transaction.bulkCreate([
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000001, transaction_amount: 100, transaction_id: 1000000000000000},
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000002, transaction_amount: 101, transaction_id: 1000000000000001},
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000003, transaction_amount: 100, transaction_id: 1000000000000002},
+    {payee_id: 1000000000000008, beneficiary_id: 1000000000000001, transaction_amount: 100, transaction_id: 1000000000000003}
+  ]).then(function(transaction) {
+    console.log(transaction);
+  });
+  Account.bulkCreate([
+    {account_type: "checkings", account_balance: 100, username: "jane", account_number: 1000000000000000}
+  ]).then(function(account) {
+    console.log(account);
+  });
 });
 
 // simple route

@@ -44,13 +44,13 @@ class AccountService {
 
   getAccountNumber(username) {
     return axios.get(API_URL + 'getAccountNumber/', {
-      data: {username: username}
+      params: {username: username}
     })
   }
 
-  fetchAccountBalance(account_number) {
-    return axios.get(API_URL + 'fetchAccountBalance', {
-      data: {account_number: account_number}
+  fetchAccountBalance(id) {
+    return axios.get(API_URL + 'fetchAccountBalance/', {
+      data: {account_number: id}
     })
   }
 

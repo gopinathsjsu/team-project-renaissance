@@ -6,31 +6,34 @@ import AccountService from "../services/account.service";
 export default class TransactionPage extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
         allTransactions: []
     };
   }
-  
-  componentDidMount() {
-      TransferService.fetchAll().then(
-          response => {
-              this.setState({ 
-                  allTransactions: response.data
-              });
-          },
-          error => {
-              this.setState({
-                content:
-                  (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                  error.message ||
-                  error.toString()      
-              });
-          }
-        );
+
+  async componentDidMount() {
+    const account_number = await AccountService.getAccountNumber(AuthService.getLoggedInUser().username);
+    console.log("account_number: " + JSON.parse(JSON.stringify(account_number.data[0])));
+
+    TransferService.fetchAll(JSON.parse(JSON.stringify(account_number.data[0].account_number))).then(
+      response => {
+        this.setState({
+          allTransactions: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
   render() {
       return (
