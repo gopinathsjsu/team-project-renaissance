@@ -109,15 +109,10 @@ exports.signin = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const username = req.body.username;
-  User.update({
-    password: bcrypt.hashSync(req.body.password, 8),
-    username: req.body.username,
-    email: req.body.email,
-    address: req.body.address,
-    phone_number:req.body.contact
-  }, {
-      where: { username: req.body.username }
+  User.update(req.body, {
+    where: {
+      username: req.body.username
+    }
   }).then(num => {
     if (num == 1) {
       res.send({
@@ -131,7 +126,7 @@ exports.update = (req, res) => {
   })
   .catch(err => {
     res.status(500).send({
-      message: "Error updating Tutorial with id=" + username
+      message: err.message + "Error updating username with username=" + username //username
     });
   });
 };

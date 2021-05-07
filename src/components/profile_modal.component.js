@@ -85,6 +85,7 @@ export default class ProfileModal extends Component {
 		this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
 
 		this.state = {
+			loggedInUser: AuthService.getLoggedInUser(),
       username: "",
       first_name: "",
       last_name: "",
@@ -161,36 +162,29 @@ export default class ProfileModal extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      UserService.update(
-        this.state.username,
-        this.state.address,
-        this.state.contact,
-        this.state.first_name,
-				this.state.last_name,
-        this.state.email,
-        this.state.password
-      ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+			const { loggedInUser } = this.state;
+			AuthService.update(loggedInUser.username).then(
+				response => {
+				this.setState({
+					message: response.data.message,
+					successful: true
+				});
+			window.location.reload();
+		},
+			error => {
+			const resMessage =
+				(error.response &&
+				error.response.data &&
+				error.response.data.message) ||
+				error.message ||
+				error.toString();
 
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      );
+			this.setState({
+				successful: false,
+				message: resMessage
+			});
+			}
+    );
     }
   }
 
@@ -214,7 +208,6 @@ export default class ProfileModal extends Component {
 									name="first_name"
 									value={this.state.first_name}
 									onChange={this.onChangefirstname}
-									validations={[required, vfirstname]}
 								/>
 							</div>
 
@@ -226,19 +219,7 @@ export default class ProfileModal extends Component {
 									name="last_name"
 									value={this.state.last_name}
 									onChange={this.onChangelastname}
-									validations={[required, vlastname]}
-								/>
-							</div>
-
-							<div className="form-group">
-								<label htmlFor="username">Userame</label>
-								<Input
-									type="text"
-									className="form-control"
-									name="username"
-									value={this.state.username}
-									onChange={this.onChangeUsername}
-									validations={[required, vusername]}
+									
 								/>
 							</div>
 
@@ -250,7 +231,6 @@ export default class ProfileModal extends Component {
 									name="address"
 									value={this.state.address}
 									onChange={this.onChangeAddress}
-									validations={[required]}
 								/>
 							</div>
 
@@ -262,7 +242,6 @@ export default class ProfileModal extends Component {
 									name="contact"
 									value={this.state.contact}
 									onChange={this.onChangeContactNumber}
-									validations={[required]}
 								/>
 							</div>
 
@@ -274,11 +253,10 @@ export default class ProfileModal extends Component {
 									name="email"
 									value={this.state.email}
 									onChange={this.onChangeEmail}
-									validations={[required, email]}
 								/>
 							</div>
 
-							<div className="form-group">
+							{/* <div className="form-group">
 								<label htmlFor="password">Password</label>
 								<Input
 									type="password"
@@ -286,9 +264,9 @@ export default class ProfileModal extends Component {
 									name="password"
 									value={this.state.password}
 									onChange={this.onChangePassword}
-									validations={[required, vpassword]}
+									validations={[vpassword]}
 								/>
-							</div>
+							</div> */}
 							<div className="form-group">
 								<button className="btn btn-primary btn-block">Submit</button>
 							</div>

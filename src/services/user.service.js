@@ -16,18 +16,6 @@ class UserService {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
 
-  update(username, address, firstname, lastname, contact, email, password) {
-    return axios.post(API_URL + "update", {
-      username,
-      address,
-      firstname,
-      lastname,
-      contact,
-      email,
-      password
-    });
-  }
-
 }
 
 export default new UserService();

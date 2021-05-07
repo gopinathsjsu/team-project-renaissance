@@ -24,8 +24,4 @@ module.exports = function(app) {
     controller.adminBoard
   );
 
-  app.put(
-    "/api/test/update", controller.update
-  );
-
 };
