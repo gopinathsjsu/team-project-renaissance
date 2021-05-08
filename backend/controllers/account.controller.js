@@ -5,18 +5,25 @@ const Account = db.account;
 const User = db.user;
 
 exports.create = (req, res) => {
-    Account.create({
+  //Checking if user is already present in db
+  User.findByPk(req.body.username).then(user => {
+      if (!user){
+        User.create({
+            username: req.body.username,
+            roleId: 1
+            // password: Math.random().toString(36).slice(2)
+        })
+      }
+  }).catch(err => {
+      return res.status(500).send({ message: err.message });
+  });
+
+  Account.create({
         account_type: req.body.account_type,
         account_balance: req.body.account_balance,
         username: req.body.username,
-    })
-    User.create({
-        username: req.body.username,
-        roleId: 1
-        // password: Math.random().toString(36).slice(2)
-    })
-    .then(account => {
-        return res.status(200).send({ message: "Account created successfully." });
+    }).then(account => {
+        return res.status(200).send(account);
     }).catch(err => {
         return res.status(500).send({ message: err.message });
     });

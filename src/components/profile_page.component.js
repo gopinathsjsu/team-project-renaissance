@@ -100,7 +100,7 @@ export default class UserProfile extends Component {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
-    AccountService.getAll(AuthService.getLoggedInUser().username).then(
+    AccountService.getAccountsForUser(AuthService.getLoggedInUser().username).then(
       response => {
         this.setState({
           userAccounts: response.data
