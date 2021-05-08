@@ -15,6 +15,7 @@ export default class UserProfile extends Component {
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
         showModal : false,
+        user: [],
         allUsers: []
     };
   }
@@ -47,6 +48,10 @@ export default class UserProfile extends Component {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
+
+    // AccountService.getOne().then(response => this.setState({
+    //   user: response.data
+    // }));
   }
 
   render() {
@@ -75,10 +80,6 @@ export default class UserProfile extends Component {
           <p>
             <strong>Email:</strong>{" "}
             {loggedInUser.email}
-          </p>
-          <p>
-            <strong>role:</strong>{" "}
-            {loggedInUser.role}
           </p>
           <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile

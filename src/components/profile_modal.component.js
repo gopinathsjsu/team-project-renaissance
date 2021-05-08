@@ -85,7 +85,6 @@ export default class ProfileModal extends Component {
 		this.onChangeContactNumber = this.onChangeContactNumber.bind(this);
 
 		this.state = {
-			loggedInUser: AuthService.getLoggedInUser(),
       username: "",
       first_name: "",
       last_name: "",
@@ -300,7 +299,7 @@ export default class ProfileModal extends Component {
 	}
 
   render() {
-    const { loggedInUser } = this.state;
+    
     return (
 			<div>
 				<Modal

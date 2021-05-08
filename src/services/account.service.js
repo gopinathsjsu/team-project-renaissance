@@ -24,6 +24,15 @@ class AccountService {
     })
   }
 
+
+  getOne(id) {
+    return axios.get(API_URL + `fetchAccount/`, {
+      data: {
+        username: id
+      }
+    })
+  }
+
   delete(id) {
     return axios.delete(API_URL + `deleteAccount/`, {
       data: {
