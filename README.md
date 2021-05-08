@@ -9,10 +9,10 @@ Surabhi:
 
 Gayathri: 
 - Planning on how to develop the application. 
-- Took up the component which lists all the transactions for a user for the past 18 months
+- Took up the transfer component and display lists all the transactions for a user for the past 18 months
 
 Arpitha:
-- Took responsibility for component: Transfer between accounts - one time or recurring
+- Took responsibility for component: Transfer between accounts - one time or recurring and create account
 
 Priti:
 - Started working on components: Add transactions(such as manual refunds on fees) and 
@@ -60,6 +60,10 @@ Surabhi:
 Priti:
 - Completed initial application setup in the local with MySQL database.
 
+Arpitha:
+- Created a remote git branch for my changes.
+- Completed local setup for mysql, node and react.
+
 **3/31/2021:**
 
 Surabhi:
@@ -95,6 +99,9 @@ Surabhi:
 Gayathri:
 - Created a dummy table with records to experiment fetch functionality to transactions tab
 
+Arpitha:
+- Working on designing the classes and attributes for functionality - create new account
+
 **4/7/2021**
 
 Surabhi:
@@ -110,6 +117,10 @@ Surabhi:
 Gayathri:
 - Pair programming with the team
 
+Arpitha:
+- Created account table using sequelize
+- Implemented account creation api - tested locally via postman
+
 # Week 4:
 **4/12/2021**
 
@@ -124,12 +135,18 @@ Surabhi:
 - Started to work on functionality to avoid multiple sign ups
 - Facing some issues with the usage of Update in Sequelize.
 
+Arpitha:
+- Working on the UI for createAccount
+
 **4/16/2021**
 
 Surabhi:
 - Completed one user sign up
 - Minor tweaks related to registration remaining 
 - Trying to find a solution for conditional update issue
+
+Arpitha:
+- Added form for createAccount, integrated it with the backend API
 
 **4/17/20121**
 Surabhi:
@@ -141,6 +158,9 @@ Surabhi:
 Surabhi:
 - Added user profile page 
 - Worked on enabling one time user registration update functionality.
+
+Arpitha:
+- Working on creating a dropdown for account type - Checkings / Savings (createAccount form)
 
 # Week 5:
 **4/26/2021**
@@ -172,6 +192,23 @@ Gayathri:
 Gayathri:
 - Pair programming with the team
 - Implemented basic transfer funds api, working on validations of input fields
+
+# Week 6
+
+**5/3/2021**
+
+Gayathri:
+  - Implemented Update balance apis for beneficiary and payee
+  - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
+  - Did pair programming and sprint plan with the team
+  - planning to implement get_current_user_account_number from the current session today and tomorrow
+  - Currently blocked on getting current_session user's account number
+ 
+**6/3/2021**
+
+Gayathri:
+  - Working on resolving getting current_session user's details
+  - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
 # To Run the app 
 

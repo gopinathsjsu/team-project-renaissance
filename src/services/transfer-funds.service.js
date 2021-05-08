@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from './auth-header';
 
 const API_URL = "http://localhost:8081/api/";
 
@@ -8,9 +9,16 @@ class TransferService{
               payee_id,
               beneficiary_id,
               transaction_amount
-          }).then(response => {
+          }, 
+          { headers: authHeader()} ).then(response => {
               return response.data;
           });
+    }
+
+    fetchAll(payee_id) {
+        return axios.get(API_URL + 'fetchTransactions/', {
+            params: {payee_id: payee_id}
+        })
     }
 }
 

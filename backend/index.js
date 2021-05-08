@@ -21,10 +21,13 @@ const Role = db.role;
 const User = db.user;
 const Account = db.account;
 const Transaction = db.transaction;
+const BillPay = db.BillPay;
+const ExternalPayee = db.ExternalPayee;
 
 const adminuserpass1 = bcrypt.hashSync('admin1');
 const adminuserpass2 = bcrypt.hashSync('admin2');
-const userpass = bcrypt.hashSync('test@123');
+const userpwd = bcrypt.hashSync('test@123');
+
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created");
@@ -34,12 +37,49 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(roles) {
     console.log(roles);
   });
+  
   User.bulkCreate([
     {first_name: 'Admin', last_name: 'Account', username: 'admin1', email: 'admin@test.com', address: '', phone_number: '', password: adminuserpass1, roleId: 2},
     {first_name: 'Admin', last_name: 'Account', username: 'admin2', email: 'admin1@test.com', address: '', phone_number: '', password: adminuserpass2, roleId: 2},
-    {first_name: 'Jane', last_name: 'Doe', username: 'jane', email: 'jane@test.com', address: '1 test way', phone_number: '3457822344', password: userpass, roleId: 1}
+    {first_name: 'Jane', last_name: 'Doe', username: 'jane', email: 'jane@test.com', address: '1 test way', phone_number: '3457822344', password: 'test@123', roleId: 1},
+    {first_name: 'Holmer', last_name: 'Simpson', username: 'hsimpson', email: 'hsimpson@test.com', address: '1 test way', phone_number: '3457822344', password: userpwd, roleId: 1},
+    {first_name: 'Bart', last_name: 'Simpson', username: 'bsimpson', email: 'bsimpson@test.com', address: '1 test way', phone_number: '3457822344', password: userpwd, roleId: 1}
   ]).then(function(us) {
     console.log(us);
+  });
+  ExternalPayee.bulkCreate([
+    {merchant_name: 'Tesla', username: 'hsimpson', merchant_acctno: '102345', bill_amount: '485.00', bill_status: 'paid'},
+    {merchant_name: 'Tesla', username: 'hsimpson', merchant_acctno: '102345', bill_amount: '583.00', bill_status: 'unpaid'}, 
+    {merchant_name: 'PG&E', username: 'hsimpson', merchant_acctno: '102346', bill_amount: '485.00', bill_status: 'unpaid'},
+    {merchant_name: 'AT&T', username: 'hsimpson', merchant_acctno: '102347', bill_amount: '583.00', bill_status: 'paid'},
+    {merchant_name: 'Great Oaks Water', username: 'hsimpson', merchant_acctno: '102348', bill_amount: '20.45', bill_status: 'unpaid'}, 
+    {merchant_name: 'Tesla', username: 'bsimpson', merchant_acctno: '102345', bill_amount: '485.00', bill_status: 'paid'},
+    {merchant_name: 'Tesla', username: 'bsimpson', merchant_acctno: '102345', bill_amount: '583.00', bill_status: 'unpaid'}, 
+    {merchant_name: 'PG&E', username: 'bsimpson', merchant_acctno: '102346', bill_amount: '485.00', bill_status: 'unpaid'},
+    {merchant_name: 'AT&T', username: 'bsimpson', merchant_acctno: '102347', bill_amount: '583.00', bill_status: 'unpaid'},
+    {merchant_name: 'Great Oaks Water', username: 'bsimpson', merchant_acctno: '102348', bill_amount: '20.45', bill_status: 'unpaid'},
+    {merchant_name: 'Great Oaks Water', username: 'bsimpson', merchant_acctno: '102348', bill_amount: '32.54', bill_status: 'paid'}
+
+    
+  ]).then(function(us) {
+    console.log(us);
+  });
+  
+  Account.bulkCreate([
+    {account_no: '10123', account_type: 'checkin', account_balance: '12500', username: 'hsimpson'},
+    {account_no: '10124', account_type: 'checkin', account_balance: '500', username: 'bsimpson'},
+    
+    
+  ]).then(function(us) {
+    console.log(us);
+  });
+  Transaction.bulkCreate([
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000001, transaction_amount: 100, transaction_id: 1000000000000000},
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000002, transaction_amount: 101, transaction_id: 1000000000000001},
+    {payee_id: 1000000000000000, beneficiary_id: 1000000000000003, transaction_amount: 100, transaction_id: 1000000000000002},
+    {payee_id: 1000000000000008, beneficiary_id: 1000000000000001, transaction_amount: 100, transaction_id: 1000000000000003}
+  ]).then(function(transaction) {
+    console.log(transaction);
   });
 });
 
@@ -53,6 +93,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/account.routes')(app);
 require('./routes/transaction.routes')(app);
+require('./routes/externalpayees.routes')(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function() {

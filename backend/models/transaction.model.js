@@ -2,11 +2,13 @@ module.exports = (sequelize, Sequelize) => {
     const Transaction = sequelize.define("transaction", {
         payee_id:{
             allowNull: false,
-            type: Sequelize.BIGINT
+            type: Sequelize.BIGINT,
+            foreignKey: true
         },
         beneficiary_id:{
             allowNull: false,
-            type: Sequelize.BIGINT
+            type: Sequelize.BIGINT,
+            foreignKey: true
         },
         transaction_amount: {
             allowNull: false,
