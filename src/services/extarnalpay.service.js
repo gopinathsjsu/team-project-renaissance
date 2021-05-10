@@ -4,14 +4,16 @@ const API_URL = "http://localhost:8081/api/";
 
 
 class ExternalPayService {
-  payBill(username, billAmount, id) {
+  payBill(username, billAmount, mAcctNo, mName, recPeriod) {
 
     //console.log(billAmount);
     
     return axios.post(API_URL + "payBill", {
       username, 
       billAmount,
-      id
+      mAcctNo, 
+      mName, 
+      recPeriod
     });
   }
   refund(username, refundAmount) {

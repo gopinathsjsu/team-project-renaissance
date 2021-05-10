@@ -47,23 +47,7 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(us) {
     console.log(us);
   });
-  ExternalPayee.bulkCreate([
-    {merchant_name: 'Tesla', username: 'hsimpson', merchant_acctno: '102345', bill_amount: '485.00', bill_status: 'paid'},
-    {merchant_name: 'Tesla', username: 'hsimpson', merchant_acctno: '102345', bill_amount: '583.00', bill_status: 'unpaid'}, 
-    {merchant_name: 'PG&E', username: 'hsimpson', merchant_acctno: '102346', bill_amount: '485.00', bill_status: 'unpaid'},
-    {merchant_name: 'AT&T', username: 'hsimpson', merchant_acctno: '102347', bill_amount: '583.00', bill_status: 'paid'},
-    {merchant_name: 'Great Oaks Water', username: 'hsimpson', merchant_acctno: '102348', bill_amount: '20.45', bill_status: 'unpaid'}, 
-    {merchant_name: 'Tesla', username: 'bsimpson', merchant_acctno: '102345', bill_amount: '485.00', bill_status: 'paid'},
-    {merchant_name: 'Tesla', username: 'bsimpson', merchant_acctno: '102345', bill_amount: '583.00', bill_status: 'unpaid'}, 
-    {merchant_name: 'PG&E', username: 'bsimpson', merchant_acctno: '102346', bill_amount: '485.00', bill_status: 'unpaid'},
-    {merchant_name: 'AT&T', username: 'bsimpson', merchant_acctno: '102347', bill_amount: '583.00', bill_status: 'unpaid'},
-    {merchant_name: 'Great Oaks Water', username: 'bsimpson', merchant_acctno: '102348', bill_amount: '20.45', bill_status: 'unpaid'},
-    {merchant_name: 'Great Oaks Water', username: 'bsimpson', merchant_acctno: '102348', bill_amount: '32.54', bill_status: 'paid'}
-
-    
-  ]).then(function(us) {
-    console.log(us);
-  });
+  
   
   Account.bulkCreate([
     {account_no: '10123', account_type: 'checkin', account_balance: '12500', username: 'hsimpson'},

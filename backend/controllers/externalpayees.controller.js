@@ -25,17 +25,47 @@ exports.getPayee = (req, res) => {
 
     });
     */
+    /*
+        attributes:[[db.Sequelize.fn('DISTINCT', db.Sequelize.col('merchant_name')) ,'merchant_name'], 'username', 'merchant_acctno', 'bill_amount', 'recPeriod'],
+    where : {username : req.body.username},
+    */
 
+    console.log(req.body.username);
+    console.log(req.body.paystatus);
+    var status = req.body.paystatus;
+    if (status === 'unpaid') {
+    console.log('ps out unpaid');
    ep.findAll({
-    attributes:['merchant_name', 'username', 'merchant_acctno', 'bill_amount', 'bill_status'],
-    where : {username : req.body.username, bill_status : req.body.paystatus }
+    attributes:['merchant_name', 'username', 'merchant_acctno'],
+    //attributes:[[db.Sequelize.fn('DISTINCT', db.Sequelize.col('merchant_name')) ,'merchant_name'], [db.Sequelize.fn('DISTINCT', db.Sequelize.col('merchant_acctno')) ,'merchant_acctno']],
+    group: ['merchant_name', 'merchant_acctno'],
+    where : {username : req.body.username},
+    
 }).then(result =>{
+    console.log('ps');
+    console.log(result);
     return res.status(200).send(result);
 
 }).catch(err =>{
     return res.status(500).send({ message: err.message });
 
 });
+    } else {
+
+        ep.findAll({
+            attributes:['merchant_name', 'username', 'merchant_acctno', 'bill_amount', 'recPeriod'],
+            where : {username : req.body.username}
+        }).then(result =>{
+            console.log('ps');
+            //console.log(result);
+            return res.status(200).send(result);
+        
+        }).catch(err =>{
+            return res.status(500).send({ message: err.message });
+        
+        });
+
+    }
     
 
 };
@@ -47,12 +77,38 @@ exports.payBill = (req, res) => {
         var acntBalance = 0;
         var payAmount = req.body.billAmount;
         var username = req.body.username;
-        var merchantAcctno = req.body.id;
-       // console.log(req.body.username);
-        //console.log(req.body.billAmount);
-       // console.log(req.body.id);
+        var merchantAcctno = req.body.mAcctNo;
+        var merchantName = req.body.mName;
+        var recPeriod = req.body.recPeriod;
+        console.log(req.body.username);
+        console.log(req.body.billAmount);
+        console.log(req.body.mName);
         //console.log('end data');
-    
+        /*
+        acntBalance = Account.findOne({
+            attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+            where: {
+              username: username
+            }
+          }).then(account => {
+              acntBalance = account.account_balance;
+              var balance = acntBalance - payAmount;
+              console.log('balance is');
+              console.log(balance);
+              if (balance < 0) {
+                  return res.status(200).send('low balance');
+              }
+              Account.update(
+                {account_balance: balance},
+                {where: {username: username} }
+            );
+              ep.create(
+                {merchant_name: merchantName, username: username, merchant_acctno: merchantAcctno, bill_amount: payAmount}
+             );
+             return res.status(200).send('sucess');
+            });
+            */
+        
         acntBalance = Account.findOne({
               attributes: ['account_number', 'account_type', 'account_balance', 'username'],
               where: {
@@ -70,14 +126,19 @@ exports.payBill = (req, res) => {
                     {account_balance: balance},
                     {where: {username: username} }
                 );
-                ep.update(
-                    {bill_status: 'paid'},
-                    {where: {merchant_acctno: merchantAcctno, username: username}}
-                );
-                return res.status(200).send('sucess');
+                ep.create(
+                    {merchant_name: merchantName, username: username, merchant_acctno: merchantAcctno, bill_amount: payAmount, recPeriod: recPeriod}
+                )
+                .then(transaction => {
+                    return res.status(200).send('success');
+                 }).catch(err => {
+                    res.status(500).send({ message: err.message });
+                 });
+                //return res.status(200).send('sucess');
                 
                 
             });
+            
             
     };
 
