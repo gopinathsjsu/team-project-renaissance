@@ -204,16 +204,26 @@ Gayathri:
   - planning to implement get_current_user_account_number from the current session today and tomorrow
   - Currently blocked on getting current_session user's account number
  
-**6/3/2021**
+**5/4/2021**
 
 Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
-**7/3/2021**
+**5/7/2021**
 
 Gayathri: 
   - Working on deploying the app on AWS
+
+# Week 7
+
+**5/10/2021**
+
+Gayathri:
+- Set up RDS instance
+- deployed the app to aws ec2 by hardcoding the host IP and added load balancer
+- currently blocked on enabling cors to prevent network error
+- Plan to resolve the cors error and add to the auto scaling group today and tomorrow
 
 # To Run the app 
 
