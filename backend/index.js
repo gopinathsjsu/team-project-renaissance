@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 var bcrypt = require("bcryptjs");
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://ec2-54-67-68-38.us-west-1.compute.amazonaws.com:8081"
 };
 
 app.use(cors(corsOptions));
