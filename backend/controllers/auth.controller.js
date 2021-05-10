@@ -31,24 +31,24 @@ exports.signup = (req, res) => {
         where: { username: req.body.username }
       })
       .then(user => {
-        if (AllRoles) {
-          Role.findAll({
-            where: {
-              name: {
-                [Op.or]: req.body.roles
-              }
-            }
-          }).then(roles => {
-            // user.setroles(roles).then(() => {
-            //   res.send({ message: "User was registered successfully!" });
-            // });
-          });
-        } else {
-          // user role = 1
-          // user.setroles([1]).then(() => {
-          //   res.send({ message: "User was registered successfully!" });
-          // });
-        }
+        // if (AllRoles) {
+        //   Role.findAll({
+        //     where: {
+        //       name: {
+        //         [Op.or]: req.body.roles
+        //       }
+        //     }
+        //   }).then(roles => {
+        //     // user.setroles(roles).then(() => {
+        //     //   res.send({ message: "User was registered successfully!" });
+        //     // });
+        //   });
+        // } else {
+        //   // user role = 1
+        //   // user.setroles([1]).then(() => {
+        //   //   res.send({ message: "User was registered successfully!" });
+        //   // });
+        // }
         return res.status(200).send({ message: "User registeration successful." });
       })
       .catch(err => {
