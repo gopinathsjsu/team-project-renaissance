@@ -210,6 +210,11 @@ Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
+**7/3/2021**
+
+Gayathri: 
+  - Working on deploying the app on AWS
+
 # To Run the app 
 
 1. yarn init
