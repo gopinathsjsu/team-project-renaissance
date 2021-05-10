@@ -1,3 +1,57 @@
+## Team Renaissance
+
+### Group Members: 
+* Surabhi Govil
+* Gayathri Pulagam
+* Arpitha Gurumurthy
+* Priti Sharma
+
+
+## Online Banking features:
+
+### Customer:
+
+> Customers signup using the username provided by Admin through online banking application.
+
+> Customers can have 2 accounts, Checking, Savings accounts.
+
+> Each account can deposit and withdraw money.
+
+> Customer can transfer money between accounts.
+
+> Customers can setup recurring or one-time Bill payment for external payees
+
+> Customer can view all of his transaction records and account balance.
+
+
+### Admin:
+
+
+> Admin can view all the registered users and their information.
+
+> Admin create accounts for customers.
+
+> Admin can delete/close any user accounts
+
+> Admin can add transactions such as manual refunds on fees
+
+## Tools and Languages
+
+> FrontEnd using React
+
+> Database using Mysql sequalize
+
+
+
+## Architectural Diagram
+
+## XP Core Values Implemented:
+
+## Screenshots
+
+
+
+
 # Week 1 
 
 **3/15/2021:**
