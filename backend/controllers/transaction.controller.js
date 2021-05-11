@@ -7,44 +7,47 @@ const Op = db.Sequelize.Op;
 const Sequelize = require("sequelize");
 
 exports.transfer = (req, res) => {
-    const beneficiary = req.body.beneficiary_id;
-    const { payee_id, beneficiary_id, transaction_amount } = req.body;
-    console.log(req.body.payee_id);
-    Account.findOne({
-        where: {
-            account_number: payee_id
-        }
-    }).then(sender => {
-        updateSenderMoney(transaction_amount, sender.account_balance, payee_id, true)
-        .then(() => {
-            Account.findOne({
-                where: {
-                    account_number: beneficiary_id
-                },
-            }).then(recipient => {
-                updateRecipientMoney(transaction_amount, recipient.account_balance, beneficiary_id, true)
-                .then(() => {
-                    Transaction.create({
-                        payee_id: payee_id,
-                        beneficiary_id: beneficiary_id,
-                        transaction_amount: transaction_amount
+    const transfer_amount = req.body.transaction_amount;
+    if(parseFloat(transfer_amount).toFixed(2) < 0) {
+        return res.status(304).send({ message: "Amount is negative or 0" });
+    } else {
+        const { payee_id, beneficiary_id, transaction_amount } = req.body;
+        Account.findOne({
+            where: {
+                account_number: payee_id
+            }
+        }).then(sender => {
+            updateSenderMoney(transaction_amount, sender.account_balance, payee_id, true)
+            .then(() => {
+                Account.findOne({
+                    where: {
+                        account_number: beneficiary_id
+                    },
+                }).then(recipient => {
+                    updateRecipientMoney(transaction_amount, recipient.account_balance, beneficiary_id, true)
+                    .then(() => {
+                        Transaction.create({
+                            payee_id: payee_id,
+                            beneficiary_id: beneficiary_id,
+                            transaction_amount: transaction_amount
+                        })
+                        return res.status(200).send({ transaction, message: "Transaction successful!"})
                     })
-                    return res.status(200).send({ transaction, message: "Transaction successful!"})
+                    .catch(err => {
+                        console.log('error message', err);
+                    });
                 })
                 .catch(err => {
-                    console.log('error message', err);
+                    res.status(400).json({ success: false, error: err });
                 });
-            })
-            .catch(err => {
-                res.status(400).json({ success: false, error: err });
+            }).catch(err => {
+                res.status(500).send({ message: err.message });
             });
-        }).catch(err => {
-            res.status(500).send({ message: err.message });
+        })
+        .catch(err => {
+            return res.status(500).send({ message: err.message });
         });
-    })
-    .catch(err => {
-        return res.status(500).send({ message: err.message });
-    });
+    }
 };
 
 async function updateRecipientMoney(money, recipientAvailableFunds, recipientId, isConfirm) {
