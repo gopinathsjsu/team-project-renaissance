@@ -1,8 +1,8 @@
 ## Team Renaissance
 
 ### Team & Contributions:
-* Surabhi Govil
-* Gayathri Pulagam (Transfer funds, View Transactions, Deployment)
+* **Surabhi Govil**
+* **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
   - APIs
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
     * Update balance apis for both payee and beneficiary after a successful transaction
@@ -11,8 +11,8 @@
     * transfer (with basic validations) , view transactions (without searchbar)
   - Deployment
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
- * Arpitha Gurumurthy
- * Priti Sharma
+ * **Arpitha Gurumurthy**
+ * **Priti Sharma**
 
 ## Online Banking features:
 
