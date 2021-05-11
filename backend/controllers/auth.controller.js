@@ -19,16 +19,16 @@ exports.signup = (req, res) => {
   }).then((user) => {
     if (!user.registered) {
       User.update({
-        password: bcrypt.hashSync(req.body.password, 8),
-        first_name:req.body.firstname,
-        last_name:req.body.lastname,
-        username: req.body.username,
-        email: req.body.email,
-        address: req.body.address,
-        phone_number: req.body.contact,
+        password: bcrypt.hashSync(user.password, 8),
+        first_name:user.firstname,
+        last_name:user.lastname,
+        username: user.username,
+        email: user.email,
+        address: user.address,
+        phone_number: user.contact,
         registered: true
       }, {
-        where: { username: req.body.username }
+        where: { username: user.username }
       })
       .then(user => {
         // if (AllRoles) {

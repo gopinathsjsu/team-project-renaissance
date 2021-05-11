@@ -168,7 +168,6 @@ export default class TransferFunds extends Component {
                         name="transaction_amount"
                         value={this.state.amount}
                         onChange={this.onChangeAmount}
-                        validations={[required, amount]}
                       />
                     </div>
     
