@@ -197,6 +197,11 @@ Gayathri:
 
 **5/3/2021**
 
+Priti:
+- Completed code for Admin manual refunds
+- Implemented external account Billpay API
+- Sprint meeting with the team
+
 Gayathri:
   - Implemented Update balance apis for beneficiary and payee
   - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
