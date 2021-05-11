@@ -40,6 +40,21 @@ exports.findAll = (req, res) => {
     });
 };
 
+
+// Retrieve all accounts from the database.
+exports.getOne = (req, res) => {
+    Account.findOne({
+        attributes: ['account_number', 'account_type', 'account_balance', 'username'],
+        where: {
+            username: req.body.username
+        }
+    }).then(account => {
+        return res.status(200).send(account);
+    }).catch(err => {
+        return res.status(500).send({ message: err.message });
+    });
+};
+
 // Update an account by the id in the request
 exports.update = (req, res) => {
     Account.findOne({
