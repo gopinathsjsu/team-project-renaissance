@@ -98,13 +98,16 @@ export default class TransferFunds extends Component {
                 this.state.amount
             ).then(
                 response => {
-                    this.setState({
-                      successful: true,
-                      message: resSuccMessg
-                    });
-                    this.props.history.push("/transfer");
+                  console.log(response);
+                  this.setState({
+                    message: response.data.message,
+                    successful: true
+                  });
 
+                  window.setTimeout(() => {
+                    this.props.history.push("/transfer");
                     window.location.reload();
+                 }, 5000)
                 },
                 error => {
                     const resMessage = 

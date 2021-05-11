@@ -11,6 +11,7 @@ class TransferService{
               transaction_amount
           }, 
           { headers: authHeader()} ).then(response => {
+              console.log(response.data);
               return response;
           });
     }

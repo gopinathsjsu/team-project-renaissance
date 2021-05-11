@@ -7,11 +7,13 @@ const Op = db.Sequelize.Op;
 const Sequelize = require("sequelize");
 
 exports.transfer = (req, res) => {
-    const transfer_amount = req.body.transaction_amount;
-    if(parseFloat(transfer_amount).toFixed(2) < 0) {
-        return res.status(304).send({ message: "Amount is negative or 0" });
-    } else {
-        const { payee_id, beneficiary_id, transaction_amount } = req.body;
+    const { payee_id, beneficiary_id, transaction_amount } = req.body;
+    if(parseFloat(transaction_amount).toFixed(2) < 0) {
+        return res.status(200).send({ message: "Amount is negative or 0" });
+    } else if(payee_id == beneficiary_id) {
+        return res.status(200).send({ message: "Payee and beneficiary account number cannot be same" });
+    }
+    else {
         Account.findOne({
             where: {
                 account_number: payee_id

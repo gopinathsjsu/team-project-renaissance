@@ -12,7 +12,6 @@ class AuthService {
       .then(response => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log("RESPONSE", response.data);
         }
         return response.data;
       });
