@@ -300,6 +300,13 @@ Surabhi:
 - Updating account balance for payee and beneficiary
 - Looked into sign in api 404 issue
 
+**5/11/2021**
+
+Gayathri:
+- Resolved the cors error by removing some invalid options and adding appropriate headers
+- Added the app to an autoscaling group(minimum 3 instances) with Load Balancer
+- Plan to work on the documentation today and tomorrow
+
 # To Run the app 
 
 1. yarn init
