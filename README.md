@@ -294,7 +294,6 @@ Gayathri:
 - currently blocked on enabling cors to prevent network error
 - Plan to resolve the cors error and add to the auto scaling group today and tomorrow
 
-**5/10/2021**
 Surabhi:
 - Validate funds available in payee account for funds transfer
 - Updating account balance for payee and beneficiary
