@@ -4,6 +4,8 @@ const API_URL = "http://ec2-54-67-68-38.us-west-1.compute.amazonaws.com:8081/api
 
 class AuthService {
   login(username, password) {
+    console.log(username);
+    console.log(password);
     return axios
       .post(API_URL + "signin", {
         username,

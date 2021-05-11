@@ -3,14 +3,6 @@ const controller = require("../controllers/auth.controller");
 
 var cors = require('cors');
 
-var corsOptions = {
-  origin: true,
-  methods: ['POST'],
-  credentials: true,
-  maxAge: 3600,
-  enablePreflight: true
-};
-
 module.exports = function(app) {
   app.use(function(req, res, next) {
     res.header(
@@ -27,17 +19,17 @@ module.exports = function(app) {
       verifySignUp.checkDuplicateUsername,
       verifySignUp.checkRolesExisted
     ],*/
-    cors(corsOptions),
+    cors(),
     controller.signup
   );
 
   app.post("/api/auth/signin", 
-           cors(corsOptions),
+           cors(),
 	   controller.signin);
 
   app.post(
     "/api/auth/update", 
-    cors(corsOptions),
+    cors(),
     controller.update);
 
 };
