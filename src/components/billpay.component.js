@@ -11,7 +11,6 @@ export default class Billpay extends Component {
     super(props);
     this.handlePay = this.handlePay.bind(this);
     this.state = {
-      //billpayData: null
       udata: AuthService.getLoggedInUser(),
       paidbillpayData: [],
       unpaidbillpayData: [],
@@ -20,14 +19,13 @@ export default class Billpay extends Component {
       mName: null,
       recPeriod: null,
       firstRender: true,
+      showModal : false
 
     };
   }
 
 
   componentDidMount() {
-    console.log('test0');
-    console.log(this.state.udata.username);
     ExternalPayService.getAllPayee(this.state.udata.username, 'unpaid').then(
       response => {
         console.log(response);
@@ -49,7 +47,6 @@ export default class Billpay extends Component {
 
     ExternalPayService.getAllPayee(this.state.udata.username, 'paid').then(
       response => {
-        console.log(response);
         this.setState({
           paidbillpayData: response
         });
@@ -70,10 +67,9 @@ export default class Billpay extends Component {
   
     handlePay(e) {
 
-    //console.log(e.target.parentNode.parentNode);
     var rowId = e.target.parentNode.parentNode.id;
     console.log(e.target.parentNode.parentNode);
-    //console.log(rowId);
+    
     console.log(document.getElementById(rowId));
     //this gives id of tr whose button was clicked
 
@@ -93,14 +89,11 @@ export default class Billpay extends Component {
       
     } else {
       mAcctNo = data[2].innerHTML;
-      //var billAmount = data[3].innerHTML;
+      
       billAmount = data[4].value;
       mName = data[1].innerHTML;
       recPeriod = data[6].value;
-      //alert(mName + " " + id + " "+ billAmount);
-    }
-    if (mName === "") {
-      //this.Example();
+     
     }
     this.setState({
    
@@ -112,20 +105,15 @@ export default class Billpay extends Component {
   });
 
     if (mName === "" || mAcctNo === "" || billAmount === "" || recPeriod === "") {
-      //this.props.history.push("/billpay");
-          //window.location.reload();
           this.setState({
             showModal: true
          });
     }  else {
-    //alert(mName + " " + mAcctNo + " "+ billAmount + " " + recPeriod);
-
 
     ExternalPayService.payBill(this.state.udata.username, billAmount, mAcctNo, mName, recPeriod).then(
       response => {
         console.log(response);
         if (response.data === 'success') {
-          //alert("Bill Payment Sucessfull");
           this.props.history.push("/billpay");
           window.location.reload();
         } else {
@@ -146,8 +134,6 @@ export default class Billpay extends Component {
       }
     );
     }
-    //this.render();
-
 
   }
 
@@ -159,10 +145,6 @@ export default class Billpay extends Component {
       });
   
     };
-    var show = false;
-    if ( this.state.firstRender !== true && (!this.state.mName || !this.state.mAcctNo || !this.state.billAmount || !this.state.recPeriod)) {
-      show = true;
-    }
     return (
 
       
@@ -171,9 +153,9 @@ export default class Billpay extends Component {
       
       <Modal show={this.state.showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Payment Failed</Modal.Title>
+          <Modal.Title><b>Payment Failed</b></Modal.Title>
         </Modal.Header>
-        <Modal.Body>Fill all the required fields</Modal.Body>
+        <Modal.Body>Please enter all the required fields</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
