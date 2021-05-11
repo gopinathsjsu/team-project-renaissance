@@ -13,10 +13,6 @@
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
     * Update balance apis for both payee and beneficiary after a successful transaction
     * Fetch transactions api for current logged in user to display transactions
-  - Models 
-    * Transaction model
-  - Services
-    * transfer-funds, updateBalance in accounts
   - Frontend and UI
     * transfer (with basic validations) , view transactions (without searchbar)
   - Deployment
@@ -58,15 +54,16 @@
 
 > Database using Mysql sequalize
 
+> Deployment - AWS (EC2 with autoscaling)
 
 
 ## Architectural Diagram
 
-## XP Core Values Implemented:
+## Deployment Diagram
 
-## Screenshots
+## XP Core Values Implemented
 
-
+## Burndown chart
 
 
 # Week 1 
