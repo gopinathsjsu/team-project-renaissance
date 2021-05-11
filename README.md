@@ -247,6 +247,10 @@ Gayathri:
 - Pair programming with the team
 - Implemented basic transfer funds api, working on validations of input fields
 
+Surabhi:
+- Pair programming with team
+- Testing api developed for login and registration 
+
 # Week 6
 
 **5/3/2021**
@@ -257,6 +261,11 @@ Gayathri:
   - Did pair programming and sprint plan with the team
   - planning to implement get_current_user_account_number from the current session today and tomorrow
   - Currently blocked on getting current_session user's account number
+
+Surabhi:
+- Created profile page for admin to display all the users in the sytem 
+- Updated admin profile page to include options to delete a user account
+- Added UI elements for refund fee for the api to be developed by Priti
  
 **5/4/2021**
 
@@ -264,10 +273,16 @@ Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
+Surabhi:
+- Started working on AWS deployment, read about EC2 instance and load balancers 
+
 **5/7/2021**
 
 Gayathri: 
   - Working on deploying the app on AWS
+  
+Surabhi:
+- Looked into deployment ran into issue with AWS account, switched stories with Gayathri 
 
 # Week 7
 
@@ -278,6 +293,12 @@ Gayathri:
 - deployed the app to aws ec2 by hardcoding the host IP and added load balancer
 - currently blocked on enabling cors to prevent network error
 - Plan to resolve the cors error and add to the auto scaling group today and tomorrow
+
+**5/10/2021**
+Surabhi:
+- Validate funds available in payee account for funds transfer
+- Updating account balance for payee and beneficiary
+- Looked into sign in api 404 issue
 
 # To Run the app 
 
