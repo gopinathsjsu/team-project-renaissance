@@ -18,7 +18,7 @@
   - Services
     * transfer-funds, updateBalance in accounts
   - Frontend and UI
-    * transfer (without basic validations) , view transactions (without searchbar)
+    * transfer (with basic validations) , view transactions (without searchbar)
   - Deployment
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
  * Arpitha Gurumurthy
