@@ -199,8 +199,9 @@ Gayathri:
 
 Priti:
 - Completed code for Admin manual refunds
-- Implemented external account Billpay API
-- Sprint meeting with the team
+- Implemented external account Billpay Backend API
+- Sprint meeting/planning with the team
+- Planning to implement UI changes for Billpay
 
 Gayathri:
   - Implemented Update balance apis for beneficiary and payee
@@ -209,12 +210,40 @@ Gayathri:
   - planning to implement get_current_user_account_number from the current session today and tomorrow
   - Currently blocked on getting current_session user's account number
  
-**6/3/2021**
+**5/4/2021**
+
+Priti:
+- Implemented Null value checked for refund 
+- Implemented delete/ close account for admin.
+- Done with backend API changes for close and refund.
 
 Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
 
+**5/6/2021**
+Priti:
+-  Implemented UI changes for Billpay
+-  Modified UI to add external payee information
+-  Planning to implemented backend API changes for external payee 
+
+**5/7/2021**
+Priti:
+- sprint planning with the team
+- Created a list of pending task
+- Planning to work on High Priority task
+- Added input text edit for bill amount 
+
+**5/10/2021**
+Priti:
+- Added validation for input fields-Billpay API
+- Code clean up for Billpay API and 
+- Fixed issue with delete button fucnctionality
+
+**5/10/2021**
+Priti:
+- Testing Billpay API
+- Created wireframes for external account billpay 
 # To Run the app 
 
 1. yarn init
