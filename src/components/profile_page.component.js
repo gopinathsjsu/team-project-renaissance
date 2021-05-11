@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import ProfileModal from "./profile_modal.component";
 import AccountService from "../services/account.service";
-import ExternalPayService from "../services/extarnalpay.service";
+import ExternalPayService from "../services/externalpay.service";
 
 import {
   Button

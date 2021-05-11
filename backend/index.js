@@ -66,8 +66,8 @@ db.sequelize.sync({ force: true }).then(() => {
   });
   
   Account.bulkCreate([
-    {account_no: '10123', account_type: 'checkin', account_balance: '12500', username: 'hsimpson'},
-    {account_no: '10124', account_type: 'checkin', account_balance: '500', username: 'bsimpson'},
+    {account_no: '1000000000000000', account_type: 'Checking', account_balance: '12500', username: 'hsimpson'},
+    {account_no: '1000000000000001', account_type: 'Checking', account_balance: '500', username: 'bsimpson'},
     
     
   ]).then(function(us) {

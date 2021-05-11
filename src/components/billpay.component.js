@@ -2,7 +2,7 @@ import React, { Component} from "react";
 
 //import BillPayService from "../services/billpay.service";
 import AuthService from "../services/auth.service";
-import ExternalPayService from "../services/extarnalpay.service";
+import ExternalPayService from "../services/externalpay.service";
 import {Button} from 'react-bootstrap';
 
 export default class Billpay extends Component {
