@@ -12,7 +12,7 @@
   - APIs
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
     * Update balance apis for both payee and beneficiary after a successful transaction
-    * Fetch transactions api for current logged in user to display transactions (no search bar)
+    * Fetch transactions api for current logged in user to display transactions
   - Models 
     * Transaction model
   - Services
