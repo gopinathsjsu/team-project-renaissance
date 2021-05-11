@@ -2,10 +2,27 @@
 
 ### Group Members: 
 * Surabhi Govil
-* Gayathri Pulagam
+* Gayathri Pulagam 
 * Arpitha Gurumurthy
 * Priti Sharma
 
+### Team Contributions:
+* Surabhi Govil
+* Gayathri Pulagam (Transfer funds, View Transactions, Deployment)
+  - APIs
+    * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
+    * Update balance apis for both payee and beneficiary after a successful transaction
+    * Fetch transactions api for current logged in user to display transactions (no search bar)
+  - Models 
+    * Transaction model
+  - Services
+    * transfer-funds, updateBalance in accounts
+  - Frontend and UI
+    * transfer (without basic validations) , view transactions (without searchbar)
+  - Deployment
+    * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
+ * Arpitha Gurumurthy
+ * Priti Sharma
 
 ## Online Banking features:
 
