@@ -48,8 +48,7 @@
 
 > Database using Mysql sequalize
 
-> Deployment - AWS (EC2 with autoscaling)
-
+> Deployment - AWS EC2 and RDS
 
 ## Architectural Diagram
 
