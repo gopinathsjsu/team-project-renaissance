@@ -1,12 +1,6 @@
 ## Team Renaissance
 
-### Group Members: 
-* Surabhi Govil
-* Gayathri Pulagam 
-* Arpitha Gurumurthy
-* Priti Sharma
-
-### Team Contributions:
+### Team & Contributions:
 * Surabhi Govil
 * Gayathri Pulagam (Transfer funds, View Transactions, Deployment)
   - APIs
