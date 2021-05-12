@@ -1,11 +1,18 @@
 ## Team Renaissance
 
-### Group Members: 
-* Surabhi Govil
-* Gayathri Pulagam
-* Arpitha Gurumurthy
-* Priti Sharma
-
+### Team & Contributions:
+* **Surabhi Govil**
+* **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
+  - APIs
+    * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
+    * Update balance apis for both payee and beneficiary after a successful transaction
+    * Fetch transactions api for current logged in user to display transactions
+  - Frontend and UI
+    * transfer (with basic validations) , view transactions (without searchbar)
+  - Deployment
+    * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
+ * **Arpitha Gurumurthy**
+ * **Priti Sharma**
 
 ## Online Banking features:
 
@@ -41,15 +48,15 @@
 
 > Database using Mysql sequalize
 
-
+> Deployment - AWS EC2 and RDS
 
 ## Architectural Diagram
 
-## XP Core Values Implemented:
+## Deployment Diagram
 
-## Screenshots
+## XP Core Values Implemented
 
-
+## Burndown chart
 
 
 # Week 1 
@@ -294,11 +301,17 @@ Gayathri:
 - currently blocked on enabling cors to prevent network error
 - Plan to resolve the cors error and add to the auto scaling group today and tomorrow
 
-**5/10/2021**
 Surabhi:
 - Validate funds available in payee account for funds transfer
 - Updating account balance for payee and beneficiary
 - Looked into sign in api 404 issue
+
+**5/11/2021**
+
+Gayathri:
+- Resolved the cors error by removing some invalid options and adding appropriate headers
+- Added the app to an autoscaling group(minimum 3 instances) with Load Balancer
+- Plan to work on the documentation today and tomorrow
 
 # To Run the app 
 

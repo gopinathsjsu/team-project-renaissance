@@ -16,9 +16,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        bill_status: {
+        recPeriod: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         },
         
 

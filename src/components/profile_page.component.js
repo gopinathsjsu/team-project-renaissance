@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Modal } from 'react-bootstrap';
 import AuthService from "../services/auth.service";
 import ProfileModal from "./profile_modal.component";
 import AccountService from "../services/account.service";
@@ -13,6 +14,8 @@ export default class UserProfile extends Component {
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleRefund = this.handleRefund.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    //this.deleteAccount = this.deleteAccount.bind(this);
     this.onChangeAccountRefund = this.onChangeAccountRefund.bind(this);
 
     this.state = {
@@ -20,7 +23,9 @@ export default class UserProfile extends Component {
       showModal: false,
       allUsers: [],
       userAccounts: [],
-      refund_amount: 0
+      refund_amount: 0,
+      validationModal: false,
+      refundMessage: null
     };
   }
 
@@ -49,33 +54,28 @@ export default class UserProfile extends Component {
     });
   }
   handleRefund(e) {
-    //AccountService.fetchAccountBalance();
-    // window.location.reload();
-    //alert("hi from refund");
+
     var rowId = e.target.parentNode.parentNode.id;
-    //console.log(rowId);
-    //console.log(document.getElementById(rowId));
-    //this gives id of tr whose button was clicked
 
     var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
-    console.log(data);
 
     var refundAmount = data[4].value;
     var uname = data[1].innerHTML;
     if (refundAmount === "") {
-      alert('Please enter a valid refund amount');
+      this.setState({
+        validationModal: true,
+        refundMessage: "Please enter a valid refund amount"
+     });
     } else {
-      console.log(refundAmount);
-
-
       ExternalPayService.refund(uname, refundAmount).then(
         response => {
-          console.log(response);
+          
           if (response.data === 'sucess') {
-            alert("Refund Sucessfull");
-            this.props.history.push("/profile");
-            window.location.reload();
+            this.setState({
+              validationModal: true,
+              refundMessage: "Refund of $"+ refundAmount + " successful"
+           });
           }
         },
         error => {
@@ -91,10 +91,6 @@ export default class UserProfile extends Component {
       );
     }
   }
-
-  // updateUser(id, ) {
-  //   AccountService.update();
-  // }
 
   componentDidMount() {
     AccountService.getAll().then(response => this.setState({
@@ -119,11 +115,21 @@ export default class UserProfile extends Component {
     );
   }
 
+  handleClose (e) {
+    this.setState({
+      validationModal: false,
+    });
+    this.props.history.push("/profile");
+    window.location.reload();
+  };
   render() {
+    
     const { loggedInUser } = this.state;
+
     return (
       (loggedInUser.role === 1) ?
         <div className="container">
+
           <header className="jumbotron">
             <h3>
               <strong>Profile</strong>
@@ -185,6 +191,18 @@ export default class UserProfile extends Component {
         </div>
       : (
       <div className="container">
+        <Modal show={this.state.validationModal} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title><b>Refund Status</b></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{this.state.refundMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+        </Modal>
+        
         <header>
           <h3>
             <strong>Active Users</strong>
