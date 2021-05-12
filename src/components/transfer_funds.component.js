@@ -99,8 +99,7 @@ export default class TransferFunds extends Component {
             ).then(
                 response => {
                     this.setState({
-                      successful: true,
-                      message: resSuccMessg
+                      successful: true
                     });
                     this.props.history.push("/transfer");
 
