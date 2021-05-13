@@ -75,6 +75,9 @@ Communication
 * Every Friday, we had a sprint review, sprint retrospective and a pair programming session. This helped in a smoother development process and learning experience
 * On Mondays, we had sprint plan meetings where we would plan for the sprint
 
+## Burn down chart 
+![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Screenshots/BurnDown_Chart.png)
+
 # Week 1 
 
 **3/15/2021:**
