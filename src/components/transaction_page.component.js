@@ -9,11 +9,15 @@ export default class TransactionPage extends Component {
     
     this.state = {
         loggedInUser: AuthService.getLoggedInUser(),
-        allTransactions: []
+        allTransactions: [],
+        userAccount:[]
     };
   }
 
   async componentDidMount() {
+    AccountService.getAccountsForUser(AuthService.getLoggedInUser().username).then(response => this.setState({
+      userAccount: response.data
+    }));
     const account_number = await AccountService.getAccountNumber(AuthService.getLoggedInUser().username);
     console.log("account_number: " + JSON.parse(JSON.stringify(account_number.data[0])));
 
@@ -47,6 +51,7 @@ export default class TransactionPage extends Component {
               <th scope="col">Beneficiary</th>
               <th scope="col">Amount</th>
               <th scope="col">Transaction ID</th>
+              <th scope="col">Transaction Type</th>
               <th scope="col">Date</th>
             </thead>
           <tbody>
@@ -57,6 +62,7 @@ export default class TransactionPage extends Component {
                   <td>{transaction.beneficiary_id}</td>
                   <td>{transaction.transaction_amount}</td>
                   <td>{transaction.transaction_id}</td>
+                  <td>{transaction.type}</td>
                   <td>{transaction.createdAt}</td>
                 </tr>
               )

@@ -30,6 +30,7 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.account = require("../models/account.model.js")(sequelize, Sequelize);
 db.transaction = require("../models/transaction.model.js")(sequelize, Sequelize);
 db.ExternalPayee = require("../models/externalpayees.model.js")(sequelize, Sequelize);
+//db.ExternalPayee = require("../models/addexternalpayees.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",

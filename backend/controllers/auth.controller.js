@@ -19,34 +19,36 @@ exports.signup = (req, res) => {
   }).then((user) => {
     if (!user.registered) {
       User.update({
-        password: bcrypt.hashSync(req.body.password, 8),
-        username: req.body.username,
-        email: req.body.email,
-        address: req.body.address,
-        phone_number: req.body.contact,
+        password: bcrypt.hashSync(user.password, 8),
+        first_name:user.firstname,
+        last_name:user.lastname,
+        username: user.username,
+        email: user.email,
+        address: user.address,
+        phone_number: user.contact,
         registered: true
       }, {
-        where: { username: req.body.username }
+        where: { username: user.username }
       })
       .then(user => {
-        if (AllRoles) {
-          Role.findAll({
-            where: {
-              name: {
-                [Op.or]: req.body.roles
-              }
-            }
-          }).then(roles => {
-            // user.setroles(roles).then(() => {
-            //   res.send({ message: "User was registered successfully!" });
-            // });
-          });
-        } else {
-          // user role = 1
-          // user.setroles([1]).then(() => {
-          //   res.send({ message: "User was registered successfully!" });
-          // });
-        }
+        // if (AllRoles) {
+        //   Role.findAll({
+        //     where: {
+        //       name: {
+        //         [Op.or]: req.body.roles
+        //       }
+        //     }
+        //   }).then(roles => {
+        //     // user.setroles(roles).then(() => {
+        //     //   res.send({ message: "User was registered successfully!" });
+        //     // });
+        //   });
+        // } else {
+        //   // user role = 1
+        //   // user.setroles([1]).then(() => {
+        //   //   res.send({ message: "User was registered successfully!" });
+        //   // });
+        // }
         return res.status(200).send({ message: "User registeration successful." });
       })
       .catch(err => {
@@ -107,15 +109,10 @@ exports.signin = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const username = req.body.username;
-  User.update({
-    password: bcrypt.hashSync(req.body.password, 8),
-    username: req.body.username,
-    email: req.body.email,
-    address: req.body.address,
-    phone_number:req.body.contact
-  }, {
-      where: { username: req.body.username }
+  User.update(req.body, {
+    where: {
+      username: req.body.username
+    }
   }).then(num => {
     if (num == 1) {
       res.send({
@@ -129,7 +126,7 @@ exports.update = (req, res) => {
   })
   .catch(err => {
     res.status(500).send({
-      message: "Error updating Tutorial with id=" + username
+      message: err.message + "Error updating username with username=" + username //username
     });
   });
 };

@@ -1,49 +1,51 @@
-import React, { Component} from "react";
-
-//import BillPayService from "../services/billpay.service";
+import React, { Component } from "react";
 import AuthService from "../services/auth.service";
-import ExternalPayService from "../services/externalpay.service";
-import {Button} from 'react-bootstrap';
+import ExternalPayService from "../services/extarnalpay.service";
+import { Button, Modal } from 'react-bootstrap';
+import Input from "react-validation/build/input";
 
 export default class Billpay extends Component {
-  
+
   constructor(props) {
     super(props);
     this.handlePay = this.handlePay.bind(this);
-    this.state ={
-      //billpayData: null
+    this.state = {
       udata: AuthService.getLoggedInUser(),
       paidbillpayData: [],
-      unpaidbillpayData: []
+      unpaidbillpayData: [],
+      mAcctNo: null,
+      billAmount: null,
+      mName: null,
+      recPeriod: null,
+      firstRender: true,
+      showModal : false
+
     };
   }
 
-  
-    componentDidMount() {
-      console.log('test0');
-      console.log(this.state.username);
-      ExternalPayService.getAllPayee(this.state.udata.username, 'unpaid').then(
-        response => {
-          console.log(response);
-          this.setState({
-            unpaidbillpayData: response
-          });
-        },
-        error => {
-          this.setState({
-            content:
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString()
-          });
-        }
-      );
-    
-    ExternalPayService.getAllPayee(this.state.udata.username, 'paid').then(
+
+  componentDidMount() {
+    ExternalPayService.getAllPayee(this.state.udata.username, 'unpaid').then(
       response => {
         console.log(response);
+        this.setState({
+          unpaidbillpayData: response
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
+
+    ExternalPayService.getAllPayee(this.state.udata.username, 'paid').then(
+      response => {
         this.setState({
           paidbillpayData: response
         });
@@ -61,69 +63,106 @@ export default class Billpay extends Component {
     );
   }
 
-  /*handleSubmit(e) {
-    e.preventDefault();
+  
+    handlePay(e) {
 
-    this.setState({
-      message: "",
-      successful: false
-    });
-
-
-  }*/
-
-  handlePay(e) {
-    
-    //console.log(e.target.parentNode);
-    //console.log(e.target.parentNode.parentNode);
-    
     var rowId = e.target.parentNode.parentNode.id;
-    console.log(rowId);
+    console.log(e.target.parentNode.parentNode);
+    
     console.log(document.getElementById(rowId));
-              //this gives id of tr whose button was clicked
-              
-                var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
+    //this gives id of tr whose button was clicked
 
-                console.log(data);
-  
-                var id = data[2].innerHTML;
-                var billAmount = data[3].innerHTML;
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
+    console.log(data);
 
-                alert("id " + id + "\nBill Amount: " + billAmount );
+    var mAcctNo = 0;
+    var billAmount = 0;
+    var mName = "";
+    var recPeriod = "";
+    if (rowId === "0") {
+      mAcctNo = data[4].value;
+      billAmount = data[6].value;
+      mName = data[2].value;
+      recPeriod = data[8].value;
+      
+    } else {
+      mAcctNo = data[2].innerHTML;
+      
+      billAmount = data[4].value;
+      mName = data[1].innerHTML;
+      recPeriod = data[6].value;
+     
+    }
+    this.setState({
+   
+    billAmount : billAmount,
+    mName : mName,
+    mAcctNo :mAcctNo,
+    recPeriod :recPeriod,
+    firstRender: false,
+  });
 
-                ExternalPayService.payBill(this.state.udata.username, billAmount, id).then(
-                  response => {
-                    console.log(response);
-                    if (response.data === 'sucess') {
-                      alert("Bill Payment Sucessfull");
-                      this.props.history.push("/billpay");
-                      window.location.reload();
-                    } else {
-                      alert("Bill Payment Unsucessfull (Low Balance)");
-                    }
-                    console.log('above is update from service');
-                  },
-                  error => {
-                    this.setState({
-                      content:
-                        (error.response &&
-                          error.response.data &&
-                          error.response.data.message) ||
-                        error.message ||
-                        error.toString()
-                    });
-                  }
-                );
-                //this.render();
-                
+    if (mName === "" || mAcctNo === "" || billAmount === "" || recPeriod === "") {
+          this.setState({
+            showModal: true
+         });
+    }  else {
+
+    ExternalPayService.payBill(this.state.udata.username, billAmount, mAcctNo, mName, recPeriod).then(
+      response => {
+        console.log(response);
+        if (response.data === 'success') {
+          this.props.history.push("/billpay");
+          window.location.reload();
+        } else {
+          //alert("Bill Payment Unsucessfull (Low Balance)");
+          //this.renderModal();
+        }
+        console.log('above is update from service');
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
+    }
+
   }
-  
+
+
   render() {
-    console.log(this.state.billpayData);
+    const handleClose = () => {
+      this.setState({
+        showModal: false
+      });
+  
+    };
     return (
+
+      
+
       <div className="container">
-          <h2 className="text-center">Pending Bills</h2>
+      
+      <Modal show={this.state.showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title><b>Payment Failed</b></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Please enter all the required fields</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+       
+        <h2 className="text-center">Pay Bills</h2>
         <table className="table">
           <thead>
             <tr>
@@ -131,19 +170,41 @@ export default class Billpay extends Component {
               <th scope="col">Merchant Name</th>
               <th scope="col">Account Number</th>
               <th scope="col">Bill Amount</th>
-              <th scope="col">Bill Status</th>
-              <th scope="col" colSpan="6"></th>
+              <th scope="col">Recurring Period</th>
+              <th scope="col" colSpan="7"></th>
             </tr>
           </thead>
           <tbody>
+          <tr id="0">
+                  <td class="row-data">0</td>
+                  <td class="row-data">
+                  <input type="text"  class="row-data" placeholder=""  />
+                  </td>
+                  <td class="row-data">
+                  <input type="text"  class="row-data" placeholder="" />
+                  </td>
+                  <td class="row-data">
+                    <input type="number" min = "0" class="row-data" placeholder="" />
+                  </td>
+                  <td class="row-data">
+                    <input type="number" min = "0" class="row-data" placeholder="" />
+                  </td>
+                  <td>
+                    <Button type="button" onClick={this.handlePay} name="Add Payee">Pay</Button>
+                  </td>
+                </tr>
             {(this.state.unpaidbillpayData.length > 0) ? this.state.unpaidbillpayData.map((merchant, index) => {
               return (
-                <tr id ={index}>
-                  <td class = "row-data">{index}</td>
-                  <td class = "row-data">{merchant.merchant_name}</td>
-                  <td class = "row-data">{merchant.merchant_acctno}</td>
-                  <td class = "row-data">{merchant.bill_amount}</td>
-                  <td class = "row-data">{merchant.bill_status}</td>
+                <tr id={index+1}>
+                  <td class="row-data">{index+1}</td>
+                  <td class="row-data">{merchant.merchant_name}</td>
+                  <td class="row-data">{merchant.merchant_acctno}</td>
+                  <td class="row-data">
+                    <input type="number" min = "0" class="row-data" placeholder="" />
+                  </td>
+                  <td class="row-data">
+                    <input type="number" min = "0" class="row-data" placeholder="" />
+                  </td>
                   <td>
                     <Button type="button" onClick={this.handlePay} name="Pay">Pay</Button>
                   </td>
@@ -151,12 +212,15 @@ export default class Billpay extends Component {
               )
             }) :
               <tr>
-                <td>No Pending Bill</td>
+                <td colSpan = "3">No External Payees</td>
               </tr>
             }
           </tbody>
         </table>
+
         
+
+
         <h2 className="text-center">Paid Bills</h2>
         <table className="table">
           <thead>
@@ -165,17 +229,19 @@ export default class Billpay extends Component {
               <th scope="col">Merchant Name</th>
               <th scope="col">Account Number</th>
               <th scope="col">Bill Amount</th>
+              <th scope="col">Recurring Period</th>
               <th scope="col" colSpan="4"></th>
             </tr>
           </thead>
           <tbody>
             {(this.state.paidbillpayData.length > 0) ? this.state.paidbillpayData.map((merchant, index) => {
               return (
-                <tr id = {index}> 
+                <tr id={index}>
                   <td>{index}</td>
                   <td>{merchant.merchant_name}</td>
                   <td>{merchant.merchant_acctno}</td>
                   <td>{merchant.bill_amount}</td>
+                  <td>{merchant.recPeriod}</td>
                 </tr>
               )
             }) :
@@ -188,9 +254,9 @@ export default class Billpay extends Component {
 
 
       </div>
-  
 
-      
+
+
 
     );
   }

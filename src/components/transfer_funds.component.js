@@ -99,7 +99,7 @@ export default class TransferFunds extends Component {
             ).then(
                 response => {
                     this.setState({
-                        successful: true
+                      successful: true
                     });
                     this.props.history.push("/transfer");
 
@@ -168,7 +168,6 @@ export default class TransferFunds extends Component {
                         name="transaction_amount"
                         value={this.state.amount}
                         onChange={this.onChangeAmount}
-                        validations={[required, amount]}
                       />
                     </div>
     

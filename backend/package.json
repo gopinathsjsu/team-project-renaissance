@@ -10,7 +10,7 @@
     "start": "node index.js",
     "serve": "nodemon index.js",
     "start:dev": "nodemon index.js",
-    "build": "echo 'build script executed'" 
+    "build": "echo 'build script executed'"
   },
   "license": "MIT",
   "dependencies": {
