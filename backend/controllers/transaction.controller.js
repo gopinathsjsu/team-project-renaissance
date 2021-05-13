@@ -8,7 +8,7 @@ const Sequelize = require("sequelize");
 const moment= require('moment') 
 
 exports.transfer = (req, res) => {
-    const { payee_id, beneficiary_id, transaction_amount } = req.body;
+    const { payee_id, beneficiary_id, transaction_amount, recurring_period } = req.body;
     if(parseFloat(transaction_amount).toFixed(2) < 0) {
         return res.status(200).send("amount Incorrect");
     } else if(payee_id == beneficiary_id) {
