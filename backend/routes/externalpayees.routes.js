@@ -16,4 +16,5 @@ module.exports = function(app) {
   app.post("/api/payBill", controller.payBill);
   app.post("/api/refund", controller.refund);
   //app.get("/api/fetchAllAccounts", controller.findAll);
+  app.get("/api/searchBillsPaid", controller.searchBillsPaid);
 };

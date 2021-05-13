@@ -11,4 +11,5 @@ module.exports = function(app) {
 
     app.post("/api/transfer", controller.transfer);
     app.get("/api/fetchTransactions", controller.fetchTransactions);
+    app.get("/api/searchTransactions", controller.searchTransactions);
 };

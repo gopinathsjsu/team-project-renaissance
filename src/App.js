@@ -13,12 +13,14 @@ import Home from "./components/home.component";
 import CreateAccount from "./components/createAccount.component";
 import TransferFunds from "./components/transfer_funds.component";
 import BillPay from "./components/billpay.component";
-import TransactionPage from "./components/transaction_page.component";
 
 // Profile pages
 import UserPage from "./components/user_page.component";
 import UserProfile from "./components/profile_page.component";
 
+//Transaction pages 
+import TransactionPage from "./components/transaction_page.component";
+import SearchPage from "./components/search.component";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -102,6 +104,16 @@ class App extends Component {
                 <p />
               )}
               {loggedInUser.role == 1 ? (
+                <li className="nav-item">
+                  <Link to={"/searchTransactions"} className="nav-link">
+                    Search Transactions
+                  </Link>
+
+                </li>
+              ):(
+                <p />
+              )}
+              {loggedInUser.role == 1 ? (
                 <li>
                   <Link to={"/fetchTransactions"} className="nav-link">
                     View Transactions
@@ -125,7 +137,7 @@ class App extends Component {
               </li>
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
-                  Login
+                  User Login
                 </Link>
               </li>
               <li className="nav-item">
@@ -149,6 +161,7 @@ class App extends Component {
             <Route exact path="/transfer" component={TransferFunds} />
             <Route exact path={"/billpay"} component={BillPay} />
             <Route exact path="/fetchTransactions" component={TransactionPage} />
+            <Route exact path="/searchTransactions" component={SearchPage} />
             {/* <Route path="/user" component={UserPage} /> */}
           </Switch>
         </div>

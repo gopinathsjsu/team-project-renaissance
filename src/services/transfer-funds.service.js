@@ -21,6 +21,15 @@ class TransferService{
             params: {payee_id: payee_id}
         })
     }
+
+    searchTransactions(date, account_no) {
+        return axios.get(API_URL + 'searchTransactions/', {
+            params: {
+                accno: account_no,
+                date: date
+            }
+        })
+    } 
 }
 
 export default new TransferService();

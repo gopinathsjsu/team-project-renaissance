@@ -22,8 +22,6 @@
 
 > Customers can have 2 accounts, Checking, Savings accounts.
 
-> Each account can deposit and withdraw money.
-
 > Customer can transfer money between accounts.
 
 > Customers can setup recurring or one-time Bill payment for external payees
@@ -52,12 +50,12 @@
 
 ## Architectural Diagram
 
-## Deployment Diagram
-
 ## XP Core Values Implemented
-
-## Burndown chart
-
+Communication 
+* Throughout the course of our project, we met once a week for a pair programming session where if one member from the team had a blocker, we would work together to resolve that issue 
+* We had a team group where we could update the progress and get instant feeback throughout the sprint week. 
+* Every Friday, we had a sprint review, sprint retrospective and a pair programming session. This helped in a smoother development process and learning experience
+* On Mondays, we had sprint plan meetings where we would plan for the sprint
 
 # Week 1 
 

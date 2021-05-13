@@ -4,12 +4,12 @@ import ExternalPayService from "../services/extarnalpay.service";
 import { Button, Modal } from 'react-bootstrap';
 import Input from "react-validation/build/input";
 
-
 export default class Billpay extends Component {
 
   constructor(props) {
     super(props);
     this.handlePay = this.handlePay.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       udata: AuthService.getLoggedInUser(),
       paidbillpayData: [],
@@ -19,12 +19,31 @@ export default class Billpay extends Component {
       mName: null,
       recPeriod: null,
       firstRender: true,
-      showModal : false
+      showModal : false,
+      allTransactions: []
 
     };
   }
 
-
+  async handleChange(e) {
+    const date_selected =  e.target.value
+    ExternalPayService.searchBillsPaid(date_selected, this.state.udata.username).then(response => {
+        this.setState({
+            allTransactions: response.data
+        });
+    },
+    error => {
+        this.setState({
+            content:
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+    }
+    )
+  }
   componentDidMount() {
     ExternalPayService.getAllPayee(this.state.udata.username, 'unpaid').then(
       response => {
@@ -61,7 +80,7 @@ export default class Billpay extends Component {
             error.toString()
         });
       }
-    );
+    );    
   }
 
   
@@ -136,6 +155,59 @@ export default class Billpay extends Component {
     }
 
   }
+
+  renderSearchForm() {
+      return (
+        <div className="container">
+            <header className="jumbotron">
+            <h3>Search Your Transactions</h3>
+            </header>
+            
+            <label>Pick the dates you want to view your transactions from</label>
+            <select
+                value={this.state.date_selected}
+                onChange={this.handleChange}
+
+            >
+                <option default value> -- select a date -- </option>
+                <option value="3">past 3 months</option>
+                <option value="6">past 6 months</option>
+                <option value="9">past 9 months</option>
+                <option value="12">past 12 months</option>
+                <option value="15">past 15 months</option>
+                <option value="18">past 18 months</option>
+            </select>
+            
+            <table className="table">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Recurring Frequency</th>
+                <th scope="col">Merchant Name</th>
+                <th scope="col">Date</th>
+            </thead>
+            <tbody>
+            {(this.state.allTransactions.length > 0) ? this.state.allTransactions.map((transaction, index) => {
+                return (
+                <tr>
+                    <td>{index}</td>
+                    <td>Debit</td>
+                    <td>{transaction.bill_amount}</td>
+                    <td>{transaction.recPeriod}</td>
+                    <td>{transaction.merchant_name}</td>
+                    <td>{transaction.createdAt}</td>
+                </tr>
+                )
+            }) :
+                <tr>
+                <td>No Transactions</td>
+                </tr>
+            }       
+            </tbody>
+            </table>
+        </div>
+      );
+    }
 
 
   render() {
@@ -252,6 +324,8 @@ export default class Billpay extends Component {
             }
           </tbody>
         </table>
+
+        {this.renderSearchForm()}
 
 
       </div>

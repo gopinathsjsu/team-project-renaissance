@@ -6,7 +6,7 @@ import TransferService from "../services/transfer-funds.service";
 import AccountService from "../services/transfer-funds.service";
 // import Select from 'react-select';
 // import { render } from "@testing-library/react";
-
+import { Modal, Button } from 'react-bootstrap';
 const required = value => {
     if (!value) {
       return (
@@ -60,7 +60,9 @@ export default class TransferFunds extends Component {
         this.state = {
           payeeid: "",
           beneficiaryid: "",
-          amount:""  
+          amount:"" ,
+          validationModal: false,
+          successMessage: null
         };
     }
 
@@ -98,12 +100,40 @@ export default class TransferFunds extends Component {
                 this.state.amount
             ).then(
                 response => {
-                  console.log(response);
-                  this.setState({
-                    message: response.data.message,
-                    successful: true
-                  });
-
+                  if (response.data === 'success') {
+                    this.setState({
+                      successful: true,
+                      validationModal: true,
+                      successMessage: "$"+  this.state.amount + " transaction successful"
+                   });
+                  }
+                  else if(response.data === "error") {
+                    this.setState({
+                      successful: false,
+                      validationModal: true,
+                      successMessage: "$"+  this.state.amount + " transaction unsuccessful"
+                    });
+                  }
+                  else if(response.data === "amount Incorrect") {
+                    this.setState({
+                      successful: false,
+                      validationModal: true,
+                      successMessage: "Transfer amount cannot be 0 or negative"
+                    });
+                  }
+                  else if(response.data === "same accounts") {
+                    this.setState({
+                      successful: false,
+                      validationModal: true,
+                      successMessage: "Payee and Beneficiary are the same account numbers please check!"
+                    });
+                  }else if(response.data === "funds insufficient") {
+                    this.setState({
+                      successful: false,
+                      validationModal: true,
+                      successMessage: "not enough funds in sender account!"
+                    });
+                  }
                   window.setTimeout(() => {
                     this.props.history.push("/transfer");
                     window.location.reload();
@@ -122,7 +152,9 @@ export default class TransferFunds extends Component {
                           message: resMessage
                       });
                 }
-            );
+            ).catch(function (error) {
+              console.log(error.response.data);
+            })  
         }
     }
     render() {
@@ -203,6 +235,17 @@ export default class TransferFunds extends Component {
                 />
               </Form>
             </div>
+            <Modal show={this.state.validationModal} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title><b>Transfer Status</b></Modal.Title>
+              </Modal.Header>
+              <Modal.Body>{this.state.successMessage}</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         );
       }
