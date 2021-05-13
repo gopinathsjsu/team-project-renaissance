@@ -4,11 +4,12 @@ import authHeader from './auth-header';
 const API_URL = "http://localhost:8081/api/";
 
 class TransferService{
-    transfer(payee_id, beneficiary_id, transaction_amount) {
+    transfer(payee_id, beneficiary_id, transaction_amount, recurring_period) {
         return axios.post(API_URL + "transfer", {
               payee_id,
               beneficiary_id,
-              transaction_amount
+              transaction_amount, 
+              recurring_period
           }, 
           { headers: authHeader()} ).then(response => {
               return response;

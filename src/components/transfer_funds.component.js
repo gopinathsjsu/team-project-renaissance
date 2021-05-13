@@ -49,6 +49,15 @@ const amount = value => {
     }
 };
 
+const recurring_period = value => {
+  if(value > 12 || value < 0){
+    return (
+      <div className= "alert alert-danger" role="alert">
+          Please enter a valid number of months!  
+      </div>
+    )
+  }
+}
 export default class TransferFunds extends Component {
     constructor(props) {
         super(props);
@@ -56,11 +65,13 @@ export default class TransferFunds extends Component {
         this.onChangePayeeid = this.onChangePayeeid.bind(this);
         this.onChangeBeneficiaryid = this.onChangeBeneficiaryid.bind(this);
         this.onChangeAmount = this.onChangeAmount.bind(this);
+        this.onChangeRecurringPeriod = this.onChangeRecurringPeriod.bind(this);
 
         this.state = {
           payeeid: "",
           beneficiaryid: "",
-          amount:""  
+          amount:"",
+          recurring_period: ""  
         };
     }
 
@@ -82,6 +93,12 @@ export default class TransferFunds extends Component {
       });
     }
 
+    onChangeRecurringPeriod(e) {
+      this.setState({
+        recurring_period: e.target.value
+      });
+    }
+
     handleTransferFunds(e) {
         e.preventDefault();
         this.setState({
@@ -95,7 +112,8 @@ export default class TransferFunds extends Component {
             TransferService.transfer(
                 this.state.payeeid,
                 this.state.beneficiaryid,
-                this.state.amount
+                this.state.amount,
+                this.state.recurring_period
             ).then(
                 response => {
                     this.setState({
@@ -168,6 +186,17 @@ export default class TransferFunds extends Component {
                         name="transaction_amount"
                         value={this.state.amount}
                         onChange={this.onChangeAmount}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="recurring_period">Recurring Period in months</label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        name="recurring_period"
+                        value={this.state.recurring_period}
+                        onChange={this.onChangeRecurringPeriod}
                       />
                     </div>
     
