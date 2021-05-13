@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware/verifySignUp");
 const controller = require("../controllers/auth.controller");
+var cors = require('cors');
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -7,6 +8,7 @@ module.exports = function(app) {
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
     );
+    res.header("Access-Control-Allow-Origin", "*");
     next();
   });
 
@@ -16,11 +18,12 @@ module.exports = function(app) {
       verifySignUp.checkDuplicateUsername,
       verifySignUp.checkRolesExisted
     ],*/
+    cors(),
     controller.signup
   );
 
-  app.post("/api/auth/signin", controller.signin);
+  app.post("/api/auth/signin", cors(), controller.signin);
 
-  app.put("/api/auth/update", controller.update);
+  app.put("/api/auth/update", cors(), controller.update);
 
 };
