@@ -30,6 +30,7 @@
 - APIs
     * createAccount, deleteAccount - creates/deletes an account associated to a bank customer
     * fetchAccountBalance and fetchBalanceFromUserName to display user’s account balance
+    * fetchAllAccounts api for admin
 - Frontend and UI
     * createAccount form to take in inputs and create an account for a customer
     * Table to show the existing bank accounts of a customer on his profile page
