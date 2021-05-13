@@ -24,23 +24,23 @@ class AccountService {
     })
   }
 
-  updateBeneficiaryAccountBalance(beneficiary_account_number, transaction_amount) {
-    return axios.post(API_URL + 'updateBeneficiaryAccountBalance/',{
-      data: {
-        beneficiary_account_number: beneficiary_account_number,
-        transaction_amount: transaction_amount
-      }
-    })
-  }
+  // updateBeneficiaryAccountBalance(beneficiary_account_number, transaction_amount) {
+  //   return axios.post(API_URL + 'updateBeneficiaryAccountBalance/',{
+  //     data: {
+  //       beneficiary_account_number: beneficiary_account_number,
+  //       transaction_amount: transaction_amount
+  //     }
+  //   })
+  // }
 
-  updatePayeeAccountBalance(payee_account_number, transaction_amount) {
-    return axios.post(API_URL + 'updatePayeeAccountBalance/', {
-      data: {
-        payee_account_number: payee_account_number,
-        transaction_amount: transaction_amount
-      }
-    })
-  }
+  // updatePayeeAccountBalance(payee_account_number, transaction_amount) {
+  //   return axios.post(API_URL + 'updatePayeeAccountBalance/', {
+  //     data: {
+  //       payee_account_number: payee_account_number,
+  //       transaction_amount: transaction_amount
+  //     }
+  //   })
+  // }
 
   getAccountNumber(username) {
     return axios.get(API_URL + 'getAccountNumber/', {
@@ -51,6 +51,15 @@ class AccountService {
   fetchAccountBalance(id) {
     return axios.get(API_URL + 'fetchAccountBalance/', {
       data: {account_number: id}
+    })
+  }
+
+
+  getOne(id) {
+    return axios.get(API_URL + `fetchAccount/`, {
+      data: {
+        username: id
+      }
     })
   }
 

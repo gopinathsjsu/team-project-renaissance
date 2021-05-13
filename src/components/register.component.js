@@ -51,6 +51,8 @@ export default class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeLastname = this.onChangeLastname.bind(this);
+    this.onChangeFirstname = this.onChangeFirstname.bind(this);
     //this.onChangeExistingUsername = this.onChangeExistingUsername.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -63,6 +65,8 @@ export default class Register extends Component {
       email: "",
       password: "",
       address: "",
+      firstname:"",
+      lastname:"",
       contact: "",
       successful: false,
       message: "",
@@ -72,6 +76,18 @@ export default class Register extends Component {
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
+    });
+  }
+
+  onChangeLastname(e) {
+    this.setState({
+      lastname: e.target.value
+    });
+  }
+
+  onChangeFirstname(e) {
+    this.setState({
+      firstname: e.target.value
     });
   }
 
@@ -121,6 +137,8 @@ export default class Register extends Component {
         this.state.address,
         this.state.contact,
         //this.state.newUsername,
+        this.state.firstname,
+        this.state.lastname,
         this.state.email,
         this.state.password
       ).then(
@@ -170,6 +188,30 @@ export default class Register extends Component {
                     name="username"
                     value={this.state.username}
                     onChange={this.onChangeUsername}
+                    validations={[required, vusername]}
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="firstname">First Name</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="firstname"
+                    value={this.state.firstname}
+                    onChange={this.onChangeFirstname}
+                    validations={[required, vusername]}
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="lastname">Last Name</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="lastname"
+                    value={this.state.lastname}
+                    onChange={this.onChangeLastname}
                     validations={[required, vusername]}
                   />
                 </div>

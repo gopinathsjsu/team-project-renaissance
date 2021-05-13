@@ -1,3 +1,64 @@
+## Team Renaissance
+
+### Team & Contributions:
+* **Surabhi Govil**
+* **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
+  - APIs
+    * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
+    * Update balance apis for both payee and beneficiary after a successful transaction
+    * Fetch transactions api for current logged in user to display transactions
+  - Frontend and UI
+    * transfer (with basic validations) , view transactions (without searchbar)
+  - Deployment
+    * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
+ * **Arpitha Gurumurthy**
+ * **Priti Sharma**
+ - APIs
+
+
+## Online Banking features:
+
+### Customer:
+
+> Customers signup using the username provided by Admin through online banking application.
+
+> Customers can have 2 accounts, Checking, Savings accounts.
+
+> Customer can transfer money between accounts.
+
+> Customers can setup recurring or one-time Bill payment for external payees
+
+> Customer can view all of his transaction records and account balance.
+
+
+### Admin:
+
+
+> Admin can view all the registered users and their information.
+
+> Admin create accounts for customers.
+
+> Admin can delete/close any user accounts
+
+> Admin can add transactions such as manual refunds on fees
+
+## Tools and Languages
+
+> FrontEnd using React
+
+> Database using Mysql sequalize
+
+> Deployment - AWS EC2 and RDS
+
+## Architectural Diagram
+
+## XP Core Values Implemented
+Communication 
+* Throughout the course of our project, we met once a week for a pair programming session where if one member from the team had a blocker, we would work together to resolve that issue 
+* We had a team group where we could update the progress and get instant feeback throughout the sprint week. 
+* Every Friday, we had a sprint review, sprint retrospective and a pair programming session. This helped in a smoother development process and learning experience
+* On Mondays, we had sprint plan meetings where we would plan for the sprint
+
 # Week 1 
 
 **3/15/2021:**
@@ -193,6 +254,10 @@ Gayathri:
 - Pair programming with the team
 - Implemented basic transfer funds api, working on validations of input fields
 
+Surabhi:
+- Pair programming with team
+- Testing api developed for login and registration 
+
 # Week 6
 
 **5/3/2021**
@@ -209,13 +274,20 @@ Gayathri:
   - Did pair programming and sprint plan with the team
   - planning to implement get_current_user_account_number from the current session today and tomorrow
   - Currently blocked on getting current_session user's account number
+
+Surabhi:
+- Created profile page for admin to display all the users in the sytem 
+- Updated admin profile page to include options to delete a user account
+- Added UI elements for refund fee for the api to be developed by Priti
  
 **5/4/2021**
+
 
 Priti:
 - Implemented Null value checked for refund 
 - Implemented delete/ close account for admin.
 - Done with backend API changes for close and refund.
+
 
 Gayathri:
   - Working on resolving getting current_session user's details
@@ -244,6 +316,40 @@ Priti:
 Priti:
 - Testing Billpay API
 - Created wireframes for external account billpay 
+
+Surabhi:
+- Started working on AWS deployment, read about EC2 instance and load balancers 
+
+**5/7/2021**
+
+Gayathri: 
+  - Working on deploying the app on AWS
+  
+Surabhi:
+- Looked into deployment ran into issue with AWS account, switched stories with Gayathri 
+
+# Week 7
+
+**5/10/2021**
+
+Gayathri:
+- Set up RDS instance
+- deployed the app to aws ec2 by hardcoding the host IP and added load balancer
+- currently blocked on enabling cors to prevent network error
+- Plan to resolve the cors error and add to the auto scaling group today and tomorrow
+
+Surabhi:
+- Validate funds available in payee account for funds transfer
+- Updating account balance for payee and beneficiary
+- Looked into sign in api 404 issue
+
+**5/11/2021**
+
+Gayathri:
+- Resolved the cors error by removing some invalid options and adding appropriate headers
+- Added the app to an autoscaling group(minimum 3 instances) with Load Balancer
+- Plan to work on the documentation today and tomorrow
+
 # To Run the app 
 
 1. yarn init
