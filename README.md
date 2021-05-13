@@ -13,6 +13,8 @@
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
  * **Arpitha Gurumurthy**
  * **Priti Sharma**
+ - APIs
+
 
 ## Online Banking features:
 
