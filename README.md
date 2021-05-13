@@ -12,9 +12,17 @@
   - Deployment
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
  * **Arpitha Gurumurthy**
- * **Priti Sharma**
- - APIs
-   * BillPay api  
+ * **Priti Sharma(Bill Payment for external payees, Admin functionality such as Manual Refunds and Closing accounts)**
+  - APIs
+    * PayBill api uses username, Merchant Name, Merchant account number, Bill amount, recurring period
+    * Add External api creates a new merchant, uses merchant name and merchant account number.
+    * PayBill api debits account balance for current user after a successful Bill pay transaction.
+    * Refund api credits account balance for user after a successful refund transaction.
+  - Frontend and UI Changes
+    * Bill Pay component with basic validations on input (without search option)
+    * Refund and Close button functionality (with validation)
+  - UI Wireframe
+    * BillPay wireframe 
 
 
 ## Online Banking features:
