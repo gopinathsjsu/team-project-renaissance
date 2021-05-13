@@ -32,6 +32,16 @@ class ExternalPayService {
       return response.data;
   });
   }
+
+
+  searchBillsPaid(date, username) {
+    return axios.get(API_URL + 'searchBillsPaid/', {
+        params: {
+            user: username,
+            date: date
+        }
+    })
+  }
 }
 
 export default new ExternalPayService();

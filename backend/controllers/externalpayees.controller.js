@@ -71,6 +71,27 @@ exports.getPayee = (req, res) => {
 };
 
 
+exports.searchBillsPaid = (req, res) => {
+    const user = req.query.user;
+    const timePeriod = req.query.date;
+    ep.findAll({
+        attributes: ['bill_amount', 'recPeriod','merchant_name'],
+        where: {
+            [Op.and]: [
+                {createdAt: {
+                    [Op.gte]: moment().subtract(timePeriod, 'months').toDate()
+                }},
+              { username: user }
+            ]
+        }
+    }).then(search => {
+        return res.status(200).send(search);
+    }).catch(err => {
+        return res.status(500).send({ message: err.messge});
+    });  
+};
+
+
 // Retrieve all payee from the database.
 exports.payBill = (req, res) => {
 

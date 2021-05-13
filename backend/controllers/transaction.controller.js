@@ -5,13 +5,16 @@ const Account = db.account;
 const { accountController } = require('./account.controller');
 const Op = db.Sequelize.Op;
 const Sequelize = require("sequelize");
+const moment= require('moment') 
 
 exports.transfer = (req, res) => {
-    const transfer_amount = req.body.transaction_amount;
-    if(parseFloat(transfer_amount).toFixed(2) < 0) {
-        return res.status(304).send({ message: "Amount is negative or 0" });
-    } else {
-        const { payee_id, beneficiary_id, transaction_amount, recurring_period } = req.body;
+    const { payee_id, beneficiary_id, transaction_amount } = req.body;
+    if(parseFloat(transaction_amount).toFixed(2) < 0) {
+        return res.status(200).send("amount Incorrect");
+    } else if(payee_id == beneficiary_id) {
+        return res.status(200).send("same accounts");
+    }
+    else {
         Account.findOne({
             where: {
                 account_number: payee_id
@@ -32,14 +35,14 @@ exports.transfer = (req, res) => {
                             transaction_amount: transaction_amount,
                             recurring_period: recurring_period
                         })
-                        return res.status(200).send({ transaction, message: "Transaction successful!"})
+                        return res.status(200).send("success");
                     })
                     .catch(err => {
                         console.log('error message', err);
                     });
                 })
                 .catch(err => {
-                    res.status(400).json({ success: false, error: err });
+                    res.status(500).send({ message: err.message });
                 });
             }).catch(err => {
                 res.status(500).send({ message: err.message });
@@ -53,9 +56,10 @@ exports.transfer = (req, res) => {
 
 async function updateRecipientMoney(money, recipientAvailableFunds, recipientId, isConfirm) {
     if (isConfirm) {
+        
         Account.update(
-        { account_balance: (parseFloat(recipientAvailableFunds) + parseFloat(money)).toFixed(2) },
-        { where: { account_number: recipientId } },
+            { account_balance: (parseFloat(recipientAvailableFunds) + parseFloat(money)).toFixed(2) },
+            { where: { account_number: recipientId } },
         );
     }
 }
@@ -93,3 +97,26 @@ exports.fetchTransactions = (req, res) => {
     });
 };
 
+exports.searchTransactions = (req, res) => {
+    const accno = req.query.accno;
+    const timePeriod = req.query.date;
+    Transaction.findAll({
+        attributes: ['transaction_amount', 'beneficiary_id','payee_id','transaction_id', 'createdAt'],
+        
+        where: Sequelize.and({
+                createdAt: {
+                    [Op.gte]: moment().subtract(timePeriod, 'months').toDate()
+                }
+            },
+            Sequelize.or(
+                {payee_id: accno},
+                {beneficiary_id: accno},
+            )
+        )
+
+    }).then(search => {
+        return res.status(200).send(search);
+    }).catch(err => {
+        return res.status(500).send({ message: err.messge});
+    });  
+};
