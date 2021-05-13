@@ -2,6 +2,21 @@
 
 ### Team & Contributions:
 1. **Surabhi Govil**
+  * Setup barebones structure of the app and the configurations to get started
+  - APIs
+    - Register new users after an account has been created for them by admin, check if they are already registered or not.
+    - Login exisitng users already registered with the system 
+    - Profile page for admin view:
+      - List of all users in the database 
+      - Added the option to delete a user account from the UI.
+      - Added UI for refund fees button
+    - Profile page for users
+      - There basic information 
+      - List of the accounts they have with the application
+    - Search bar for view transaction page having options to select from a time period 
+      - Dropdown to select date in time periods of 3 months 
+      - Fetch credits/debits made in the selected time period
+    - Database Validations for transfer funds API between beneficiary and payee. 
 2. **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
   - APIs
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
@@ -398,6 +413,12 @@ Surabhi:
 - Added function in backend to display records containing credit/debits for transfer funds and rendered on page.
 - Rendered transaction in a time period for external billpay page. Worked on UI and backend for search bar functionality
 
+**5/13/2021**
+
+Surabhi:
+- Tested the application
+- Worked on documentation
+- Added remianing functionalities  
 # To Run the app 
 
 1. yarn init
