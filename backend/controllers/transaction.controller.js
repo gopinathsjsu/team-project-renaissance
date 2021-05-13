@@ -11,7 +11,7 @@ exports.transfer = (req, res) => {
     if(parseFloat(transfer_amount).toFixed(2) < 0) {
         return res.status(304).send({ message: "Amount is negative or 0" });
     } else {
-        const { payee_id, beneficiary_id, transaction_amount } = req.body;
+        const { payee_id, beneficiary_id, transaction_amount, recurring_period } = req.body;
         Account.findOne({
             where: {
                 account_number: payee_id
@@ -29,7 +29,8 @@ exports.transfer = (req, res) => {
                         Transaction.create({
                             payee_id: payee_id,
                             beneficiary_id: beneficiary_id,
-                            transaction_amount: transaction_amount
+                            transaction_amount: transaction_amount,
+                            recurring_period: recurring_period
                         })
                         return res.status(200).send({ transaction, message: "Transaction successful!"})
                     })

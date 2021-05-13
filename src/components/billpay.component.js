@@ -4,7 +4,6 @@ import ExternalPayService from "../services/extarnalpay.service";
 import { Button, Modal } from 'react-bootstrap';
 import Input from "react-validation/build/input";
 
-
 export default class Billpay extends Component {
 
   constructor(props) {
