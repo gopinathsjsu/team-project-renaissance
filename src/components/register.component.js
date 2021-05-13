@@ -149,7 +149,7 @@ export default class Register extends Component {
               this.setState({
                 successful: true,
                 validationModal: true,
-                successMessage: "user registerd successfully"
+                successMessage: "user registered successfully"
              });
             }
           this.props.history.push("/login");

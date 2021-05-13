@@ -151,23 +151,21 @@ exports.delete = (req, res) => {
 };
 
 exports.withdraw = (req, res) => {
-    const accno = req.query.account_number;
+    const account_number = req.query.account_number;
     const amount = req.query.withdrawAmount;
     if(parseFloat(amount).toFixed(2) < 0) {
         return res.status(200).send("amount Incorrect");
     } else {
-        Account.findByPk(req.body.payee_account_number).then(account => {
-            if (account){
-                if(account.account_balance > req.body.transaction_amount){
-                    return account.decrement('account_balance', {by: withdrawAmount});
-                } else {
-                    return res.status(400).send({ message: 'Add sufficient funds'});
-                }
-            } else {
-                return res.status(400).send({ message: 'account does not exist'});
+        Account.findOne({
+            where: {
+                account_number: req.query.account_number
             }
         }).then(account => {
-            return res.status(200).send("success");
+            if(account.account_balance > amount){
+                return account.decrement(account.account_balance, {by: amount });
+            } else {
+                return res.status(400).send({ message: 'Add sufficient funds'});
+            }
         }).catch(err => {
             return res.status(500).send({ message: err.message });
         });
@@ -175,25 +173,67 @@ exports.withdraw = (req, res) => {
 };
 
 exports.deposit = (req, res) => {
-    const accno = req.query.account_number;
+    const account_number = req.query.account_number;
     const amount = req.query.refundAmount;
     if(parseFloat(amount).toFixed(2) < 0) {
         return res.status(200).send("amount Incorrect");
     } else {
-        Account.findByPk(req.body.payee_account_number).then(account => {
-            if (account){
-                if(account.account_balance > req.body.transaction_amount){
-                    return account.increment('account_balance', {by: refundAmount});
-                } else {
-                    return res.status(400).send({ message: 'Add sufficient funds'});
-                }
-            } else {
-                return res.status(400).send({ message: 'account does not exist'});
+        Account.findOne({
+            where: {
+                account_number: req.query.account_number
             }
         }).then(account => {
-            return res.status(200).send("success");
+            return account.increment(account.account_balance, {by: amount});
         }).catch(err => {
             return res.status(500).send({ message: err.message });
         });
     }
 };
+
+
+exports.deposit = (req, res) => {
+    const { account_number, amount} = req.query;
+    if(parseFloat(amount).toFixed(2) < 0) {
+        return res.status(200).send("amount Incorrect");
+    } 
+    else {
+        Account.findOne({
+            where: {
+                account_number: account_number
+            }
+        }).then(sender => {
+            depositMoney(amount,account_number)
+        })
+        .catch(err => {
+            return res.status(500).send({ message: err.message });
+        });
+    }
+};
+
+async function depositMoney(money, recipientId) {
+    if (isConfirm) {
+        
+        Account.update(
+            { account_balance: (parseFloat(recipientAvailableFunds) + parseFloat(money)).toFixed(2) },
+            { where: { account_number: recipientId } },
+        );
+    }
+}
+
+async function updateSenderMoney(money, senderAvailableFunds, senderId, isConfirm) {
+//Checking if sender has funds
+    const diff = (parseFloat(senderAvailableFunds) - parseFloat(money));
+
+    if (diff < 0) {
+        throw new Error('Sender dosent have enough funds');
+
+    } else {
+        if (isConfirm) {
+            Account.update(
+            { account_balance: (parseFloat(senderAvailableFunds) - parseFloat(money)).toFixed(2) },
+            { where: { account_number: senderId } },
+        );
+        }
+
+    }
+}

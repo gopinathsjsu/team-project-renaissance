@@ -80,19 +80,19 @@ class AccountService {
   }
 
 
-withdraw(accno, withdrawAmount) {
-  return axios.get(API_URL + `withdraw`, {
+withdraw(account_number, withdrawAmount) {
+  return axios.post(API_URL + `withdraw`, {
     params: {
-      account_number: accno,
+      account_number: account_number,
       amount: withdrawAmount
     }
   })
 }
 
-deposit(accno, refundAmount) {
-  return axios.get(API_URL + `refund`, {
+deposit(account_number, refundAmount) {
+  return axios.post(API_URL + `deposit`, {
     params: {
-      account_number: accno,
+      account_number: account_number,
       amount: refundAmount
     }
   })

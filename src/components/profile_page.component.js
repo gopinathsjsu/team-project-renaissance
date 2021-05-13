@@ -16,6 +16,12 @@ export default class UserProfile extends Component {
     this.handleRefund = this.handleRefund.bind(this);
     this.handleClose = this.handleClose.bind(this);
     //this.deleteAccount = this.deleteAccount.bind(this);
+    this.onChangeDeposit = this.onChangeDeposit.bind(this);
+    this.onChangeWithdraw = this.onChangeWithdraw.bind(this);
+
+    this.handleDeposit = this.handleDeposit.bind(this);
+    this.handleWithdraw = this.handleWithdraw.bind(this);
+
     this.onChangeAccountRefund = this.onChangeAccountRefund.bind(this);
 
     this.state = {
@@ -24,8 +30,16 @@ export default class UserProfile extends Component {
       allUsers: [],
       userAccounts: [],
       refund_amount: 0,
+      withdrawAmount: 0,
+      depositAmount: 0,
       validationModal: false,
-      refundMessage: null
+      validationModalDeposit: false,
+      withdrawAmount: 0,
+      validationModalWithdraw: false,
+      refundMessage: null,
+      depositMessage: null, 
+      withdrawMesage: null,
+      account_number: 0
     };
   }
 
@@ -53,6 +67,19 @@ export default class UserProfile extends Component {
       refund_amount: e.target.value
     });
   }
+
+  onChangeDeposit(e) {
+    this.setState({
+      depositAmount: e.target.value
+    });
+  }
+
+  onChangeWithdraw(e) {
+    this.setState({
+      withdrawAmount: e.target.value
+    });
+  }
+
   handleRefund(e) {
 
     var rowId = e.target.parentNode.parentNode.id;
@@ -92,86 +119,70 @@ export default class UserProfile extends Component {
     }
   }
 
-  handleWithdraw(e) {
-    var rowId = e.target.parentNode.parentNode.id;
-
-    var data = document.getElementById(rowId).querySelectorAll(".row-data");
-
-
-    var withdrawAmount = data[4].value;
-    var accno = data[1].innerHTML;
-    if (withdrawAmount === "") {
-      this.setState({
-        validationModal: true,
-        withdrawMessage: "Please enter a valid withdraw amount"
-     });
-    } else {
-      AccountService.withdraw(accno, withdrawAmount).then(
-        response => {
-          
-          if (response.data === 'success') {
-            this.setState({
-              validationModal: true,
-              withdrawMessage: "Withdraw of $"+ withdrawAmount + " successful"
-           });
-          }
-        },
-        error => {
-          this.setState({
-            content:
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString()
-          });
-        }
-      );
-    }
-  }
-
   handleDeposit(e) {
-    var rowId = e.target.parentNode.parentNode.id;
-
-    var data = document.getElementById(rowId).querySelectorAll(".row-data");
-
-
-    var depositAmount = data[4].value;
-    var accno = data[1].innerHTML;
-    if (depositAmount === "") {
-      this.setState({
-        validationModal: true,
-        depositMessage: "Please enter a valid deposit amount"
-     });
-    } else {
-      AccountService.deposit(accno, depositAmount).then(
-        response => {
-          
-          if (response.data === 'sucess') {
-            this.setState({
-              validationModal: true,
-              depositMessage: "Deposit of $"+ depositAmount + " successful"
-           });
-          }
-        },
-        error => {
+    e.preventDefault();
+    AccountService.deposit(this.state.account_number, this.state.depositAmount).then(
+      response => {
+        if (response.data === 'success') {
           this.setState({
-            content:
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString()
-          });
+            successful: true,
+            validationModal: true,
+            successMessage: "user registered successfully"
+         });
         }
-      );
-    }
+      this.props.history.push("/login");
+      window.location.reload();
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
+
+  handleWithdraw(e) {
+    e.preventDefault();
+    AccountService.withdraw(this.state.account_number, this.state.withdrawAmount).then(
+      response => {
+        if (response.data === 'success') {
+          this.setState({
+            successful: true,
+            validationModal: true,
+            successMessage: "successfully"
+         });
+        }
+      this.props.history.push("/login");
+      window.location.reload();
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
+  }
+  
 
   componentDidMount() {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
+
+    AccountService.getAccountNumber(AuthService.getLoggedInUser().username).then(response => this.setState({
+      account_number: response.data[0].account_number
+    }));
+
     AccountService.getAccountsForUser(AuthService.getLoggedInUser().username).then(
       response => {
         this.setState({
@@ -227,10 +238,6 @@ export default class UserProfile extends Component {
             <strong>Email:</strong>{" "}
             {loggedInUser.email}
           </p>
-          <p>
-            <strong>role:</strong>{" "}
-            {loggedInUser.role}
-          </p>
 
           <table className="table">
             <thead>
@@ -239,7 +246,6 @@ export default class UserProfile extends Component {
                 <th scope="col">Account Number</th>
                 <th scope="col">Account Type</th>
                 <th scope="col">Account Balance</th>
-                <th scope="col" colSpan="4"></th>
               </tr>
             </thead>
             <tbody>
@@ -247,17 +253,17 @@ export default class UserProfile extends Component {
                 return (
                   <tr>
                     <td>{index}</td>
-                    <td>{account.account_number}</td>
-                    <td>{account.account_type}</td>
-                    <td>{account.account_balance}</td>
+                    <td id="row-data">{account.account_number}</td>
+                    <td class="row-data">{account.account_type}</td>
+                    <td class="row-data">{account.account_balance}</td>
                     <td class="row-data">
-                      <input type="number" class="row-data" placeholder="Deposit funds" onChange={this.handleDeposit} />
+                      <input type="number" refs="dep" class="row-data" placeholder="Deposit funds" onChange={this.onChangeDeposit} />
                     </td>
                     <td>
-                      <Button type="button" onClick={this.handleDeposit} name="Deposit" >Refund</Button>
+                      <Button type="button" onClick={this.handleDeposit} name="Deposit" >Deposit</Button>
                     </td>
                     <td class="row-data">
-                      <input type="number" class="row-data" placeholder="Withdraw Funds" onChange={this.handleWithdraw} />
+                      <input type="number"  refs="with" class="row-data" placeholder="Withdraw Funds" onChange={this.onChangeWithdraw} />
                     </td>
                     <td>
                       <Button type="button" onClick={this.handleWithdraw} name="Withdraw" >Withdraw</Button>
@@ -272,11 +278,10 @@ export default class UserProfile extends Component {
             </tbody>
           </table>
 
-          {/* <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
+          <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile
-          </Button> */}
-          {/* Flow state of username to modal  */}
-          {/* <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} /> */}
+          </Button>
+          <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
         </div>
       : (
       <div className="container">
@@ -319,9 +324,9 @@ export default class UserProfile extends Component {
                       <td>
                         <Button type="button" onClick={this.handleRefund} name="Refund" >Refund</Button>
                       </td>
-                      {/* <td>
+                      <td>
                         <Button type="button" onClick={() => this.updateUser()} name="Update">Update</Button>
-                      </td> */}
+                      </td>
                       <td>
                         <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Delete">Delete</Button>
                       </td>
