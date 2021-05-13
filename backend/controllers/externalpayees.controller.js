@@ -3,6 +3,7 @@ const db = require("../models");
 const Op = db.Sequelize.Op;
 const ep = db.ExternalPayee;
 const Account = db.account;
+const Refund = db.Refund;
 
 // Retrieve all payee from the database.
 exports.getPayee = (req, res) => {
@@ -137,9 +138,7 @@ exports.payBill = (req, res) => {
                 //return res.status(200).send('sucess');
                 
                 
-            });
-            
-            
+            });    
     };
 
 
@@ -168,12 +167,15 @@ exports.refund = (req, res) => {
             Account.update(
                 {account_balance: balance},
                 {where: {username: username} }
-            );
+            ); 
             
-            return res.status(200).send('sucess');
-            
-            
+        }).then(() => {
+            Refund.create({
+                username: username,
+                refund_amount: refundAmount
+            })
+            return res.status(200).send("sucess");
         });
-        
+    
 };
                 

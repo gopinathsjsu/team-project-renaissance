@@ -23,6 +23,7 @@ const Account = db.account;
 const Transaction = db.transaction;
 const BillPay = db.BillPay;
 const ExternalPayee = db.ExternalPayee;
+const Refund = db.Refund;
 
 const adminuserpass1 = bcrypt.hashSync('admin1');
 const adminuserpass2 = bcrypt.hashSync('admin2');
