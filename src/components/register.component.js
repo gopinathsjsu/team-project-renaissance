@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Modal, Button } from 'react-bootstrap';
 
 import AuthService from "../services/auth.service";
 
@@ -69,7 +70,8 @@ export default class Register extends Component {
       lastname:"",
       contact: "",
       successful: false,
-      message: "",
+      validationModal: false,
+      successMessage: null
     };
   }
 
@@ -142,11 +144,14 @@ export default class Register extends Component {
         this.state.email,
         this.state.password
       ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
+          response => {
+            if (response.data === 'success') {
+              this.setState({
+                successful: true,
+                validationModal: true,
+                successMessage: "user registerd successfully"
+             });
+            }
           this.props.history.push("/login");
           window.location.reload();
         },
@@ -304,6 +309,16 @@ export default class Register extends Component {
             />
           </Form>
         </div>
+        <Modal show={this.state.validationModal} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+          </Modal.Header>
+          <Modal.Body>{this.state.successMessage}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

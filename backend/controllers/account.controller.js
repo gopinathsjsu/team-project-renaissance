@@ -149,3 +149,51 @@ exports.delete = (req, res) => {
         return res.status(500).send({ message: err.message });
       });
 };
+
+exports.withdraw = (req, res) => {
+    const accno = req.query.account_number;
+    const amount = req.query.withdrawAmount;
+    if(parseFloat(amount).toFixed(2) < 0) {
+        return res.status(200).send("amount Incorrect");
+    } else {
+        Account.findByPk(req.body.payee_account_number).then(account => {
+            if (account){
+                if(account.account_balance > req.body.transaction_amount){
+                    return account.decrement('account_balance', {by: withdrawAmount});
+                } else {
+                    return res.status(400).send({ message: 'Add sufficient funds'});
+                }
+            } else {
+                return res.status(400).send({ message: 'account does not exist'});
+            }
+        }).then(account => {
+            return res.status(200).send("success");
+        }).catch(err => {
+            return res.status(500).send({ message: err.message });
+        });
+    }
+};
+
+exports.deposit = (req, res) => {
+    const accno = req.query.account_number;
+    const amount = req.query.refundAmount;
+    if(parseFloat(amount).toFixed(2) < 0) {
+        return res.status(200).send("amount Incorrect");
+    } else {
+        Account.findByPk(req.body.payee_account_number).then(account => {
+            if (account){
+                if(account.account_balance > req.body.transaction_amount){
+                    return account.increment('account_balance', {by: refundAmount});
+                } else {
+                    return res.status(400).send({ message: 'Add sufficient funds'});
+                }
+            } else {
+                return res.status(400).send({ message: 'account does not exist'});
+            }
+        }).then(account => {
+            return res.status(200).send("success");
+        }).catch(err => {
+            return res.status(500).send({ message: err.message });
+        });
+    }
+};

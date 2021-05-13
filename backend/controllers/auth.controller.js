@@ -11,12 +11,11 @@ var bcrypt = require("bcryptjs");
 const { user } = require("../models");
 
 exports.signup = (req, res) => {
-
   User.findOne({
     where: {
       username: req.body.username
     }
-  }).then((user) => {
+  }).then(user => {
     if (!user.registered) {
       User.update({
         password: bcrypt.hashSync(user.password, 8),
@@ -49,7 +48,7 @@ exports.signup = (req, res) => {
         //   //   res.send({ message: "User was registered successfully!" });
         //   // });
         // }
-        return res.status(200).send({ message: "User registeration successful." });
+        return res.status(200).send("success");
       })
       .catch(err => {
         return res.status(500).send({ message: err.message });
@@ -57,6 +56,8 @@ exports.signup = (req, res) => {
     } else {
       return res.status(200).send({ message: "User Already Signed Up, please login!!!" });
     }
+  }).catch(err => {
+    return res.status(500).send({ message: err.message });
   });
 };
 

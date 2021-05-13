@@ -26,6 +26,8 @@ module.exports = function(app) {
 
   app.get("/api/getAccountNumber", controller.getAccountNumber);
 
-  app.get("/api/fetchBalanceFromUserName", controller.fetchBalanceFromUserName);
+  app.get("/api/withdraw", controller.withdraw);
+  
+  app.get("/api/deposit", controller.deposit);
   
 };

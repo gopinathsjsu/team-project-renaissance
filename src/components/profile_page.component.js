@@ -92,6 +92,82 @@ export default class UserProfile extends Component {
     }
   }
 
+  handleWithdraw(e) {
+    var rowId = e.target.parentNode.parentNode.id;
+
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+
+    var withdrawAmount = data[4].value;
+    var accno = data[1].innerHTML;
+    if (withdrawAmount === "") {
+      this.setState({
+        validationModal: true,
+        withdrawMessage: "Please enter a valid withdraw amount"
+     });
+    } else {
+      AccountService.withdraw(accno, withdrawAmount).then(
+        response => {
+          
+          if (response.data === 'success') {
+            this.setState({
+              validationModal: true,
+              withdrawMessage: "Withdraw of $"+ withdrawAmount + " successful"
+           });
+          }
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    }
+  }
+
+  handleDeposit(e) {
+    var rowId = e.target.parentNode.parentNode.id;
+
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+
+    var depositAmount = data[4].value;
+    var accno = data[1].innerHTML;
+    if (depositAmount === "") {
+      this.setState({
+        validationModal: true,
+        depositMessage: "Please enter a valid deposit amount"
+     });
+    } else {
+      AccountService.deposit(accno, depositAmount).then(
+        response => {
+          
+          if (response.data === 'sucess') {
+            this.setState({
+              validationModal: true,
+              depositMessage: "Deposit of $"+ depositAmount + " successful"
+           });
+          }
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    }
+  }
+
   componentDidMount() {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
@@ -174,6 +250,18 @@ export default class UserProfile extends Component {
                     <td>{account.account_number}</td>
                     <td>{account.account_type}</td>
                     <td>{account.account_balance}</td>
+                    <td class="row-data">
+                      <input type="number" class="row-data" placeholder="Deposit funds" onChange={this.handleDeposit} />
+                    </td>
+                    <td>
+                      <Button type="button" onClick={this.handleDeposit} name="Deposit" >Refund</Button>
+                    </td>
+                    <td class="row-data">
+                      <input type="number" class="row-data" placeholder="Withdraw Funds" onChange={this.handleWithdraw} />
+                    </td>
+                    <td>
+                      <Button type="button" onClick={this.handleWithdraw} name="Withdraw" >Withdraw</Button>
+                    </td>
                   </tr>
                 )
               }) :
@@ -184,10 +272,11 @@ export default class UserProfile extends Component {
             </tbody>
           </table>
 
-          <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
+          {/* <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
             Update Profile
-          </Button>
-          <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
+          </Button> */}
+          {/* Flow state of username to modal  */}
+          {/* <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} /> */}
         </div>
       : (
       <div className="container">
@@ -230,9 +319,9 @@ export default class UserProfile extends Component {
                       <td>
                         <Button type="button" onClick={this.handleRefund} name="Refund" >Refund</Button>
                       </td>
-                      <td>
+                      {/* <td>
                         <Button type="button" onClick={() => this.updateUser()} name="Update">Update</Button>
-                      </td>
+                      </td> */}
                       <td>
                         <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Delete">Delete</Button>
                       </td>

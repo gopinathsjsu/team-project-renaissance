@@ -78,6 +78,25 @@ class AccountService {
       }
     })
   }
+
+
+withdraw(accno, withdrawAmount) {
+  return axios.get(API_URL + `withdraw`, {
+    params: {
+      account_number: accno,
+      amount: withdrawAmount
+    }
+  })
 }
 
+deposit(accno, refundAmount) {
+  return axios.get(API_URL + `refund`, {
+    params: {
+      account_number: accno,
+      amount: refundAmount
+    }
+  })
+}
+
+}
 export default new AccountService();
