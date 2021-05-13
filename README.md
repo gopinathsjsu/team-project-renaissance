@@ -1,23 +1,8 @@
 ## Team Renaissance
 
 ### Team & Contributions:
-* **Surabhi Govil**
-  * Setup barebones structure of the app and the configurations to get started
-  - APIs
-    - Register new users after an account has been created for them by admin, check if they are already registered or not.
-    - Login exisitng users already registered with the system 
-    - Profile page for admin view:
-      - List of all users in the database 
-      - Added the option to delete a user account from the UI.
-      - Added UI for refund fees button
-    - Profile page for users
-      - There basic information 
-      - List of the accounts they have with the application
-    - Search bar for view transaction page having options to select from a time period 
-      - Dropdown to select date in time periods of 3 months 
-      - Fetch credits/debits made in the selected time period
-    - Validate transfer funds between beneficiary and payee from the database perspective. 
-* **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
+1. **Surabhi Govil**
+2. **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
   - APIs
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
     * Update balance apis for both payee and beneficiary after a successful transaction
@@ -26,10 +11,25 @@
     * transfer (with basic validations) , view transactions (without searchbar)
   - Deployment
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
- * **Arpitha Gurumurthy**
- * **Priti Sharma**
- - APIs
-   * BillPay api  
+ 3. **Arpitha Gurumurthy**
+- APIs
+    * createAccount, deleteAccount - creates/deletes an account associated to a bank customer
+    * fetchAccountBalance and fetchBalanceFromUserName to display user’s account balance
+- Frontend and UI
+    * createAccount form to take in inputs and create an account for a customer
+    * Table to show the existing bank accounts of a customer on his profile page
+
+ 4. **Priti Sharma(Bill Payment for external payees, Admin functionality such as Manual Refunds and Closing accounts)**
+  - APIs
+    * PayBill api uses username, Merchant Name, Merchant account number, Bill amount, recurring period
+    * Add External api creates a new merchant, uses merchant name and merchant account number.
+    * PayBill api debits account balance for current user after a successful Bill pay transaction.
+    * Refund api credits account balance for user after a successful refund transaction.
+  - Frontend and UI Changes
+    * Bill Pay component with basic validations on input (without search option)
+    * Refund and Close button functionality (with validation)
+  - UI Wireframe
+    * BillPay wireframe 
 
 
 ## Online Banking features:
@@ -71,11 +71,14 @@
 ## Architectural Diagram
 
 ## XP Core Values Implemented
-Communication 
+Communication
 * Throughout the course of our project, we met once a week for a pair programming session where if one member from the team had a blocker, we would work together to resolve that issue 
 * We had a team group where we could update the progress and get instant feeback throughout the sprint week. 
 * Every Friday, we had a sprint review, sprint retrospective and a pair programming session. This helped in a smoother development process and learning experience
 * On Mondays, we had sprint plan meetings where we would plan for the sprint
+
+## Burn down chart 
+![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Screenshots/BurnDown_Chart.png)
 
 # Week 1 
 
@@ -254,6 +257,9 @@ Surabhi:
 - Modularizing code in the application
 - Added changes for one time registration check and profile page
 
+Arpitha:
+- Completed createAccount component - currently adds an account with userID as foreign key
+
 **4/27/2021**
 
 Gayathri:
@@ -297,6 +303,10 @@ Surabhi:
 - Created profile page for admin to display all the users in the sytem 
 - Updated admin profile page to include options to delete a user account
 - Added UI elements for refund fee for the api to be developed by Priti
+
+Arpitha:
+- Modified createAccount functionality to add a user record during account creation if the user is not already present
+- Working on deleteAccount implementation
  
 **5/4/2021**
 
@@ -310,6 +320,9 @@ Priti:
 Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
+
+Arpitha:
+- Implemented deleteAccount api
 
 **5/6/2021**
 Priti:
@@ -338,6 +351,9 @@ Priti:
 Surabhi:
 - Started working on AWS deployment, read about EC2 instance and load balancers 
 
+Arpitha:
+- Implemented fetchAccountBalance api
+
 **5/7/2021**
 
 Gayathri: 
@@ -346,6 +362,10 @@ Gayathri:
 Surabhi:
 - Looked into deployment ran into issue with AWS account, switched stories with Gayathri 
 - Tested issue with sign up after account creation. No solution found 
+
+Arpitha:
+- Implemented fetchAccountBalanceByUserName api and updated user profile page to display account balance
+- Updated burndown chart
 
 # Week 7
 
@@ -361,6 +381,7 @@ Surabhi:
 - Validate funds available in payee account for funds transfer
 - Updating account balance for payee and beneficiary
 - Looked into sign in api 404 issue
+
 
 **5/11/2021**
 
