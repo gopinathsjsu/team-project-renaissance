@@ -1,8 +1,8 @@
 ## Team Renaissance
 
 ### Team & Contributions:
-* **Surabhi Govil**
-* **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
+1. **Surabhi Govil**
+2. **Gayathri Pulagam (Transfer funds, View Transactions, Deployment)**
   - APIs
     * Transfer funds api using payee account number, beneficiary account number, transaction amount (without validations)
     * Update balance apis for both payee and beneficiary after a successful transaction
@@ -11,7 +11,7 @@
     * transfer (with basic validations) , view transactions (without searchbar)
   - Deployment
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
- * **Arpitha Gurumurthy**
+ 3. **Arpitha Gurumurthy**
 - APIs
     * createAccount, deleteAccount - creates/deletes an account associated to a bank customer
     * fetchAccountBalance and fetchBalanceFromUserName to display user’s account balance
@@ -19,7 +19,7 @@
     * createAccount form to take in inputs and create an account for a customer
     * Table to show the existing bank accounts of a customer on his profile page
 
- * **Priti Sharma(Bill Payment for external payees, Admin functionality such as Manual Refunds and Closing accounts)**
+ 4. **Priti Sharma(Bill Payment for external payees, Admin functionality such as Manual Refunds and Closing accounts)**
   - APIs
     * PayBill api uses username, Merchant Name, Merchant account number, Bill amount, recurring period
     * Add External api creates a new merchant, uses merchant name and merchant account number.
