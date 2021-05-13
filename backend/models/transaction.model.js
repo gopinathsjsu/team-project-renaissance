@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             //timestamps: true,
             primaryKey: true
+        },
+        recurring_period: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     },
     {

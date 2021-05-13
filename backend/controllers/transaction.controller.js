@@ -32,7 +32,8 @@ exports.transfer = (req, res) => {
                         Transaction.create({
                             payee_id: payee_id,
                             beneficiary_id: beneficiary_id,
-                            transaction_amount: transaction_amount
+                            transaction_amount: transaction_amount,
+                            recurring_period: recurring_period
                         })
                         return res.status(200).send("success");
                     })

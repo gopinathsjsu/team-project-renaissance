@@ -13,6 +13,9 @@
     * Deployment of app to AWS in an Auto Scaled EC2 Cluster with Load Balancer
  * **Arpitha Gurumurthy**
  * **Priti Sharma**
+ - APIs
+   * BillPay api  
+
 
 ## Online Banking features:
 
@@ -260,6 +263,12 @@ Surabhi:
 
 **5/3/2021**
 
+Priti:
+- Completed code for Admin manual refunds
+- Implemented external account Billpay Backend API
+- Sprint meeting/planning with the team
+- Planning to implement UI changes for Billpay
+
 Gayathri:
   - Implemented Update balance apis for beneficiary and payee
   - Implemented fetch transaction api for fetching all the transactions by user_id for the view transactions page
@@ -274,9 +283,40 @@ Surabhi:
  
 **5/4/2021**
 
+
+Priti:
+- Implemented Null value checked for refund 
+- Implemented delete/ close account for admin.
+- Done with backend API changes for close and refund.
+
+
 Gayathri:
   - Working on resolving getting current_session user's details
   - Implemented payee and beneficiary's updateAccountBalance in the transfer funds component
+
+**5/6/2021**
+Priti:
+-  Implemented UI changes for Billpay
+-  Modified UI to add external payee information
+-  Planning to implemented backend API changes for external payee 
+
+**5/7/2021**
+Priti:
+- sprint planning with the team
+- Created a list of pending task
+- Planning to work on High Priority task
+- Added input text edit for bill amount 
+
+**5/10/2021**
+Priti:
+- Added validation for input fields-Billpay API
+- Code clean up for Billpay API and 
+- Fixed issue with delete button fucnctionality
+
+**5/10/2021**
+Priti:
+- Testing Billpay API
+- Created wireframes for external account billpay 
 
 Surabhi:
 - Started working on AWS deployment, read about EC2 instance and load balancers 
