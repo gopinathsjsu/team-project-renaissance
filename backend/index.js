@@ -37,7 +37,7 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(roles) {
     console.log(roles);
   });
-  
+  // This will be go in production only the admin and one customer maybe
   User.bulkCreate([
     {first_name: 'Admin', last_name: 'Account', username: 'admin1', email: 'admin@test.com', address: '', phone_number: '', password: adminuserpass1, roleId: 2},
     {first_name: 'Admin', last_name: 'Account', username: 'admin2', email: 'admin1@test.com', address: '', phone_number: '', password: adminuserpass2, roleId: 2},
@@ -57,6 +57,7 @@ db.sequelize.sync({ force: true }).then(() => {
   ]).then(function(us) {
     console.log(us);
   });
+  // This will be go in production
   Transaction.bulkCreate([
     {payee_id: 1000000000000000, beneficiary_id: 1000000000000001, transaction_amount: 100, transaction_id: 1000000000000000},
     {payee_id: 1000000000000000, beneficiary_id: 1000000000000002, transaction_amount: 101, transaction_id: 1000000000000001},
