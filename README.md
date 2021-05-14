@@ -87,6 +87,10 @@
 ## Deployment Diagram
 ![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Screenshots/BankDeploymentDIagram.png)
 
+## Architecture Diagram (AWS)
+
+![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Project_Documents/architecture%20-%20aws.png)
+
 ## XP Core Values Implemented
 Communication
 * Throughout the course of our project, we met once a week for a pair programming session where if one member from the team had a blocker, we would work together to resolve that issue 
