@@ -419,12 +419,21 @@ Surabhi:
 - Added function in backend to display records containing credit/debits for transfer funds and rendered on page.
 - Rendered transaction in a time period for external billpay page. Worked on UI and backend for search bar functionality
 
+Gayathri:
+- Added recurring period column in transfer funds
+- Worked on project documentation
+
 **5/13/2021**
 
 Surabhi:
 - Tested the application
 - Worked on documentation
 - Added remianing functionalities  
+
+Gayathri:
+- Tests on application before demo
+- Rechecked the health of the deployed ec2 instances
+
 # To Run the app 
 
 1. yarn init
