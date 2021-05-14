@@ -58,7 +58,7 @@ async function updateRecipientMoney(money, recipientAvailableFunds, recipientId,
     if (isConfirm) {
         Account.findOne({
             where: {
-                account_number: beneficiary_id
+                account_number: recipientId
             },
         }).then(() => {
             Account.update(
