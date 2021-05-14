@@ -291,9 +291,6 @@ export default class Billpay extends Component {
           </tbody>
         </table>
 
-        
-
-
         <h2 className="text-center">Paid Bills</h2>
         <table className="table">
           <thead>

@@ -5,7 +5,7 @@ const Account = db.account;
 const { accountController } = require('./account.controller');
 const Op = db.Sequelize.Op;
 const Sequelize = require("sequelize");
-const moment= require('moment') 
+const moment= require('moment');
 
 exports.transfer = (req, res) => {
     const { payee_id, beneficiary_id, transaction_amount, recurring_period } = req.body;
@@ -56,11 +56,20 @@ exports.transfer = (req, res) => {
 
 async function updateRecipientMoney(money, recipientAvailableFunds, recipientId, isConfirm) {
     if (isConfirm) {
-        
-        Account.update(
-            { account_balance: (parseFloat(recipientAvailableFunds) + parseFloat(money)).toFixed(2) },
-            { where: { account_number: recipientId } },
-        );
+        Account.findOne({
+            where: {
+                account_number: beneficiary_id
+            },
+        }).then(() => {
+            Account.update(
+                { account_balance: (parseFloat(recipientAvailableFunds) + parseFloat(money)).toFixed(2) },
+                { where: { account_number: recipientId } },
+            );
+        }).catch(err => {
+            return res.status(500).send({ message: err.message });
+        });
+    }else {
+        return res.status(200).send("recipient");
     }
 }
 

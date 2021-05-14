@@ -78,6 +78,25 @@ class AccountService {
       }
     })
   }
+
+
+withdraw(uname, withdraw) {
+  return axios.post(API_URL + 'withdraw/', {
+    params: {
+      account_number: uname,
+      amount: withdraw
+    }
+  })
 }
 
+deposit(uname, deposit) {
+  return axios.post(API_URL + 'deposit/', {
+    data: {
+      account_number: uname,
+      amount: deposit
+    }
+  })
+}
+
+}
 export default new AccountService();

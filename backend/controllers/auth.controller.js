@@ -11,24 +11,23 @@ var bcrypt = require("bcryptjs");
 const { user } = require("../models");
 
 exports.signup = (req, res) => {
-
   User.findOne({
     where: {
       username: req.body.username
     }
-  }).then((user) => {
+  }).then(user => {
     if (!user.registered) {
       User.update({
-        password: bcrypt.hashSync(user.password, 8),
-        first_name:user.firstname,
-        last_name:user.lastname,
-        username: user.username,
-        email: user.email,
-        address: user.address,
-        phone_number: user.contact,
+        password: bcrypt.hashSync( req.body.password, 8),
+        first_name: req.body.firstname,
+        last_name: req.body.lastname,
+        username: req.body.username,
+        email:  req.body.email,
+        address:  req.body.address,
+        phone_number:  req.body.contact,
         registered: true
       }, {
-        where: { username: user.username }
+        where: { username:  req.body.username }
       })
       .then(user => {
         // if (AllRoles) {
@@ -49,7 +48,7 @@ exports.signup = (req, res) => {
         //   //   res.send({ message: "User was registered successfully!" });
         //   // });
         // }
-        return res.status(200).send({ message: "User registeration successful." });
+        return res.status(200).send("success");
       })
       .catch(err => {
         return res.status(500).send({ message: err.message });
@@ -57,6 +56,8 @@ exports.signup = (req, res) => {
     } else {
       return res.status(200).send({ message: "User Already Signed Up, please login!!!" });
     }
+  }).catch(err => {
+    return res.status(500).send({ message: err.message });
   });
 };
 
