@@ -85,7 +85,7 @@
 > Deployment - AWS EC2 and RDS
 
 ## Architectural Diagram
-![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Screenshots/Bank_deployment.pdf)
+![alt text](https://github.com/gopinathsjsu/team-project-renaissance/blob/master/Screenshots/BankDeploymentDIagram.png)
 
 ## XP Core Values Implemented
 Communication
