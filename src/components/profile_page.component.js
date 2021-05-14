@@ -120,8 +120,18 @@ export default class UserProfile extends Component {
   }
 
   handleDeposit(e) {
-    e.preventDefault();
-    AccountService.deposit(this.state.account_number, this.state.depositAmount).then(
+
+    var rowId = e.target.parentNode.parentNode.id;
+
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+    var uname = data[0].innerHTML;
+
+    var deposit = this.state.depositAmount;
+
+    console.log(uname, deposit);
+
+    AccountService.deposit(uname, deposit).then(
       response => {
         if (response.data === 'success') {
           this.setState({
@@ -147,8 +157,17 @@ export default class UserProfile extends Component {
   }
 
   handleWithdraw(e) {
-    e.preventDefault();
-    AccountService.withdraw(this.state.account_number, this.state.withdrawAmount).then(
+    var rowId = e.target.parentNode.parentNode.id;
+
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+    var uname = data[0].innerHTML;
+
+    var withdraw = this.state.withdrawAmount;
+
+    console.log(uname, withdraw);
+    
+    AccountService.withdraw(uname, withdraw).then(
       response => {
         if (response.data === 'success') {
           this.setState({
@@ -174,14 +193,12 @@ export default class UserProfile extends Component {
   }
   
 
-  componentDidMount() {
+  async componentDidMount() {
     AccountService.getAll().then(response => this.setState({
       allUsers: response.data
     }));
 
-    AccountService.getAccountNumber(AuthService.getLoggedInUser().username).then(response => this.setState({
-      account_number: response.data[0].account_number
-    }));
+    const account_number = await  AccountService.getAccountNumber(AuthService.getLoggedInUser().username);
 
     AccountService.getAccountsForUser(AuthService.getLoggedInUser().username).then(
       response => {
@@ -251,13 +268,13 @@ export default class UserProfile extends Component {
             <tbody>
               {(this.state.userAccounts.length > 0) ? this.state.userAccounts.map((account, index) => {
                 return (
-                  <tr>
+                  <tr id={index}>
                     <td>{index}</td>
-                    <td id="row-data">{account.account_number}</td>
+                    <td class="row-data">{account.account_number}</td>
                     <td class="row-data">{account.account_type}</td>
                     <td class="row-data">{account.account_balance}</td>
-                    <td class="row-data">
-                      <input type="number" refs="dep" class="row-data" placeholder="Deposit funds" onChange={this.onChangeDeposit} />
+                    {/* <td class="row-data">
+                      <input type="number" class="row-data" placeholder="Deposit funds" onChange={this.onChangeDeposit} />
                     </td>
                     <td>
                       <Button type="button" onClick={this.handleDeposit} name="Deposit" >Deposit</Button>
@@ -267,7 +284,7 @@ export default class UserProfile extends Component {
                     </td>
                     <td>
                       <Button type="button" onClick={this.handleWithdraw} name="Withdraw" >Withdraw</Button>
-                    </td>
+                    </td> */}
                   </tr>
                 )
               }) :
@@ -277,11 +294,6 @@ export default class UserProfile extends Component {
               }
             </tbody>
           </table>
-
-          <Button type="button" className="btn btn-default" onClick={this.handleModalOpen}>
-            Update Profile
-          </Button>
-          <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
         </div>
       : (
       <div className="container">
@@ -325,9 +337,6 @@ export default class UserProfile extends Component {
                         <Button type="button" onClick={this.handleRefund} name="Refund" >Refund</Button>
                       </td>
                       <td>
-                        <Button type="button" onClick={() => this.updateUser()} name="Update">Update</Button>
-                      </td>
-                      <td>
                         <Button type="button" onClick={() => this.deleteAccount(user.account_number)} name="Delete">Delete</Button>
                       </td>
                     </tr>
@@ -339,7 +348,6 @@ export default class UserProfile extends Component {
                 }
               </tbody>
             </table>
-            <ProfileModal showModal={this.state.showModal} onClose={this.handleModalClose} />
           </div>
         )
     );

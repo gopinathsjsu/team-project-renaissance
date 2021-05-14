@@ -143,7 +143,7 @@ export default class CreateAccount extends Component {
                     onChange={this.onChangeAccountType}
                   >
                   <option disabled selected value> -- select an option -- </option>
-                   <option value="Checkings">Checkings</option>
+                   <option value="Checkings">Checking</option>
                     <option value="Savings">Savings</option>
                   </select>
                 </div>

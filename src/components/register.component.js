@@ -54,7 +54,6 @@ export default class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeLastname = this.onChangeLastname.bind(this);
     this.onChangeFirstname = this.onChangeFirstname.bind(this);
-    //this.onChangeExistingUsername = this.onChangeExistingUsername.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -62,7 +61,6 @@ export default class Register extends Component {
 
     this.state = {
       username: "",
-      //newUsername: "",
       email: "",
       password: "",
       address: "",
@@ -138,7 +136,6 @@ export default class Register extends Component {
         this.state.username,
         this.state.address,
         this.state.contact,
-        //this.state.newUsername,
         this.state.firstname,
         this.state.lastname,
         this.state.email,
@@ -205,7 +202,7 @@ export default class Register extends Component {
                     name="firstname"
                     value={this.state.firstname}
                     onChange={this.onChangeFirstname}
-                    validations={[required, vusername]}
+                    validations={[required]}
                   />
                 </div>
                 
@@ -217,21 +214,9 @@ export default class Register extends Component {
                     name="lastname"
                     value={this.state.lastname}
                     onChange={this.onChangeLastname}
-                    validations={[required, vusername]}
+                    validations={[required]}
                   />
                 </div>
-
-                {/* <div className="form-group">
-                  <label htmlFor="username">New Username</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="newUsername"
-                    value={this.state.newUsername}
-                    onChange={this.onChangeExistingUsername}
-                    validations={[required, vusername]}
-                  />
-                </div> */}
 
                 <div className="form-group">
                   <label htmlFor="address">Address</label>

@@ -302,22 +302,7 @@ export default class ProfileModal extends Component {
     
     return (
 			<div>
-				<Modal
-					show={this.props.showModal}
-					onHide={this.props.onClose}
-					onSubmit={this.onSubmit}
-					bsSize="large"
-				>
-					<Modal.Header closeButton={true}>
-						<h2>Update Profile</h2>
-					</Modal.Header>
-					<Modal.Body>
-						{this.renderUpdateForm()}
-					</Modal.Body>
-					<Modal.Footer>
-						<Button onClick={this.props.onClose}>Close</Button>
-					</Modal.Footer>
-				</Modal>
+				
 			</div>
 		);
 	}

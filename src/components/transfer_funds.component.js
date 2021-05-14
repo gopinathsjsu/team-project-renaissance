@@ -151,6 +151,12 @@ export default class TransferFunds extends Component {
                       validationModal: true,
                       successMessage: "not enough funds in sender account!"
                     });
+                  } else if(response.data === "recipient") {
+                    this.setState({
+                      successful: false,
+                      validationModal: true,
+                      successMessage: "beneficiary not an account holder!"
+                    });
                   }
                   window.setTimeout(() => {
                     this.props.history.push("/transfer");
